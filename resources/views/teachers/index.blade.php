@@ -1,6 +1,6 @@
 @extends('layouts.modern')
 
-@section('title', 'Data Guru')
+@section('title', __('teachers.page_title'))
 
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -12,13 +12,13 @@
                     <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center">
                         <i class="fas fa-chalkboard-teacher text-white text-xl"></i>
                     </div>
-                    Data Guru
+                    {{ __('teachers.page_title') }}
                 </h1>
-                <p class="text-gray-600 mt-2">Kelola data guru sekolah</p>
+                <p class="text-gray-600 mt-2">{{ __('teachers.subtitle') }}</p>
             </div>
             <a href="{{ route('teachers.create') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold rounded-xl hover:from-green-600 hover:to-green-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
                 <i class="fas fa-plus"></i>
-                <span>Tambah Guru</span>
+                <span>{{ __('teachers.add_teacher') }}</span>
             </a>
         </div>
     </div>
@@ -28,7 +28,7 @@
         <div class="bg-white rounded-2xl shadow-sm p-6 card-hover">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm text-gray-600">Total Guru</p>
+                    <p class="text-sm text-gray-600">{{ __('teachers.total_teachers') }}</p>
                     <h3 class="text-2xl font-bold mt-1">{{ $teachers->total() }}</h3>
                 </div>
                 <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center">
@@ -40,7 +40,7 @@
         <div class="bg-white rounded-2xl shadow-sm p-6 card-hover">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm text-gray-600">Guru Aktif</p>
+                    <p class="text-sm text-gray-600">{{ __('teachers.active_teachers') }}</p>
                     <h3 class="text-2xl font-bold mt-1">{{ $teachers->where('status', 'active')->count() }}</h3>
                 </div>
                 <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
@@ -52,7 +52,7 @@
         <div class="bg-white rounded-2xl shadow-sm p-6 card-hover">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm text-gray-600">Tidak Aktif</p>
+                    <p class="text-sm text-gray-600">{{ __('general.inactive') }}</p>
                     <h3 class="text-2xl font-bold mt-1">{{ $teachers->where('status', '!=', 'active')->count() }}</h3>
                 </div>
                 <div class="w-12 h-12 bg-gradient-to-br from-gray-500 to-gray-600 rounded-xl flex items-center justify-center">
@@ -64,7 +64,7 @@
         <div class="bg-white rounded-2xl shadow-sm p-6 card-hover">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm text-gray-600">Mata Pelajaran</p>
+                    <p class="text-sm text-gray-600">{{ __('menu.subjects') }}</p>
                     <h3 class="text-2xl font-bold mt-1">{{ \App\Models\Subject::count() }}</h3>
                 </div>
                 <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center">
@@ -79,7 +79,7 @@
         <div class="px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-white">
             <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
                 <i class="fas fa-list text-green-600"></i>
-                Daftar Guru
+                {{ __('teachers.teacher_list') }}
             </h2>
         </div>
         
@@ -87,13 +87,13 @@
             <table class="w-full">
                 <thead class="bg-gray-50 border-b border-gray-200">
                     <tr>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider w-16">No</th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Guru</th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">NIP</th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Email</th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">No. HP</th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Status</th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider w-40">Aksi</th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider w-16">{{ __('general.no') }}</th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">{{ __('menu.teachers') }}</th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">{{ __('teachers.nip') }}</th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">{{ __('general.email') }}</th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">{{ __('general.phone') }}</th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">{{ __('general.status') }}</th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider w-40">{{ __('general.actions') }}</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200">
@@ -115,7 +115,7 @@
                                     @endif
                                     <div>
                                         <p class="text-sm font-semibold text-gray-900">{{ $teacher->name }}</p>
-                                        <p class="text-xs text-gray-500">{{ $teacher->teacherSubjects->pluck('subject.name')->filter()->unique()->join(', ') ?: 'Belum ada mata pelajaran' }}</p>
+                                        <p class="text-xs text-gray-500">{{ $teacher->teacherSubjects->pluck('subject.name')->filter()->unique()->join(', ') ?: __('teachers.no_subject') }}</p>
                                     </div>
                                 </div>
                             </td>
@@ -134,12 +134,12 @@
                                 @if($teacher->status == 'active')
                                     <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold border bg-green-100 text-green-700 border-green-200">
                                         <i class="fas fa-check-circle mr-1"></i>
-                                        Aktif
+                                        {{ __('general.active') }}
                                     </span>
                                 @else
                                     <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold border bg-gray-100 text-gray-700 border-gray-200">
                                         <i class="fas fa-times-circle mr-1"></i>
-                                        Tidak Aktif
+                                        {{ __('general.inactive') }}
                                     </span>
                                 @endif
                             </td>

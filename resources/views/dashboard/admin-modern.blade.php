@@ -1,15 +1,15 @@
 @extends('layouts.modern')
 
-@section('title', 'Dashboard Admin')
+@section('title', __('dashboard.title'))
 
 @section('content')
 <div class="space-y-4 sm:space-y-6">
     <!-- Page Header -->
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-            <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Dashboard</h1>
+            <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">{{ __('dashboard.title') }}</h1>
             <p class="mt-1 text-xs sm:text-sm text-gray-500">
-                Welcome back, <span class="font-semibold">{{ auth()->user()->name }}</span>
+                {{ __('dashboard.welcome') }}, <span class="font-semibold">{{ auth()->user()->name }}</span>
             </p>
         </div>
         <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3">
@@ -32,7 +32,7 @@
         <div class="bg-white rounded-xl sm:rounded-2xl shadow-sm p-4 sm:p-6 card-hover border border-gray-100">
             <div class="flex items-center justify-between">
                 <div class="flex-1">
-                    <p class="text-xs sm:text-sm font-medium text-gray-500 mb-1">Total Students</p>
+                    <p class="text-xs sm:text-sm font-medium text-gray-500 mb-1">{{ __('dashboard.total_students') }}</p>
                     <h3 class="text-2xl sm:text-3xl font-bold text-gray-900 flex items-center">
                         {{ number_format($totalStudents) }}
                         @if($studentGrowth > 0)
@@ -71,7 +71,7 @@
         <div class="bg-white rounded-xl sm:rounded-2xl shadow-sm p-4 sm:p-6 card-hover border border-gray-100">
             <div class="flex items-center justify-between">
                 <div class="flex-1">
-                    <p class="text-xs sm:text-sm font-medium text-gray-500 mb-1">Total Teachers</p>
+                    <p class="text-xs sm:text-sm font-medium text-gray-500 mb-1">{{ __('dashboard.total_teachers') }}</p>
                     <h3 class="text-2xl sm:text-3xl font-bold text-gray-900 flex items-center">
                         {{ number_format($totalTeachers) }}
                         @if($teacherGrowth > 0)
@@ -115,7 +115,7 @@
         <div class="bg-white rounded-xl sm:rounded-2xl shadow-sm p-4 sm:p-6 card-hover border border-gray-100">
             <div class="flex items-center justify-between">
                 <div class="flex-1">
-                    <p class="text-xs sm:text-sm font-medium text-gray-500 mb-1">Attendance Today</p>
+                    <p class="text-xs sm:text-sm font-medium text-gray-500 mb-1">{{ __('attendance.today_attendance') }}</p>
                     <h3 class="text-2xl sm:text-3xl font-bold text-gray-900 flex items-center">
                         {{ number_format($attendancePercentage, 1) }}%
                         <span class="ml-2 inline-flex items-center text-green-600 text-xs sm:text-sm">
@@ -145,7 +145,7 @@
         <div class="bg-white rounded-xl sm:rounded-2xl shadow-sm p-4 sm:p-6 card-hover border border-gray-100">
             <div class="flex items-center justify-between">
                 <div class="flex-1">
-                    <p class="text-xs sm:text-sm font-medium text-gray-500 mb-1">Total Classes</p>
+                    <p class="text-xs sm:text-sm font-medium text-gray-500 mb-1">{{ __('dashboard.total_classes') }}</p>
                     <h3 class="text-2xl sm:text-3xl font-bold text-gray-900">
                         {{ number_format($totalClasses) }}
                     </h3>
@@ -178,7 +178,7 @@
         <!-- Student Distribution Chart -->
         <div class="bg-white rounded-xl sm:rounded-2xl shadow-sm p-4 sm:p-6 border border-gray-100">
             <div class="flex items-center justify-between mb-3 sm:mb-4">
-                <h3 class="text-base sm:text-lg font-semibold text-gray-900">Student Distribution</h3>
+                <h3 class="text-base sm:text-lg font-semibold text-gray-900">{{ __('dashboard.student_by_class') }}</h3>
                 <button class="text-gray-400 hover:text-gray-600 text-sm sm:text-base">
                     <i class="fas fa-ellipsis-h"></i>
                 </button>
@@ -191,7 +191,7 @@
         <!-- Weekly Attendance Chart -->
         <div class="bg-white rounded-xl sm:rounded-2xl shadow-sm p-4 sm:p-6 border border-gray-100 lg:col-span-2">
             <div class="flex items-center justify-between mb-3 sm:mb-4">
-                <h3 class="text-base sm:text-lg font-semibold text-gray-900">Weekly Attendance</h3>
+                <h3 class="text-base sm:text-lg font-semibold text-gray-900">{{ __('dashboard.attendance_chart') }}</h3>
                 <div class="flex items-center space-x-2">
                     <span class="text-[10px] sm:text-xs text-gray-500">Last 7 days</span>
                     <button class="text-gray-400 hover:text-gray-600 text-sm sm:text-base">
@@ -233,15 +233,15 @@
                                 <div class="flex items-center">
                                     <div class="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-indigo-400 to-purple-500 rounded-full flex items-center justify-center mr-2 sm:mr-3">
                                         <span class="text-white font-semibold text-xs sm:text-sm">
-                                            {{ substr($attendance->student ? $attendance->student->name : $attendance->teacher->name, 0, 1) }}
+                                            {{ substr($attendance->attendable->name ?? 'N/A', 0, 1) }}
                                         </span>
                                     </div>
                                     <div>
                                         <p class="text-xs sm:text-sm font-medium text-gray-900">
-                                            {{ $attendance->student ? $attendance->student->name : $attendance->teacher->name }}
+                                            {{ $attendance->attendable->name ?? 'N/A' }}
                                         </p>
                                         <p class="text-[10px] sm:text-xs text-gray-500">
-                                            {{ $attendance->student ? 'Student' : 'Teacher' }}
+                                            {{ $attendance->attendable_type === 'App\Models\Student' ? 'Student' : 'Teacher' }}
                                         </p>
                                     </div>
                                 </div>
@@ -288,7 +288,17 @@
         <div class="space-y-3 sm:space-y-4">
             <!-- Monthly Summary -->
             <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl sm:rounded-2xl shadow-lg p-4 sm:p-6 text-white">
-                <h4 class="text-xs sm:text-sm font-medium mb-2 text-gray-300">Monthly Summary</h4>
+                <div class="flex items-center justify-between mb-3">
+                    <h4 class="text-xs sm:text-sm font-medium text-gray-300">Monthly Summary</h4>
+                    <button onclick="document.getElementById('monthFilterModal').classList.remove('hidden')" 
+                            class="text-xs text-indigo-300 hover:text-indigo-200 flex items-center gap-1">
+                        <i class="fas fa-filter"></i>
+                        <span class="hidden sm:inline">Filter</span>
+                    </button>
+                </div>
+                <div class="text-xs text-gray-400 mb-3">
+                    {{ \Carbon\Carbon::createFromDate($filterYear, $filterMonth, 1)->format('F Y') }}
+                </div>
                 <div class="space-y-2 sm:space-y-3 mb-3 sm:mb-4">
                     <div class="flex items-center justify-between">
                         <span class="text-[10px] sm:text-xs text-gray-400">Attendance Rate</span>
@@ -410,5 +420,54 @@ if (weeklyCtx) {
     });
 }
 </script>
+
+<!-- Month Filter Modal -->
+<div id="monthFilterModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-xl max-w-md w-full p-6">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-bold text-gray-900">Filter Monthly Summary</h3>
+            <button onclick="document.getElementById('monthFilterModal').classList.add('hidden')" 
+                    class="text-gray-400 hover:text-gray-600">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <form method="GET" action="{{ route('dashboard') }}" class="space-y-4">
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Bulan</label>
+                <select name="month" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                    @for($m = 1; $m <= 12; $m++)
+                        <option value="{{ $m }}" {{ $filterMonth == $m ? 'selected' : '' }}>
+                            {{ \Carbon\Carbon::createFromDate(null, $m, 1)->format('F') }}
+                        </option>
+                    @endfor
+                </select>
+            </div>
+            
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Tahun</label>
+                <select name="year" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                    @for($y = now()->year - 2; $y <= now()->year + 1; $y++)
+                        <option value="{{ $y }}" {{ $filterYear == $y ? 'selected' : '' }}>
+                            {{ $y }}
+                        </option>
+                    @endfor
+                </select>
+            </div>
+            
+            <div class="flex gap-2">
+                <button type="submit" 
+                        class="flex-1 px-4 py-2.5 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold rounded-lg hover:from-indigo-600 hover:to-purple-700 transition-all">
+                    Apply Filter
+                </button>
+                <a href="{{ route('dashboard') }}" 
+                   class="px-4 py-2.5 bg-gray-100 text-gray-700 font-semibold rounded-lg hover:bg-gray-200 transition-all">
+                    Reset
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
 @endpush
 @endsection

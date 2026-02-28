@@ -1,6 +1,6 @@
 @extends('layouts.modern')
 
-@section('title', 'Data Kelas')
+@section('title', __('classes.page_title'))
 
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -12,13 +12,13 @@
                     <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
                         <i class="fas fa-door-open text-white text-xl"></i>
                     </div>
-                    Data Kelas
+                    {{ __('classes.page_title') }}
                 </h1>
-                <p class="text-gray-600 mt-2">Kelola data kelas sekolah</p>
+                <p class="text-gray-600 mt-2">{{ __('classes.subtitle') }}</p>
             </div>
             <a href="{{ route('classes.create') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
                 <i class="fas fa-plus"></i>
-                <span>Tambah Kelas</span>
+                <span>{{ __('classes.add_class') }}</span>
             </a>
         </div>
     </div>
@@ -28,7 +28,7 @@
         <div class="bg-white rounded-2xl shadow-sm p-6 card-hover">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm text-gray-600">Total Kelas</p>
+                    <p class="text-sm text-gray-600">{{ __('classes.total_classes') }}</p>
                     <h3 class="text-2xl font-bold mt-1">{{ $classes->total() }}</h3>
                 </div>
                 <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
@@ -40,7 +40,7 @@
         <div class="bg-white rounded-2xl shadow-sm p-6 card-hover">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm text-gray-600">Total Siswa</p>
+                    <p class="text-sm text-gray-600">{{ __('classes.total_students') }}</p>
                     <h3 class="text-2xl font-bold mt-1">{{ $classes->sum('students_count') }}</h3>
                 </div>
                 <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center">
@@ -52,7 +52,7 @@
         <div class="bg-white rounded-2xl shadow-sm p-6 card-hover">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm text-gray-600">Rata-rata/Kelas</p>
+                    <p class="text-sm text-gray-600">{{ __('grades.average_score') }}</p>
                     <h3 class="text-2xl font-bold mt-1">{{ $classes->count() > 0 ? round($classes->sum('students_count') / $classes->count()) : 0 }}</h3>
                 </div>
                 <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center">
@@ -64,7 +64,7 @@
         <div class="bg-white rounded-2xl shadow-sm p-6 card-hover">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm text-gray-600">Mata Pelajaran</p>
+                    <p class="text-sm text-gray-600">{{ __('menu.subjects') }}</p>
                     <h3 class="text-2xl font-bold mt-1">{{ $classes->sum('teacher_subjects_count') }}</h3>
                 </div>
                 <div class="w-12 h-12 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-xl flex items-center justify-center">

@@ -16,6 +16,12 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\CriteriaController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TeacherSubjectController;
+use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\NotificationController;
+
+// Language switcher route (available for all)
+Route::get('/language/{locale}', [LanguageController::class, 'switch'])->name('language.switch');
 
 // Guest routes
 Route::middleware('guest')->group(function () {
@@ -32,6 +38,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.update-password');
+    
+    // Notification routes - accessible by all authenticated users
+    Route::get('/notifications', [NotificationController::class, 'showAll'])->name('notifications.index');
+    Route::get('/api/notifications', [NotificationController::class, 'index'])->name('notifications.api.index');
+    Route::get('/api/notifications/unread-count', [NotificationController::class, 'unreadCount'])->name('notifications.api.unread-count');
+    Route::post('/api/notifications/{notification}/read', [NotificationController::class, 'markAsRead'])->name('notifications.api.mark-read');
+    Route::post('/api/notifications/read-all', [NotificationController::class, 'markAllAsRead'])->name('notifications.api.mark-all-read');
+    Route::delete('/api/notifications/{notification}', [NotificationController::class, 'destroy'])->name('notifications.api.destroy');
     
     // Attendance routes - accessible by all authenticated users
     Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendances.index');
@@ -67,6 +81,11 @@ Route::middleware('auth')->group(function () {
         // Academic year management
         Route::resource('academic-years', AcademicYearController::class);
         Route::post('/academic-years/{academicYear}/toggle-active', [AcademicYearController::class, 'toggleActive'])->name('academic-years.toggle-active');
+        
+        // Teacher-Subject assignment management
+        Route::resource('teacher-subjects', TeacherSubjectController::class);
+        Route::get('/api/teacher/{teacher}/subjects', [TeacherSubjectController::class, 'getSubjectsByTeacher']);
+        Route::get('/api/subject/{subject}/teachers', [TeacherSubjectController::class, 'getTeachersBySubject']);
         
         // Reports & Export
         Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
@@ -126,6 +145,36 @@ Route::middleware('auth')->group(function () {
         // Report card
         Route::get('/students/{student}/report-card', [GradeController::class, 'reportCard'])->name('students.report-card');
     });
+    
+    // Teacher Scanner - for scanning QR from kiosk
+    Route::get('/scan-presensi', [App\Http\Controllers\KioskController::class, 'showScanner'])->name('kiosk.scanner');
+    Route::get('/api/attendance/my-status', [App\Http\Controllers\KioskController::class, 'getMyAttendanceStatus'])->name('api.attendance.my-status');
+});
+
+// ===============================
+// KIOSK MODE ROUTES (No Auth Required for public display)
+// These routes are for the display monitor in front of teacher's room
+// ===============================
+Route::prefix('kiosk')->name('kiosk.')->group(function () {
+    // Main kiosk display - Teacher selection page (public, no auth)
+    Route::get('/', [App\Http\Controllers\KioskController::class, 'index'])->name('index');
+    
+    // API endpoints for kiosk (public, no auth)
+    Route::get('/api/qr/{teacher}', [App\Http\Controllers\KioskController::class, 'generateQR'])->name('api.qr');
+    Route::get('/api/status/{teacher}', [App\Http\Controllers\KioskController::class, 'getAttendanceStatus'])->name('api.status');
+    Route::get('/api/summary', [App\Http\Controllers\KioskController::class, 'getTodaySummary'])->name('api.summary');
+    
+    // QR Scan processing (requires auth - called from teacher's mobile)
+    Route::post('/api/scan', [App\Http\Controllers\KioskController::class, 'processQRScan'])->name('api.scan')->middleware('auth');
+});
+
+// ===============================
+// KIOSK USER DASHBOARD (Requires Auth with Kiosk Presensi role)
+// When user with "Kiosk Presensi" role logs in, they see this
+// ===============================
+Route::middleware(['auth'])->group(function () {
+    Route::get('/kiosk-dashboard', [App\Http\Controllers\KioskController::class, 'dashboard'])->name('kiosk.dashboard');
+    Route::post('/kiosk-logout', [App\Http\Controllers\AuthController::class, 'logout'])->name('kiosk.logout');
 });
 
 // Redirect root to login

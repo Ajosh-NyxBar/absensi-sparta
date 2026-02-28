@@ -1,0 +1,275 @@
+<mxfile host="app.diagrams.net" modified="2026-02-09T00:00:00.000Z" agent="Mozilla/5.0" version="21.0.0" type="device">
+  <diagram name="Flowchart SAW" id="flowchart-saw">
+    <mxGraphModel dx="1200" dy="1800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="2500" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" value="Flowchart Perhitungan Metode SAW&#xa;Sistem Informasi Absensi Guru dan Penilaian Siswa&#xa;SMPN 4 Purwakarta" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="164" y="20" width="500" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- START -->
+        <mxCell id="start" value="Mulai" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=13;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="334" y="100" width="160" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow start -> input -->
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;strokeColor=#333333;" edge="1" parent="1" source="start" target="input">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- INPUT -->
+        <mxCell id="input" value="Input:&#xa;Data Alternatif (Siswa/Guru)&#xa;&amp; Tipe Penilaian (student/teacher)" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="284" y="180" width="260" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow input -> getCriteria -->
+        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;strokeWidth=2;strokeColor=#333333;" edge="1" parent="1" source="input" target="getCriteria">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- GET CRITERIA -->
+        <mxCell id="getCriteria" value="Ambil data kriteria dari database&#xa;berdasarkan tipe penilaian&#xa;(Criteria::where('for', $type))" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="289" y="280" width="250" height="65" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow getCriteria -> checkData -->
+        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;strokeWidth=2;strokeColor=#333333;" edge="1" parent="1" source="getCriteria" target="checkData">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- DECISION: Data available? -->
+        <mxCell id="checkData" value="Kriteria &amp;&amp;&#xa;Data Tersedia?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;fontStyle=1;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="334" y="375" width="160" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow checkData -> returnEmpty (Tidak) -->
+        <mxCell id="e4" value="Tidak" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;strokeWidth=2;strokeColor=#b85450;fontStyle=1;fontSize=11;" edge="1" parent="1" source="checkData" target="returnEmpty">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="640" y="425" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- RETURN EMPTY -->
+        <mxCell id="returnEmpty" value="Return Data&#xa;Tanpa Perubahan" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=11;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="570" y="490" width="180" height="55" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow returnEmpty -> end2 -->
+        <mxCell id="e4b" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;strokeWidth=2;strokeColor=#333333;" edge="1" parent="1" source="returnEmpty" target="end2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- END 2 -->
+        <mxCell id="end2" value="Selesai" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=13;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="590" y="580" width="140" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow checkData -> step1 (Ya) -->
+        <mxCell id="e5" value="Ya" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;strokeWidth=2;strokeColor=#82b366;fontStyle=1;fontSize=11;" edge="1" parent="1" source="checkData" target="step1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- STEP 1: Build Decision Matrix -->
+        <mxCell id="step1" value="&lt;b&gt;LANGKAH 1&lt;/b&gt;&#xa;Membuat Matriks Keputusan (X)&#xa;&#xa;Menyusun nilai setiap alternatif (Ai)&#xa;terhadap setiap kriteria (Cj)&#xa;&#xa;Siswa: C1=Akademik, C2=Kehadiran,&#xa;C3=Sikap, C4=Keterampilan&#xa;Guru: K1=Kehadiran, K2=Kualitas Mengajar,&#xa;K3=Prestasi Siswa, K4=Kedisiplinan" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;shadow=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="274" y="510" width="280" height="160" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow step1 -> step2header -->
+        <mxCell id="e6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;strokeWidth=2;strokeColor=#333333;" edge="1" parent="1" source="step1" target="step2header">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- STEP 2 HEADER -->
+        <mxCell id="step2header" value="&lt;b&gt;LANGKAH 2&lt;/b&gt;&#xa;Normalisasi Matriks" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;fontStyle=0;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="314" y="705" width="200" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow step2header -> loopCriteria -->
+        <mxCell id="e7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;strokeWidth=2;strokeColor=#333333;" edge="1" parent="1" source="step2header" target="loopCriteria">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- LOOP: For Each Criteria -->
+        <mxCell id="loopCriteria" value="Untuk setiap&#xa;kriteria (Cj)" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;fontStyle=1;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="334" y="785" width="160" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow loopCriteria -> checkType -->
+        <mxCell id="e8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;strokeWidth=2;strokeColor=#333333;" edge="1" parent="1" source="loopCriteria" target="checkType">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- DECISION: Jenis Kriteria -->
+        <mxCell id="checkType" value="Jenis&#xa;Kriteria?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;fontStyle=1;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="344" y="875" width="140" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow checkType -> benefit -->
+        <mxCell id="e9" value="Benefit" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;strokeWidth=2;strokeColor=#82b366;fontStyle=1;fontSize=11;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="checkType" target="benefit">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="190" y="925" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Arrow checkType -> cost -->
+        <mxCell id="e10" value="Cost" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;strokeWidth=2;strokeColor=#b85450;fontStyle=1;fontSize=11;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="checkType" target="cost">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="640" y="925" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- BENEFIT -->
+        <mxCell id="benefit" value="Normalisasi Benefit:&#xa;&#xa;r(ij) = X(ij) / Max(X(ij))&#xa;&#xa;Setiap nilai dibagi&#xa;nilai maksimum pada&#xa;kolom kriteria tersebut" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="990" width="220" height="120" as="geometry" />
+        </mxCell>
+
+        <!-- COST -->
+        <mxCell id="cost" value="Normalisasi Cost:&#xa;&#xa;r(ij) = Min(X(ij)) / X(ij)&#xa;&#xa;Nilai minimum pada kolom&#xa;kriteria dibagi setiap&#xa;nilai pada sel tersebut" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="530" y="990" width="220" height="120" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow benefit -> mergeNorm -->
+        <mxCell id="e11" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;strokeWidth=2;strokeColor=#333333;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="benefit" target="mergeNorm">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="190" y="1160" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Arrow cost -> mergeNorm -->
+        <mxCell id="e12" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;strokeWidth=2;strokeColor=#333333;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="cost" target="mergeNorm">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="640" y="1160" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- MERGE: Normalized Matrix -->
+        <mxCell id="mergeNorm" value="Matriks Ternormalisasi (R)&#xa;tersusun" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="314" y="1135" width="200" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow mergeNorm -> step3 -->
+        <mxCell id="e13" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;strokeWidth=2;strokeColor=#333333;" edge="1" parent="1" source="mergeNorm" target="step3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- STEP 3: Calculate Preference -->
+        <mxCell id="step3" value="&lt;b&gt;LANGKAH 3&lt;/b&gt;&#xa;Menghitung Nilai Preferensi (Vi)&#xa;&#xa;Vi = Σ (Wj × r(ij))&#xa;untuk j = 1 sampai n kriteria&#xa;&#xa;Bobot Siswa: W1=0.35, W2=0.25, W3=0.20, W4=0.20&#xa;Bobot Guru: W1=0.30, W2=0.25, W3=0.25, W4=0.20" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;shadow=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="264" y="1220" width="300" height="140" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow step3 -> step4 -->
+        <mxCell id="e14" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;strokeWidth=2;strokeColor=#333333;" edge="1" parent="1" source="step3" target="step4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- STEP 4: Ranking -->
+        <mxCell id="step4" value="&lt;b&gt;LANGKAH 4&lt;/b&gt;&#xa;Perankingan&#xa;&#xa;Urutkan Vi dari terbesar ke terkecil&#xa;Vi tertinggi = Rank 1 (Alternatif Terbaik)&#xa;Vi terendah = Rank terakhir" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;shadow=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="284" y="1395" width="260" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow step4 -> saveDB -->
+        <mxCell id="e15" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;strokeWidth=2;strokeColor=#333333;" edge="1" parent="1" source="step4" target="saveDB">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- SAVE TO DB -->
+        <mxCell id="saveDB" value="Simpan hasil ke Database:&#xa;saw_score &amp; rank&#xa;&#xa;Siswa → tabel student_assessments&#xa;Guru → tabel teacher_assessments" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=10;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="304" y="1540" width="220" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow saveDB -> output -->
+        <mxCell id="e16" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;strokeWidth=2;strokeColor=#333333;" edge="1" parent="1" source="saveDB" target="output">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- OUTPUT -->
+        <mxCell id="output" value="Output:&#xa;Data Siswa/Guru Terranking&#xa;dengan SAW Score" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="284" y="1690" width="260" height="65" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow output -> end -->
+        <mxCell id="e17" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;strokeWidth=2;strokeColor=#333333;" edge="1" parent="1" source="output" target="end">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- END -->
+        <mxCell id="end" value="Selesai" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=13;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="334" y="1790" width="160" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- ========== LEGEND ========== -->
+        <mxCell id="legend_bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#999999;strokeWidth=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="30" y="1880" width="770" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="legend_title" value="Keterangan Simbol Flowchart:" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="40" y="1885" width="250" height="25" as="geometry" />
+        </mxCell>
+
+        <!-- Legend items row 1 -->
+        <mxCell id="leg1" value="Mulai/Selesai" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="50" y="1920" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="leg1t" value="= Terminator" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="155" y="1920" width="90" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="leg2" value="Proses" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="260" y="1920" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="leg2t" value="= Proses" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="365" y="1920" width="80" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="leg3" value="Keputusan" style="rhombus;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=8;" vertex="1" parent="1">
+          <mxGeometry x="460" y="1915" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="leg3t" value="= Decision" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="545" y="1920" width="80" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="leg4" value="I/O" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="640" y="1920" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="leg4t" value="= Input/Output" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="725" y="1920" width="85" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Legend items row 2 -->
+        <mxCell id="leg5" value="Langkah SAW" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="50" y="1965" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="leg5t" value="= Tahapan SAW" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="155" y="1965" width="100" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="leg6" value="DB" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="260" y="1960" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="leg6t" value="= Database" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="365" y="1965" width="80" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="leg7" value="Loop" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="460" y="1962" width="80" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="leg7t" value="= Perulangan" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="545" y="1965" width="90" height="30" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

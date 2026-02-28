@@ -6,14 +6,14 @@
     <div class="flex items-center justify-between">
         <div>
             <h1 class="text-3xl font-bold bg-gradient-to-r from-rose-600 to-pink-600 bg-clip-text text-transparent">
-                Daftar Nilai
+                {{ __('grades.page_title') }}
             </h1>
-            <p class="text-gray-600 mt-1">Kelola dan lihat semua nilai siswa</p>
+            <p class="text-gray-600 mt-1">{{ __('grades.subtitle') }}</p>
         </div>
         <div class="flex items-center gap-3">
             <a href="{{ route('grades.create') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-rose-500 to-pink-600 text-white font-semibold rounded-xl hover:from-rose-600 hover:to-pink-700 transition-all duration-200 shadow-lg hover:shadow-xl">
                 <i class="fas fa-plus"></i>
-                <span>Input Nilai</span>
+                <span>{{ __('grades.input_grade') }}</span>
             </a>
         </div>
     </div>
@@ -34,9 +34,9 @@
         <form method="GET" action="{{ route('grades.index') }}" class="grid grid-cols-1 md:grid-cols-4 gap-4">
             <!-- Kelas -->
             <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-2">Kelas</label>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">{{ __('general.class') }}</label>
                 <select name="class_id" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all">
-                    <option value="">Semua Kelas</option>
+                    <option value="">{{ __('general.all_classes') }}</option>
                     @foreach($classes as $class)
                         <option value="{{ $class->id }}" {{ request('class_id') == $class->id ? 'selected' : '' }}>
                             {{ $class->name }}
@@ -47,9 +47,9 @@
 
             <!-- Mata Pelajaran -->
             <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-2">Mata Pelajaran</label>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">{{ __('general.subject') }}</label>
                 <select name="subject_id" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all">
-                    <option value="">Semua Mapel</option>
+                    <option value="">{{ __('general.all_subjects') }}</option>
                     @foreach($subjects as $subject)
                         <option value="{{ $subject->id }}" {{ request('subject_id') == $subject->id ? 'selected' : '' }}>
                             {{ $subject->code }} - {{ $subject->name }}
@@ -60,17 +60,17 @@
 
             <!-- Semester -->
             <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-2">Semester</label>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">{{ __('general.semester') }}</label>
                 <select name="semester" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all">
-                    <option value="">Semua Semester</option>
-                    <option value="Ganjil" {{ request('semester') == 'Ganjil' ? 'selected' : '' }}>Ganjil</option>
-                    <option value="Genap" {{ request('semester') == 'Genap' ? 'selected' : '' }}>Genap</option>
+                    <option value="">{{ __('general.all_semesters') }}</option>
+                    <option value="Ganjil" {{ request('semester') == 'Ganjil' ? 'selected' : '' }}>{{ __('general.odd') }}</option>
+                    <option value="Genap" {{ request('semester') == 'Genap' ? 'selected' : '' }}>{{ __('general.even') }}</option>
                 </select>
             </div>
 
             <!-- Tahun Ajaran -->
             <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-2">Tahun Ajaran</label>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">{{ __('general.academic_year') }}</label>
                 <input type="text" name="academic_year" value="{{ request('academic_year') }}" placeholder="2024/2025" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all">
             </div>
 
@@ -78,11 +78,11 @@
             <div class="md:col-span-4 flex gap-2">
                 <button type="submit" class="inline-flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-rose-500 to-pink-600 text-white font-semibold rounded-lg hover:from-rose-600 hover:to-pink-700 transition-all duration-200">
                     <i class="fas fa-filter"></i>
-                    Filter
+                    {{ __('general.filter') }}
                 </button>
                 <a href="{{ route('grades.index') }}" class="inline-flex items-center gap-2 px-6 py-2.5 bg-gray-100 text-gray-700 font-semibold rounded-lg hover:bg-gray-200 transition-all duration-200">
                     <i class="fas fa-redo"></i>
-                    Reset
+                    {{ __('general.reset') }}
                 </a>
             </div>
         </form>
@@ -94,7 +94,7 @@
             <div class="flex items-center justify-between">
                 <h2 class="text-lg font-bold text-gray-900 flex items-center gap-2">
                     <i class="fas fa-list text-rose-600"></i>
-                    Data Nilai ({{ $grades->total() }} nilai)
+                    {{ __('grades.data_grades') }} ({{ $grades->total() }} {{ __('grades.grades_count') }})
                 </h2>
             </div>
         </div>
@@ -105,10 +105,10 @@
                     <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                         <i class="fas fa-inbox text-gray-400 text-3xl"></i>
                     </div>
-                    <p class="text-gray-500 mb-4">Belum ada data nilai</p>
+                    <p class="text-gray-500 mb-4">{{ __('grades.no_data') }}</p>
                     <a href="{{ route('grades.create') }}" class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-rose-500 to-pink-600 text-white font-semibold rounded-lg hover:from-rose-600 hover:to-pink-700 transition-all duration-200">
                         <i class="fas fa-plus"></i>
-                        Input Nilai Pertama
+                        {{ __('grades.input_first_grade') }}
                     </a>
                 </div>
             @else
@@ -116,16 +116,16 @@
                     <table class="w-full">
                         <thead>
                             <tr class="border-b-2 border-gray-200">
-                                <th class="px-4 py-3 text-left text-xs font-bold text-gray-700 uppercase">No</th>
-                                <th class="px-4 py-3 text-left text-xs font-bold text-gray-700 uppercase">NIS</th>
-                                <th class="px-4 py-3 text-left text-xs font-bold text-gray-700 uppercase">Nama Siswa</th>
-                                <th class="px-4 py-3 text-left text-xs font-bold text-gray-700 uppercase">Kelas</th>
-                                <th class="px-4 py-3 text-left text-xs font-bold text-gray-700 uppercase">Mata Pelajaran</th>
-                                <th class="px-4 py-3 text-center text-xs font-bold text-gray-700 uppercase">Tugas</th>
-                                <th class="px-4 py-3 text-center text-xs font-bold text-gray-700 uppercase">UTS</th>
-                                <th class="px-4 py-3 text-center text-xs font-bold text-gray-700 uppercase">UAS</th>
-                                <th class="px-4 py-3 text-center text-xs font-bold text-gray-700 uppercase">Akhir</th>
-                                <th class="px-4 py-3 text-center text-xs font-bold text-gray-700 uppercase">Aksi</th>
+                                <th class="px-4 py-3 text-left text-xs font-bold text-gray-700 uppercase">{{ __('general.no') }}</th>
+                                <th class="px-4 py-3 text-left text-xs font-bold text-gray-700 uppercase">{{ __('students.nis') }}</th>
+                                <th class="px-4 py-3 text-left text-xs font-bold text-gray-700 uppercase">{{ __('grades.student_name') }}</th>
+                                <th class="px-4 py-3 text-left text-xs font-bold text-gray-700 uppercase">{{ __('general.class') }}</th>
+                                <th class="px-4 py-3 text-left text-xs font-bold text-gray-700 uppercase">{{ __('general.subject') }}</th>
+                                <th class="px-4 py-3 text-center text-xs font-bold text-gray-700 uppercase">{{ __('grades.daily_test') }}</th>
+                                <th class="px-4 py-3 text-center text-xs font-bold text-gray-700 uppercase">{{ __('grades.midterm') }}</th>
+                                <th class="px-4 py-3 text-center text-xs font-bold text-gray-700 uppercase">{{ __('grades.final_exam') }}</th>
+                                <th class="px-4 py-3 text-center text-xs font-bold text-gray-700 uppercase">{{ __('grades.final_grade') }}</th>
+                                <th class="px-4 py-3 text-center text-xs font-bold text-gray-700 uppercase">{{ __('general.actions') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -189,7 +189,7 @@
                                             <a href="{{ route('grades.edit', $grade->id) }}" 
                                                class="inline-flex items-center gap-1 px-3 py-1.5 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-all text-xs font-semibold">
                                                 <i class="fas fa-edit"></i>
-                                                Edit
+                                                {{ __('general.edit') }}
                                             </a>
                                             <form action="{{ route('grades.destroy', $grade->id) }}" method="POST" class="inline-block delete-form">
                                                 @csrf
@@ -197,7 +197,7 @@
                                                 <button type="button" 
                                                         class="delete-btn inline-flex items-center gap-1 px-3 py-1.5 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition-all text-xs font-semibold">
                                                     <i class="fas fa-trash"></i>
-                                                    Hapus
+                                                    {{ __('general.delete') }}
                                                 </button>
                                             </form>
                                         </div>
@@ -229,12 +229,12 @@ document.addEventListener('DOMContentLoaded', function() {
             const form = this.closest('.delete-form');
             
             Swal.fire({
-                title: 'Hapus Nilai?',
-                text: 'Data yang dihapus tidak dapat dikembalikan!',
+                title: '{{ __('grades.delete_confirm') }}',
+                text: '{{ __('general.delete_warning') }}',
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonText: 'Ya, Hapus!',
-                cancelButtonText: 'Batal',
+                confirmButtonText: '{{ __('general.yes_delete') }}',
+                cancelButtonText: '{{ __('general.cancel') }}',
                 customClass: {
                     confirmButton: 'bg-gradient-to-r from-red-500 to-red-600 text-white px-4 py-2 rounded-lg hover:from-red-600 hover:to-red-700',
                     cancelButton: 'bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400 ml-2'
@@ -244,8 +244,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }).then((result) => {
                 if (result.isConfirmed) {
                     Swal.fire({
-                        title: 'Menghapus...',
-                        text: 'Mohon tunggu',
+                        title: '{{ __('general.deleting') }}',
+                        text: '{{ __('general.please_wait') }}',
                         allowOutsideClick: false,
                         allowEscapeKey: false,
                         showConfirmButton: false,

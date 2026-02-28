@@ -15,9 +15,13 @@ use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
-    public function admin()
+    public function admin(Request $request)
     {
         $activeYear = AcademicYear::getActive();
+        
+        // Get filter month/year or default to current month
+        $filterMonth = $request->get('month', now()->month);
+        $filterYear = $request->get('year', now()->year);
         
         // Basic Statistics
         $totalStudents = Student::where('status', 'active')->count();
@@ -60,19 +64,54 @@ class DashboardController extends Controller
         }
         
         // Recent Attendances (Last 10)
-        $recentAttendances = Attendance::with(['student', 'teacher'])
+        $recentAttendances = Attendance::with('attendable')
             ->latest('created_at')
             ->take(10)
             ->get();
         
-        // Monthly Stats
-        $monthlyAttendanceRate = 87; // Mock data
-        $monthlyAvgGrade = 82.5; // Mock data
-        $monthlyCompletion = 75; // Mock data
+        // Monthly Stats - Calculate based on selected month
+        $startOfMonth = Carbon::createFromDate($filterYear, $filterMonth, 1)->startOfMonth();
+        $endOfMonth = Carbon::createFromDate($filterYear, $filterMonth, 1)->endOfMonth();
+        
+        // Calculate working days in the month
+        $workingDays = 0;
+        $currentDate = $startOfMonth->copy();
+        while ($currentDate <= $endOfMonth) {
+            if ($currentDate->isWeekday()) {
+                $workingDays++;
+            }
+            $currentDate->addDay();
+        }
+        
+        // Get all attendances for the month
+        $monthlyAttendances = Attendance::whereBetween('date', [$startOfMonth, $endOfMonth])->get();
+        $totalMonthlyAttendances = $monthlyAttendances->count();
+        $presentAttendances = $monthlyAttendances->whereIn('status', ['present', 'late'])->count();
+        
+        // Calculate attendance rate
+        $expectedAttendances = ($totalStudents + $totalTeachers) * $workingDays;
+        $monthlyAttendanceRate = $expectedAttendances > 0 ? ($presentAttendances / $expectedAttendances) * 100 : 0;
+        
+        // Calculate average grade for the month
+        $monthlyGrades = Grade::whereMonth('created_at', $filterMonth)
+            ->whereYear('created_at', $filterYear)
+            ->avg('final_grade');
+        $monthlyAvgGrade = $monthlyGrades ?? 0;
+        
+        // Calculate completion rate (assignments/exams completed)
+        $totalGradesExpected = Grade::whereMonth('created_at', $filterMonth)
+            ->whereYear('created_at', $filterYear)
+            ->count();
+        $totalGradesGiven = Grade::whereMonth('created_at', $filterMonth)
+            ->whereYear('created_at', $filterYear)
+            ->whereNotNull('final_grade')
+            ->count();
+        $monthlyCompletion = $totalGradesExpected > 0 ? ($totalGradesGiven / $totalGradesExpected) * 100 : 0;
         
         // New Students This Month
         $newStudentsThisMonth = Student::where('status', 'active')
-            ->whereMonth('created_at', Carbon::now()->month)
+            ->whereMonth('created_at', $filterMonth)
+            ->whereYear('created_at', $filterYear)
             ->count();
         
         // Active Classes Today
@@ -96,7 +135,9 @@ class DashboardController extends Controller
             'monthlyAvgGrade',
             'monthlyCompletion',
             'newStudentsThisMonth',
-            'activeClassesToday'
+            'activeClassesToday',
+            'filterMonth',
+            'filterYear'
         ));
     }
     

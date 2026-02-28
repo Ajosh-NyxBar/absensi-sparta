@@ -30,7 +30,7 @@
         // Statistik
         $totalClasses = $teacher ? $teacher->teacherSubjects()->distinct('class_id')->count('class_id') : 0;
         $totalGrades = $teacher ? \App\Models\Grade::where('teacher_id', $teacher->id)->count() : 0;
-        $totalStudents = $teacher ? \App\Models\Student::whereIn('class_room_id', 
+        $totalStudents = $teacher ? \App\Models\Student::whereIn('class_id', 
             $teacher->teacherSubjects()->pluck('class_id')
         )->distinct()->count() : 0;
         

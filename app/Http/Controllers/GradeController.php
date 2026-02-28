@@ -9,6 +9,7 @@ use App\Models\Teacher;
 use App\Models\ClassRoom;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Services\NotificationService;
 
 class GradeController extends Controller
 {
@@ -177,6 +178,11 @@ class GradeController extends Controller
                 ]
             );
         }
+        
+        // Get class and subject name for notification
+        $class = ClassRoom::find($validated['class_id']);
+        $subject = Subject::find($validated['subject_id']);
+        NotificationService::gradesSubmitted($subject->name, $class->name);
 
         return redirect()->route('grades.index')
             ->with('success', 'Nilai berhasil disimpan untuk ' . count($validated['students']) . ' siswa!');

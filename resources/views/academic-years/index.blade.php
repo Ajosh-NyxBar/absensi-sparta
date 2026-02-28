@@ -1,6 +1,6 @@
 @extends('layouts.modern')
 
-@section('title', 'Manajemen Tahun Ajaran')
+@section('title', __('academic_year.page_title'))
 
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -12,13 +12,13 @@
                     <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl flex items-center justify-center">
                         <i class="fas fa-calendar-alt text-white text-xl"></i>
                     </div>
-                    Tahun Ajaran
+                    {{ __('academic_year.page_title') }}
                 </h1>
-                <p class="text-gray-600 mt-2">Kelola tahun ajaran dan semester</p>
+                <p class="text-gray-600 mt-2">{{ __('academic_year.subtitle') }}</p>
             </div>
             <a href="{{ route('academic-years.create') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-500 to-indigo-600 text-white font-semibold rounded-xl hover:from-indigo-600 hover:to-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
                 <i class="fas fa-plus"></i>
-                <span>Tambah Tahun Ajaran</span>
+                <span>{{ __('academic_year.add_year') }}</span>
             </a>
         </div>
     </div>
@@ -28,7 +28,7 @@
         <div class="bg-white rounded-2xl shadow-sm p-6 card-hover">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm text-gray-600">Total Tahun Ajaran</p>
+                    <p class="text-sm text-gray-600">{{ __('academic_year.total_years') }}</p>
                     <h3 class="text-2xl font-bold mt-1">{{ $academicYears->total() }}</h3>
                 </div>
                 <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl flex items-center justify-center">
@@ -40,7 +40,7 @@
         <div class="bg-white rounded-2xl shadow-sm p-6 card-hover">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm text-gray-600">Aktif</p>
+                    <p class="text-sm text-gray-600">{{ __('general.active') }}</p>
                     <h3 class="text-2xl font-bold mt-1">{{ $academicYears->where('is_active', true)->count() }}</h3>
                 </div>
                 <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center">
@@ -52,7 +52,7 @@
         <div class="bg-white rounded-2xl shadow-sm p-6 card-hover">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm text-gray-600">Non-Aktif</p>
+                    <p class="text-sm text-gray-600">{{ __('general.inactive') }}</p>
                     <h3 class="text-2xl font-bold mt-1">{{ $academicYears->where('is_active', false)->count() }}</h3>
                 </div>
                 <div class="w-12 h-12 bg-gradient-to-br from-gray-500 to-gray-600 rounded-xl flex items-center justify-center">
@@ -64,7 +64,7 @@
         <div class="bg-white rounded-2xl shadow-sm p-6 card-hover">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm text-gray-600">Tahun Ini</p>
+                    <p class="text-sm text-gray-600">{{ __('academic_year.current_year') }}</p>
                     <h3 class="text-xl font-bold mt-1">{{ $academicYears->where('is_active', true)->first()->year ?? '-' }}</h3>
                 </div>
                 <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
@@ -86,7 +86,7 @@
                     <div class="absolute top-3 right-3">
                         <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-500 text-white shadow-lg">
                             <i class="fas fa-check-circle mr-1"></i>
-                            Aktif
+                            {{ __('general.active') }}
                         </span>
                     </div>
                     @endif
@@ -98,7 +98,8 @@
                         <h3 class="text-2xl font-bold text-gray-900">{{ $year->year }}</h3>
                         <span class="inline-flex items-center px-3 py-1 rounded-lg text-xs font-semibold mt-2 {{ $year->semester == 'Ganjil' ? 'bg-blue-100 text-blue-700' : 'bg-emerald-100 text-emerald-700' }}">
                             <i class="fas fa-book-reader mr-1"></i>
-                            Semester {{ $year->semester }}
+                            {{ __('general.semester') }} {{ $year->semester == 'Ganjil' ? __('general.odd') : __('general.even') }}
+                        </span>
                         </span>
                     </div>
 
@@ -116,7 +117,7 @@
                                 <i class="fas fa-calendar-day text-indigo-600"></i>
                             </div>
                             <div class="flex-1">
-                                <p class="text-xs text-gray-500">Periode</p>
+                                <p class="text-xs text-gray-500">{{ __('academic_year.period') }}</p>
                                 <p class="text-sm font-semibold text-gray-900">
                                     {{ $year->start_date->format('d M Y') }} - {{ $year->end_date->format('d M Y') }}
                                 </p>
@@ -131,7 +132,7 @@
                     <form action="{{ route('academic-years.toggle-active', $year->id) }}" method="POST" class="toggle-form mb-4">
                         @csrf
                         <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                            <span class="text-sm font-medium text-gray-700">Status Aktif</span>
+                            <span class="text-sm font-medium text-gray-700">{{ __('academic_year.active_status') }}</span>
                             <label class="relative inline-flex items-center cursor-pointer">
                                 <input type="checkbox" class="sr-only peer toggle-checkbox" 
                                        {{ $year->is_active ? 'checked' : '' }}
@@ -147,12 +148,12 @@
                         <a href="{{ route('academic-years.show', $year->id) }}" 
                            class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2 bg-blue-100 text-blue-600 rounded-lg hover:bg-blue-200 transition-colors duration-150">
                             <i class="fas fa-eye text-sm"></i>
-                            <span class="text-sm font-medium">Detail</span>
+                            <span class="text-sm font-medium">{{ __('general.detail') }}</span>
                         </a>
                         <a href="{{ route('academic-years.edit', $year->id) }}" 
                            class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2 bg-yellow-100 text-yellow-600 rounded-lg hover:bg-yellow-200 transition-colors duration-150">
                             <i class="fas fa-edit text-sm"></i>
-                            <span class="text-sm font-medium">Edit</span>
+                            <span class="text-sm font-medium">{{ __('general.edit') }}</span>
                         </a>
                         <form action="{{ route('academic-years.destroy', $year->id) }}" method="POST" class="delete-form">
                             @csrf
@@ -161,7 +162,7 @@
                                     class="delete-btn inline-flex items-center justify-center w-10 h-10 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition-colors duration-150"
                                     data-name="{{ $year->full_name }}"
                                     data-active="{{ $year->is_active }}"
-                                    title="Hapus">
+                                    title="{{ __('general.delete') }}">
                                 <i class="fas fa-trash text-sm"></i>
                             </button>
                         </form>
@@ -184,11 +185,11 @@
             <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-4">
                 <i class="fas fa-calendar-alt text-4xl text-gray-400"></i>
             </div>
-            <p class="text-gray-500 font-medium">Belum ada tahun ajaran</p>
-            <p class="text-sm text-gray-400 mt-1">Silakan tambah tahun ajaran baru</p>
+            <p class="text-gray-500 font-medium">{{ __('academic_year.no_data') }}</p>
+            <p class="text-sm text-gray-400 mt-1">{{ __('academic_year.no_data_desc') }}</p>
             <a href="{{ route('academic-years.create') }}" class="mt-6 inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-500 to-indigo-600 text-white font-semibold rounded-xl hover:from-indigo-600 hover:to-indigo-700 transition-all duration-200 shadow-lg">
                 <i class="fas fa-plus"></i>
-                <span>Tambah Tahun Ajaran</span>
+                <span>{{ __('academic_year.add_year') }}</span>
             </a>
         </div>
     </div>

@@ -1,6 +1,6 @@
 @extends('layouts.modern')
 
-@section('title', 'Laporan & Export')
+@section('title', __('reports.page_title'))
 
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -10,9 +10,9 @@
             <div class="w-12 h-12 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl flex items-center justify-center">
                 <i class="fas fa-file-download text-white text-xl"></i>
             </div>
-            Laporan & Export
+            {{ __('reports.page_title') }}
         </h1>
-        <p class="text-gray-600 mt-2">Export data ke Excel atau PDF untuk keperluan laporan</p>
+        <p class="text-gray-600 mt-2">{{ __('reports.subtitle') }}</p>
     </div>
 
     <!-- Reports Grid -->
@@ -27,8 +27,8 @@
                         <i class="fas fa-clipboard-check text-white text-xl"></i>
                     </div>
                     <div>
-                        <h3 class="text-lg font-bold text-gray-900">Laporan Presensi</h3>
-                        <p class="text-sm text-gray-500">Export data kehadiran</p>
+                        <h3 class="text-lg font-bold text-gray-900">{{ __('reports.attendance_report') }}</h3>
+                        <p class="text-sm text-gray-500">{{ __('reports.attendance_report_desc') }}</p>
                     </div>
                 </div>
 
@@ -37,7 +37,7 @@
                     
                     <div>
                         <label class="block text-sm font-semibold text-gray-700 mb-2">
-                            Tanggal Mulai <span class="text-red-500">*</span>
+                            {{ __('reports.start_date') }} <span class="text-red-500">*</span>
                         </label>
                         <input type="date" 
                                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200" 
@@ -48,7 +48,7 @@
                     
                     <div>
                         <label class="block text-sm font-semibold text-gray-700 mb-2">
-                            Tanggal Selesai <span class="text-red-500">*</span>
+                            {{ __('reports.end_date') }} <span class="text-red-500">*</span>
                         </label>
                         <input type="date" 
                                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200" 
@@ -58,17 +58,17 @@
                     </div>
                     
                     <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Jenis</label>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">{{ __('reports.type') }}</label>
                         <select class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200" 
                                 name="type">
-                            <option value="">Semua (Guru & Siswa)</option>
-                            <option value="teacher">Guru Saja</option>
-                            <option value="student">Siswa Saja</option>
+                            <option value="">{{ __('reports.all_types') }}</option>
+                            <option value="teacher">{{ __('reports.teacher_only') }}</option>
+                            <option value="student">{{ __('reports.student_only') }}</option>
                         </select>
                     </div>
                     
                     <div class="pt-4 border-t border-gray-100">
-                        <label class="block text-sm font-semibold text-gray-700 mb-3">Format Export <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-semibold text-gray-700 mb-3">{{ __('reports.export_format') }} <span class="text-red-500">*</span></label>
                         <div class="grid grid-cols-2 gap-3">
                             <button type="submit" name="format" value="excel" class="inline-flex items-center justify-center gap-2 px-4 py-3 bg-green-500 text-white font-semibold rounded-xl hover:bg-green-600 transition-all duration-200 shadow-sm hover:shadow-md">
                                 <i class="fas fa-file-excel"></i>
@@ -93,8 +93,8 @@
                         <i class="fas fa-graduation-cap text-white text-xl"></i>
                     </div>
                     <div>
-                        <h3 class="text-lg font-bold text-gray-900">Laporan Nilai</h3>
-                        <p class="text-sm text-gray-500">Export nilai siswa</p>
+                        <h3 class="text-lg font-bold text-gray-900">{{ __('reports.grade_report') }}</h3>
+                        <p class="text-sm text-gray-500">{{ __('reports.grade_report_desc') }}</p>
                     </div>
                 </div>
 
@@ -102,10 +102,10 @@
                     @csrf
                     
                     <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Kelas</label>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">{{ __('reports.select_class') }}</label>
                         <select class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200" 
                                 name="class_id">
-                            <option value="">Semua Kelas</option>
+                            <option value="">{{ __('reports.all_classes') }}</option>
                             @foreach($classes as $class)
                                 <option value="{{ $class->id }}">{{ $class->name }}</option>
                             @endforeach
@@ -113,20 +113,20 @@
                     </div>
                     
                     <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Semester</label>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">{{ __('general.semester') }}</label>
                         <select class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200" 
                                 name="semester">
-                            <option value="">Semua Semester</option>
-                            <option value="1">Semester 1 (Ganjil)</option>
-                            <option value="2">Semester 2 (Genap)</option>
+                            <option value="">{{ __('reports.all_semesters') }}</option>
+                            <option value="1">{{ __('reports.semester_1') }}</option>
+                            <option value="2">{{ __('reports.semester_2') }}</option>
                         </select>
                     </div>
                     
                     <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Tahun Ajaran</label>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">{{ __('general.academic_year') }}</label>
                         <select class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200" 
                                 name="academic_year">
-                            <option value="">Semua Tahun</option>
+                            <option value="">{{ __('reports.all_years') }}</option>
                             @foreach($academicYears as $year)
                                 <option value="{{ $year->year }}" {{ $activeYear && $year->id == $activeYear->id ? 'selected' : '' }}>
                                     {{ $year->year }}
@@ -136,7 +136,7 @@
                     </div>
                     
                     <div class="pt-4 border-t border-gray-100">
-                        <label class="block text-sm font-semibold text-gray-700 mb-3">Format Export <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-semibold text-gray-700 mb-3">{{ __('reports.export_format') }} <span class="text-red-500">*</span></label>
                         <div class="grid grid-cols-2 gap-3">
                             <button type="submit" name="format" value="excel" class="inline-flex items-center justify-center gap-2 px-4 py-3 bg-green-500 text-white font-semibold rounded-xl hover:bg-green-600 transition-all duration-200 shadow-sm hover:shadow-md">
                                 <i class="fas fa-file-excel"></i>
@@ -161,8 +161,8 @@
                         <i class="fas fa-user-graduate text-white text-xl"></i>
                     </div>
                     <div>
-                        <h3 class="text-lg font-bold text-gray-900">Laporan Data Siswa</h3>
-                        <p class="text-sm text-gray-500">Export data siswa</p>
+                        <h3 class="text-lg font-bold text-gray-900">{{ __('reports.student_report') }}</h3>
+                        <p class="text-sm text-gray-500">{{ __('reports.student_report_desc') }}</p>
                     </div>
                 </div>
 
@@ -170,10 +170,10 @@
                     @csrf
                     
                     <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Kelas</label>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">{{ __('reports.select_class') }}</label>
                         <select class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200" 
                                 name="class_id">
-                            <option value="">Semua Kelas</option>
+                            <option value="">{{ __('reports.all_classes') }}</option>
                             @foreach($classes as $class)
                                 <option value="{{ $class->id }}">{{ $class->name }}</option>
                             @endforeach
@@ -181,28 +181,28 @@
                     </div>
                     
                     <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Tingkat</label>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">{{ __('reports.level') }}</label>
                         <select class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200" 
                                 name="grade">
-                            <option value="">Semua Tingkat</option>
-                            <option value="7">Kelas 7</option>
-                            <option value="8">Kelas 8</option>
-                            <option value="9">Kelas 9</option>
+                            <option value="">{{ __('reports.all_levels') }}</option>
+                            <option value="7">{{ __('reports.class_7') }}</option>
+                            <option value="8">{{ __('reports.class_8') }}</option>
+                            <option value="9">{{ __('reports.class_9') }}</option>
                         </select>
                     </div>
                     
                     <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Status</label>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">{{ __('reports.status') }}</label>
                         <select class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200" 
                                 name="status">
-                            <option value="active">Aktif</option>
-                            <option value="inactive">Tidak Aktif</option>
-                            <option value="">Semua Status</option>
+                            <option value="active">{{ __('reports.active') }}</option>
+                            <option value="inactive">{{ __('reports.inactive') }}</option>
+                            <option value="">{{ __('reports.all_status') }}</option>
                         </select>
                     </div>
                     
                     <div class="pt-4 border-t border-gray-100">
-                        <label class="block text-sm font-semibold text-gray-700 mb-3">Format Export <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-semibold text-gray-700 mb-3">{{ __('reports.export_format') }} <span class="text-red-500">*</span></label>
                         <div class="grid grid-cols-2 gap-3">
                             <button type="submit" name="format" value="excel" class="inline-flex items-center justify-center gap-2 px-4 py-3 bg-green-500 text-white font-semibold rounded-xl hover:bg-green-600 transition-all duration-200 shadow-sm hover:shadow-md">
                                 <i class="fas fa-file-excel"></i>
@@ -227,8 +227,8 @@
                         <i class="fas fa-chalkboard-teacher text-white text-xl"></i>
                     </div>
                     <div>
-                        <h3 class="text-lg font-bold text-gray-900">Laporan Data Guru</h3>
-                        <p class="text-sm text-gray-500">Export data guru</p>
+                        <h3 class="text-lg font-bold text-gray-900">{{ __('reports.teacher_report') }}</h3>
+                        <p class="text-sm text-gray-500">{{ __('reports.teacher_report_desc') }}</p>
                     </div>
                 </div>
 
@@ -239,34 +239,34 @@
                     <div class="bg-gradient-to-br from-cyan-50 to-blue-50 border border-cyan-200 rounded-xl p-5">
                         <h4 class="font-bold text-gray-900 mb-4 flex items-center gap-2">
                             <i class="fas fa-database text-cyan-600"></i>
-                            Data yang Diexport:
+                            {{ __('reports.data_exported') }}
                         </h4>
                         <div class="grid grid-cols-1 gap-2">
                             <div class="flex items-center gap-2 text-sm text-gray-700">
                                 <i class="fas fa-check-circle text-cyan-600 text-xs"></i>
-                                <span>NIP & Nama Guru</span>
+                                <span>{{ __('reports.nip_name') }}</span>
                             </div>
                             <div class="flex items-center gap-2 text-sm text-gray-700">
                                 <i class="fas fa-check-circle text-cyan-600 text-xs"></i>
-                                <span>Data Pribadi Lengkap</span>
+                                <span>{{ __('reports.personal_data') }}</span>
                             </div>
                             <div class="flex items-center gap-2 text-sm text-gray-700">
                                 <i class="fas fa-check-circle text-cyan-600 text-xs"></i>
-                                <span>Pendidikan Terakhir</span>
+                                <span>{{ __('reports.last_education') }}</span>
                             </div>
                             <div class="flex items-center gap-2 text-sm text-gray-700">
                                 <i class="fas fa-check-circle text-cyan-600 text-xs"></i>
-                                <span>Mata Pelajaran yang Diajar</span>
+                                <span>{{ __('reports.subjects_taught') }}</span>
                             </div>
                             <div class="flex items-center gap-2 text-sm text-gray-700">
                                 <i class="fas fa-check-circle text-cyan-600 text-xs"></i>
-                                <span>Status Akun</span>
+                                <span>{{ __('reports.account_status') }}</span>
                             </div>
                         </div>
                     </div>
                     
                     <div class="pt-4 border-t border-gray-100">
-                        <label class="block text-sm font-semibold text-gray-700 mb-3">Format Export <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-semibold text-gray-700 mb-3">{{ __('reports.export_format') }} <span class="text-red-500">*</span></label>
                         <div class="grid grid-cols-2 gap-3">
                             <button type="submit" name="format" value="excel" class="inline-flex items-center justify-center gap-2 px-4 py-3 bg-green-500 text-white font-semibold rounded-xl hover:bg-green-600 transition-all duration-200 shadow-sm hover:shadow-md">
                                 <i class="fas fa-file-excel"></i>
@@ -289,7 +289,7 @@
     <div class="bg-gradient-to-r from-indigo-500 to-purple-500 px-6 py-4">
         <h3 class="text-lg font-bold text-white flex items-center gap-2">
             <i class="fas fa-info-circle"></i>
-            Informasi Penggunaan
+            {{ __('reports.usage_info') }}
         </h3>
     </div>
     <div class="p-6">
@@ -300,24 +300,24 @@
                     <div class="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center shadow-lg">
                         <i class="fas fa-file-excel text-white text-xl"></i>
                     </div>
-                    <h4 class="font-bold text-gray-900 text-lg">Format Excel</h4>
+                    <h4 class="font-bold text-gray-900 text-lg">{{ __('reports.excel_format') }}</h4>
                 </div>
                 <ul class="space-y-2.5">
                     <li class="flex items-start gap-3">
                         <i class="fas fa-check-circle text-green-600 mt-1"></i>
-                        <span class="text-gray-700">File format: <span class="font-mono text-xs bg-white px-2 py-1 rounded border border-green-200">.xlsx</span> (Microsoft Excel)</span>
+                        <span class="text-gray-700">{{ __('reports.file_format') }}: <span class="font-mono text-xs bg-white px-2 py-1 rounded border border-green-200">.xlsx</span> (Microsoft Excel)</span>
                     </li>
                     <li class="flex items-start gap-3">
                         <i class="fas fa-check-circle text-green-600 mt-1"></i>
-                        <span class="text-gray-700">Dapat diedit dan diproses lebih lanjut</span>
+                        <span class="text-gray-700">{{ __('reports.excel_editable') }}</span>
                     </li>
                     <li class="flex items-start gap-3">
                         <i class="fas fa-check-circle text-green-600 mt-1"></i>
-                        <span class="text-gray-700">Support formula dan pivot table</span>
+                        <span class="text-gray-700">{{ __('reports.excel_formula') }}</span>
                     </li>
                     <li class="flex items-start gap-3">
                         <i class="fas fa-check-circle text-green-600 mt-1"></i>
-                        <span class="text-gray-700">Ukuran file lebih kecil</span>
+                        <span class="text-gray-700">{{ __('reports.excel_smaller') }}</span>
                     </li>
                 </ul>
             </div>
@@ -328,24 +328,24 @@
                     <div class="w-12 h-12 bg-red-500 rounded-xl flex items-center justify-center shadow-lg">
                         <i class="fas fa-file-pdf text-white text-xl"></i>
                     </div>
-                    <h4 class="font-bold text-gray-900 text-lg">Format PDF</h4>
+                    <h4 class="font-bold text-gray-900 text-lg">{{ __('reports.pdf_format') }}</h4>
                 </div>
                 <ul class="space-y-2.5">
                     <li class="flex items-start gap-3">
                         <i class="fas fa-check-circle text-red-600 mt-1"></i>
-                        <span class="text-gray-700">File format: <span class="font-mono text-xs bg-white px-2 py-1 rounded border border-red-200">.pdf</span> (Portable Document Format)</span>
+                        <span class="text-gray-700">{{ __('reports.file_format') }}: <span class="font-mono text-xs bg-white px-2 py-1 rounded border border-red-200">.pdf</span> (Portable Document Format)</span>
                     </li>
                     <li class="flex items-start gap-3">
                         <i class="fas fa-check-circle text-red-600 mt-1"></i>
-                        <span class="text-gray-700">Cocok untuk print dan arsip</span>
+                        <span class="text-gray-700">{{ __('reports.pdf_printable') }}</span>
                     </li>
                     <li class="flex items-start gap-3">
                         <i class="fas fa-check-circle text-red-600 mt-1"></i>
-                        <span class="text-gray-700">Tidak dapat diedit (read-only)</span>
+                        <span class="text-gray-700">{{ __('reports.pdf_readonly') }}</span>
                     </li>
                     <li class="flex items-start gap-3">
                         <i class="fas fa-check-circle text-red-600 mt-1"></i>
-                        <span class="text-gray-700">Tampilan konsisten di semua device</span>
+                        <span class="text-gray-700">{{ __('reports.pdf_consistent') }}</span>
                     </li>
                 </ul>
             </div>

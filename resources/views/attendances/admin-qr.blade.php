@@ -22,98 +22,112 @@
     </div>
 
     <!-- Teacher Carousel Selection -->
-    <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 relative">
+    <div class="bg-white rounded-2xl shadow-xl border border-gray-100 relative">
         <!-- School Logo Watermark -->
         @if(setting('school_logo'))
-        <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-5">
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-5 overflow-hidden">
             <img src="{{ asset('storage/' . setting('school_logo')) }}" alt="Logo" class="w-96 h-96 object-contain">
         </div>
         @endif
 
         <div class="bg-gradient-to-r from-purple-600 to-pink-600 px-8 py-6 relative z-10">
-            <div class="flex items-center gap-3">
-                <div class="bg-white/20 p-2.5 rounded-lg">
-                    <i class="fas fa-users text-white text-xl"></i>
+            <div class="flex items-center justify-between flex-wrap gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="bg-white/20 p-2.5 rounded-lg">
+                        <i class="fas fa-users text-white text-xl"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-white">Pilih Guru</h2>
                 </div>
-                <h2 class="text-2xl font-bold text-white">Pilih Guru</h2>
+                <!-- Search Input -->
+                <div class="relative w-full sm:w-72">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i class="fas fa-search text-white/60"></i>
+                    </div>
+                    <input type="text" 
+                           id="teacher-search" 
+                           class="block w-full pl-10 pr-4 py-2.5 bg-white/20 border-2 border-white/30 rounded-xl text-white placeholder-white/60 focus:outline-none focus:border-white/60 focus:bg-white/30 transition-all"
+                           placeholder="Cari nama guru...">
+                </div>
             </div>
         </div>
 
-        <div class="py-12 px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="py-8 px-4 sm:px-6 lg:px-8 relative z-10">
             @if($teachers->count() > 0)
             <!-- Carousel Container -->
-            <div class="relative max-w-2xl mx-auto">
+            <div class="relative mx-auto" style="max-width: 700px;">
                 <!-- Teacher Cards -->
-                <div id="teacher-carousel" class="overflow-visible">
+                <div id="teacher-carousel" class="overflow-hidden">
                     <div class="flex transition-transform duration-500 ease-out" id="carousel-track">
                         @foreach($teachers as $index => $teacher)
-                        <div class="w-full flex-shrink-0 px-8" data-teacher-id="{{ $teacher->id }}">
-                            <div class="max-w-lg mx-auto">
-                                <!-- Teacher Card - 9:16 Aspect Ratio -->
-                                <div class="relative bg-gradient-to-br from-purple-50 to-pink-50 rounded-3xl overflow-hidden border-4 border-purple-200 shadow-2xl hover:shadow-3xl transition-all duration-300 cursor-pointer group aspect-[9/16]"
+                        <div class="w-full flex-shrink-0 px-4 teacher-slide" data-teacher-id="{{ $teacher->id }}" data-teacher-name="{{ strtolower($teacher->name) }}">
+                            <div class="flex justify-center">
+                                <!-- Teacher Card - Portrait 4:5 Instagram Style -->
+                                <div class="relative bg-gradient-to-br from-purple-400 via-pink-500 to-purple-600 rounded-3xl overflow-hidden border-4 border-purple-300 shadow-2xl hover:shadow-3xl transition-all duration-300 cursor-pointer group"
+                                     style="width: 100%; max-width: 420px; aspect-ratio: 4/5;"
                                      onclick="selectTeacher({{ $teacher->id }}, '{{ $teacher->name }}', '{{ $teacher->nip }}')">
                                     
-                                    <!-- Full Body Photo -->
-                                    <div class="relative w-full h-full overflow-hidden">
+                                    <!-- Photo Container -->
+                                    <div class="absolute inset-0">
                                         @if($teacher->user && $teacher->user->profile_photo)
                                         <img src="{{ asset('storage/' . $teacher->user->profile_photo) }}" 
-                                             alt="Guru" 
+                                             alt="{{ $teacher->name }}" 
                                              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                                         @else
-                                        <!-- Default Avatar - Full Body Silhouette -->
-                                        <div class="w-full h-full bg-gradient-to-br from-purple-400 via-pink-500 to-purple-600 flex items-center justify-center relative overflow-hidden">
-                                            <div class="absolute inset-0 opacity-20">
-                                                <div class="absolute inset-0 bg-gradient-to-br from-white/30 to-transparent"></div>
-                                            </div>
-                                            <i class="fas fa-user text-white/40 text-[15rem] relative z-10"></i>
+                                        <!-- Default Avatar -->
+                                        <div class="w-full h-full flex items-center justify-center">
+                                            <i class="fas fa-user text-white/30 text-[8rem] sm:text-[10rem] md:text-[12rem]"></i>
                                         </div>
                                         @endif
-                                        
-                                        <!-- Gradient Overlay -->
-                                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
-                                        
-                                        <!-- Status Badge - Floating Top Right -->
-                                        @php
-                                            $todayAttendance = $teacher->attendances()->whereDate('date', today())->first();
-                                        @endphp
-                                        <div class="absolute top-6 right-6 z-10">
-                                            @if($todayAttendance)
-                                                @if($todayAttendance->check_in && $todayAttendance->check_out)
-                                                <span class="inline-flex items-center gap-2 px-4 py-2 bg-gray-900/80 backdrop-blur-sm text-white rounded-full text-sm font-bold shadow-lg border-2 border-white/30">
-                                                    <i class="fas fa-check-double"></i>
-                                                </span>
-                                                @elseif($todayAttendance->check_in)
-                                                <span class="inline-flex items-center gap-2 px-4 py-2 bg-green-600/80 backdrop-blur-sm text-white rounded-full text-sm font-bold shadow-lg border-2 border-white/30 animate-pulse">
-                                                    <i class="fas fa-check"></i>
-                                                </span>
-                                                @endif
-                                            @else
-                                            <span class="inline-flex items-center gap-2 px-4 py-2 bg-red-600/80 backdrop-blur-sm text-white rounded-full text-sm font-bold shadow-lg border-2 border-white/30">
-                                                <i class="fas fa-times"></i>
+                                    </div>
+                                    
+                                    <!-- Gradient Overlay -->
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                                    
+                                    <!-- Teacher Name Overlay -->
+                                    <div class="absolute bottom-0 left-0 right-0 p-5 sm:p-6 text-center">
+                                        <h3 class="text-white font-bold text-xl sm:text-2xl drop-shadow-lg">{{ $teacher->name }}</h3>
+                                        <p class="text-white/80 text-sm sm:text-base drop-shadow mt-1">NIP: {{ $teacher->nip }}</p>
+                                    </div>
+                                    
+                                    <!-- Status Badge - Floating Top Right -->
+                                    @php
+                                        $todayAttendance = $teacher->attendances()->whereDate('date', today())->first();
+                                    @endphp
+                                    <div class="absolute top-4 right-4 z-10">
+                                        @if($todayAttendance)
+                                            @if($todayAttendance->check_in && $todayAttendance->check_out)
+                                            <span class="inline-flex items-center gap-1 px-3 py-1.5 bg-gray-900/80 backdrop-blur-sm text-white rounded-full text-xs font-bold shadow-lg">
+                                                <i class="fas fa-check-double"></i>
+                                            </span>
+                                            @elseif($todayAttendance->check_in)
+                                            <span class="inline-flex items-center gap-1 px-3 py-1.5 bg-green-600/80 backdrop-blur-sm text-white rounded-full text-xs font-bold shadow-lg animate-pulse">
+                                                <i class="fas fa-check"></i>
                                             </span>
                                             @endif
-                                        </div>
+                                        @else
+                                        <span class="inline-flex items-center gap-1 px-3 py-1.5 bg-red-600/80 backdrop-blur-sm text-white rounded-full text-xs font-bold shadow-lg">
+                                            <i class="fas fa-times"></i>
+                                        </span>
+                                        @endif
                                     </div>
 
                                     <!-- Hover Overlay with Select Button -->
-                                    <div class="absolute inset-0 bg-gradient-to-t from-purple-900/95 via-purple-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end justify-center pb-12">
-                                        <div class="transform translate-y-8 group-hover:translate-y-0 transition-transform duration-300">
-                                            <div class="text-center mb-6 px-6">
-                                                <div class="inline-flex items-center gap-3 px-8 py-4 bg-white/20 backdrop-blur-sm rounded-2xl border-2 border-white/30 mb-4">
-                                                    <i class="fas fa-qrcode text-white text-3xl"></i>
-                                                    <span class="text-white text-xl font-bold">Tampilkan QR Code</span>
-                                                </div>
-                                                <p class="text-white/80 text-sm">Klik untuk memilih guru ini</p>
+                                    <div class="absolute inset-0 bg-purple-900/80 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
+                                        <div class="text-center px-6">
+                                            <div class="inline-flex items-center gap-3 px-6 py-3 bg-white/20 backdrop-blur-sm rounded-2xl border-2 border-white/30 mb-3">
+                                                <i class="fas fa-qrcode text-white text-2xl"></i>
+                                                <span class="text-white text-lg font-bold">Tampilkan QR</span>
                                             </div>
+                                            <p class="text-white/80 text-sm">Klik untuk memilih</p>
                                         </div>
                                     </div>
                                 </div>
 
                                 <!-- Teacher Counter -->
-                                <div class="text-center mt-6">
-                                    <p class="text-gray-600 font-semibold">
-                                        <span class="text-purple-600 text-2xl font-bold">{{ $index + 1 }}</span> 
-                                        <span class="text-gray-400 mx-2">/</span> 
+                                <div class="text-center mt-4">
+                                    <p class="text-gray-600 font-medium text-sm">
+                                        <span class="text-purple-600 text-lg font-bold">{{ $index + 1 }}</span> 
+                                        <span class="text-gray-400 mx-1">/</span> 
                                         <span class="text-gray-500">{{ $teachers->count() }}</span>
                                     </p>
                                 </div>
@@ -126,20 +140,20 @@
                 <!-- Navigation Buttons -->
                 @if($teachers->count() > 1)
                 <button id="prev-btn" 
-                        class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-6 w-14 h-14 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full shadow-2xl hover:from-purple-700 hover:to-pink-700 transition-all duration-200 flex items-center justify-center z-20 hover:scale-110">
-                    <i class="fas fa-chevron-left text-xl"></i>
+                        class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 w-12 h-12 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full shadow-2xl hover:from-purple-700 hover:to-pink-700 transition-all duration-200 flex items-center justify-center z-20 hover:scale-110">
+                    <i class="fas fa-chevron-left text-lg"></i>
                 </button>
                 <button id="next-btn" 
-                        class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-6 w-14 h-14 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full shadow-2xl hover:from-purple-700 hover:to-pink-700 transition-all duration-200 flex items-center justify-center z-20 hover:scale-110">
-                    <i class="fas fa-chevron-right text-xl"></i>
+                        class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 w-12 h-12 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full shadow-2xl hover:from-purple-700 hover:to-pink-700 transition-all duration-200 flex items-center justify-center z-20 hover:scale-110">
+                    <i class="fas fa-chevron-right text-lg"></i>
                 </button>
                 @endif
 
                 <!-- Dots Indicator -->
                 @if($teachers->count() > 1)
-                <div class="flex justify-center gap-2 mt-8 flex-wrap">
+                <div class="flex justify-center gap-2 mt-6 flex-wrap max-w-md mx-auto">
                     @foreach($teachers as $index => $teacher)
-                    <button class="carousel-dot w-3 h-3 rounded-full transition-all duration-300 {{ $index === 0 ? 'bg-purple-600 w-8' : 'bg-gray-300' }}" 
+                    <button class="carousel-dot w-2 h-2 rounded-full transition-all duration-300 {{ $index === 0 ? 'bg-purple-600 w-6' : 'bg-gray-300' }}" 
                             data-index="{{ $index }}"
                             onclick="goToSlide({{ $index }})"></button>
                     @endforeach
@@ -291,7 +305,56 @@
 let currentTeacherId = null;
 let autoRefreshInterval = null;
 let currentSlide = 0;
+let filteredIndices = [];
 const totalSlides = {{ $teachers->count() }};
+
+// Search functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('teacher-search');
+    if (searchInput) {
+        searchInput.addEventListener('input', function(e) {
+            const query = e.target.value.toLowerCase().trim();
+            filterTeachers(query);
+        });
+    }
+});
+
+function filterTeachers(query) {
+    const slides = document.querySelectorAll('.teacher-slide');
+    const dots = document.querySelectorAll('.carousel-dot');
+    filteredIndices = [];
+    
+    slides.forEach((slide, index) => {
+        const teacherName = slide.getAttribute('data-teacher-name') || '';
+        if (query === '' || teacherName.includes(query)) {
+            filteredIndices.push(index);
+        }
+    });
+    
+    // If no matches found, show all
+    if (filteredIndices.length === 0) {
+        filteredIndices = Array.from({length: totalSlides}, (_, i) => i);
+    }
+    
+    // Go to first matching result
+    if (filteredIndices.length > 0 && query !== '') {
+        currentSlide = filteredIndices[0];
+        updateCarousel();
+        
+        // Highlight matching slide
+        slides.forEach((slide, index) => {
+            if (filteredIndices.includes(index)) {
+                slide.classList.remove('opacity-50');
+            } else {
+                slide.classList.add('opacity-50');
+            }
+        });
+    } else {
+        slides.forEach(slide => slide.classList.remove('opacity-50'));
+    }
+    
+    updateCarousel();
+}
 
 // Carousel Navigation
 function updateCarousel() {

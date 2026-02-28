@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Teacher;
 use App\Models\User;
 use App\Models\Role;
+use App\Services\NotificationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -64,7 +65,7 @@ class TeacherController extends Controller
         }
 
         // Create teacher profile
-        Teacher::create([
+        $teacher = Teacher::create([
             'user_id' => $user->id,
             'nip' => $validated['nip'],
             'name' => $validated['name'],
@@ -77,6 +78,9 @@ class TeacherController extends Controller
             'position' => $validated['position'] ?? null,
             'status' => 'active',
         ]);
+        
+        // Send notification
+        NotificationService::teacherAdded($teacher->name);
 
         return redirect()->route('teachers.index')
             ->with('success', 'Data guru berhasil ditambahkan.');

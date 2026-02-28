@@ -1,6 +1,6 @@
 @extends('layouts.modern')
 
-@section('title', 'Mata Pelajaran')
+@section('title', __('subjects.page_title'))
 
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -12,13 +12,13 @@
                     <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center">
                         <i class="fas fa-book text-white text-xl"></i>
                     </div>
-                    Mata Pelajaran
+                    {{ __('subjects.page_title') }}
                 </h1>
-                <p class="text-gray-600 mt-2">Kelola data mata pelajaran sekolah</p>
+                <p class="text-gray-600 mt-2">{{ __('subjects.subtitle') }}</p>
             </div>
             <a href="{{ route('subjects.create') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-500 to-purple-600 text-white font-semibold rounded-xl hover:from-purple-600 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
                 <i class="fas fa-plus"></i>
-                <span>Tambah Mata Pelajaran</span>
+                <span>{{ __('subjects.add_subject') }}</span>
             </a>
         </div>
     </div>
@@ -28,7 +28,7 @@
         <div class="bg-white rounded-2xl shadow-sm p-6 card-hover">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm text-gray-600">Total Mapel</p>
+                    <p class="text-sm text-gray-600">{{ __('subjects.total_subjects') }}</p>
                     <h3 class="text-2xl font-bold mt-1">{{ $subjects->total() }}</h3>
                 </div>
                 <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center">
@@ -40,7 +40,7 @@
         <div class="bg-white rounded-2xl shadow-sm p-6 card-hover">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm text-gray-600">Total Guru</p>
+                    <p class="text-sm text-gray-600">{{ __('teachers.total_teachers') }}</p>
                     <h3 class="text-2xl font-bold mt-1">{{ $subjects->sum('teacher_subjects_count') }}</h3>
                 </div>
                 <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center">
@@ -52,7 +52,7 @@
         <div class="bg-white rounded-2xl shadow-sm p-6 card-hover">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm text-gray-600">Total Nilai</p>
+                    <p class="text-sm text-gray-600">{{ __('grades.total_grades') }}</p>
                     <h3 class="text-2xl font-bold mt-1">{{ $subjects->sum('grades_count') }}</h3>
                 </div>
                 <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
@@ -64,7 +64,7 @@
         <div class="bg-white rounded-2xl shadow-sm p-6 card-hover">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm text-gray-600">Rata-rata Nilai</p>
+                    <p class="text-sm text-gray-600">{{ __('grades.average_score') }}</p>
                     <h3 class="text-2xl font-bold mt-1">{{ $subjects->sum('grades_count') > 0 ? number_format($subjects->sum('grades_count') / $subjects->count(), 0) : 0 }}</h3>
                 </div>
                 <div class="w-12 h-12 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-xl flex items-center justify-center">
@@ -103,7 +103,7 @@
                                 @method('DELETE')
                                 <button type="button" 
                                         class="btn-delete-subject inline-flex items-center justify-center w-8 h-8 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition-colors duration-150" 
-                                        title="Hapus">
+                                        title="{{ __('general.delete') }}">
                                     <i class="fas fa-trash text-sm"></i>
                                 </button>
                             </form>
@@ -115,7 +115,7 @@
                     
                     <!-- Description -->
                     <p class="text-sm text-gray-600 mb-4 line-clamp-2">
-                        {{ $subject->description ?? 'Tidak ada deskripsi' }}
+                        {{ $subject->description ?? __('subjects.no_description') }}
                     </p>
 
                     <!-- Stats -->
@@ -125,7 +125,7 @@
                                 <i class="fas fa-chalkboard-teacher text-green-600"></i>
                             </div>
                             <div>
-                                <p class="text-xs text-gray-500">Guru</p>
+                                <p class="text-xs text-gray-500">{{ __('menu.teachers') }}</p>
                                 <p class="text-lg font-bold text-gray-900">{{ $subject->teacher_subjects_count }}</p>
                             </div>
                         </div>
@@ -134,7 +134,7 @@
                                 <i class="fas fa-clipboard-list text-blue-600"></i>
                             </div>
                             <div>
-                                <p class="text-xs text-gray-500">Nilai</p>
+                                <p class="text-xs text-gray-500">{{ __('menu.grades') }}</p>
                                 <p class="text-lg font-bold text-gray-900">{{ $subject->grades_count }}</p>
                             </div>
                         </div>
@@ -148,11 +148,11 @@
                         <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-4">
                             <i class="fas fa-inbox text-4xl text-gray-400"></i>
                         </div>
-                        <p class="text-gray-500 font-medium">Belum ada data mata pelajaran</p>
-                        <p class="text-sm text-gray-400 mt-1">Klik tombol "Tambah Mata Pelajaran" untuk menambahkan data baru</p>
+                        <p class="text-gray-500 font-medium">{{ __('subjects.no_data') }}</p>
+                        <p class="text-sm text-gray-400 mt-1">{{ __('subjects.no_data_desc') }}</p>
                         <a href="{{ route('subjects.create') }}" class="mt-6 inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-500 to-purple-600 text-white font-semibold rounded-xl hover:from-purple-600 hover:to-purple-700 transition-all duration-200 shadow-lg">
                             <i class="fas fa-plus"></i>
-                            <span>Tambah Mata Pelajaran</span>
+                            <span>{{ __('subjects.add_subject') }}</span>
                         </a>
                     </div>
                 </div>
@@ -179,17 +179,17 @@ document.querySelectorAll('.btn-delete-subject').forEach(button => {
         const subjectName = form.dataset.subjectName;
         
         Swal.fire({
-            title: 'Hapus Mata Pelajaran?',
+            title: '{{ __('subjects.delete_title') }}',
             html: `
                 <div style="text-align: left; padding: 0 20px;">
-                    <p style="margin-bottom: 15px;">Anda akan menghapus mata pelajaran:</p>
+                    <p style="margin-bottom: 15px;">{{ __('subjects.delete_confirm_msg') }}</p>
                     <div style="background: #fee; padding: 15px; border-radius: 8px; border-left: 4px solid #dc3545; margin-bottom: 15px;">
                         <i class="fas fa-book" style="color: #dc3545; margin-right: 8px;"></i>
                         <strong style="color: #721c24;">${subjectName}</strong>
                     </div>
                     <div style="background: #fff3cd; padding: 12px; border-radius: 8px; margin-top: 10px;">
                         <i class="fas fa-exclamation-triangle" style="color: #f59e0b; margin-right: 8px;"></i>
-                        <small style="color: #856404;"><strong>Peringatan:</strong> Mata pelajaran yang masih digunakan tidak dapat dihapus!</small>
+                        <small style="color: #856404;"><strong>{{ __('general.warning') }}:</strong> {{ __('subjects.delete_warning') }}</small>
                     </div>
                 </div>
             `,
@@ -197,8 +197,8 @@ document.querySelectorAll('.btn-delete-subject').forEach(button => {
             showCancelButton: true,
             confirmButtonColor: '#dc3545',
             cancelButtonColor: '#6c757d',
-            confirmButtonText: '<i class="fas fa-trash me-2"></i>Ya, Hapus',
-            cancelButtonText: '<i class="fas fa-times me-2"></i>Batal',
+            confirmButtonText: '<i class="fas fa-trash me-2"></i>{{ __('general.yes_delete') }}',
+            cancelButtonText: '<i class="fas fa-times me-2"></i>{{ __('general.cancel') }}',
             customClass: {
                 popup: 'border-0 shadow-lg',
                 title: 'fs-5 fw-bold text-dark',
@@ -211,8 +211,8 @@ document.querySelectorAll('.btn-delete-subject').forEach(button => {
         }).then((result) => {
             if (result.isConfirmed) {
                 Swal.fire({
-                    title: 'Menghapus...',
-                    text: 'Mohon tunggu sebentar',
+                    title: '{{ __('general.deleting') }}',
+                    text: '{{ __('general.please_wait') }}',
                     allowOutsideClick: false,
                     allowEscapeKey: false,
                     showConfirmButton: false,

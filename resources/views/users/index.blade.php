@@ -1,6 +1,6 @@
 @extends('layouts.modern')
 
-@section('title', 'Manajemen User')
+@section('title', __('users.page_title'))
 
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -12,13 +12,13 @@
                     <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center">
                         <i class="fas fa-users text-white text-xl"></i>
                     </div>
-                    Manajemen User
+                    {{ __('users.page_title') }}
                 </h1>
-                <p class="text-gray-600 mt-2">Kelola semua user sistem</p>
+                <p class="text-gray-600 mt-2">{{ __('users.subtitle') }}</p>
             </div>
             <a href="{{ route('users.create') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-500 to-purple-600 text-white font-semibold rounded-xl hover:from-purple-600 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
                 <i class="fas fa-plus"></i>
-                <span>Tambah User</span>
+                <span>{{ __('users.add_user') }}</span>
             </a>
         </div>
     </div>
@@ -28,7 +28,7 @@
         <div class="bg-white rounded-2xl shadow-sm p-6 card-hover">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm text-gray-600">Total Users</p>
+                    <p class="text-sm text-gray-600">{{ __('users.total_users') }}</p>
                     <h3 class="text-2xl font-bold mt-1">{{ $users->total() }}</h3>
                 </div>
                 <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
@@ -40,7 +40,7 @@
         <div class="bg-white rounded-2xl shadow-sm p-6 card-hover">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm text-gray-600">Admins</p>
+                    <p class="text-sm text-gray-600">{{ __('users.role_admin') }}</p>
                     <h3 class="text-2xl font-bold mt-1">{{ $users->where('role.name', 'Admin')->count() }}</h3>
                 </div>
                 <div class="w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center">
@@ -52,7 +52,7 @@
         <div class="bg-white rounded-2xl shadow-sm p-6 card-hover">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm text-gray-600">Teachers</p>
+                    <p class="text-sm text-gray-600">{{ __('users.role_teacher') }}</p>
                     <h3 class="text-2xl font-bold mt-1">{{ $users->where('role.name', 'Guru')->count() }}</h3>
                 </div>
                 <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center">
@@ -64,7 +64,7 @@
         <div class="bg-white rounded-2xl shadow-sm p-6 card-hover">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm text-gray-600">Headmasters</p>
+                    <p class="text-sm text-gray-600">{{ __('users.role_principal') }}</p>
                     <h3 class="text-2xl font-bold mt-1">{{ $users->where('role.name', 'Kepala Sekolah')->count() }}</h3>
                 </div>
                 <div class="w-12 h-12 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-xl flex items-center justify-center">
@@ -77,22 +77,80 @@
     <!-- Users Table -->
     <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
         <div class="px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-white">
-            <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                <i class="fas fa-list text-purple-600"></i>
-                Daftar User
-            </h2>
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                    <i class="fas fa-list text-purple-600"></i>
+                    {{ __('users.user_list') }}
+                </h2>
+                
+                <!-- Search & Filter -->
+                <form action="{{ route('users.index') }}" method="GET" class="flex flex-col sm:flex-row gap-3">
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-search text-gray-400"></i>
+                        </div>
+                        <input type="text" 
+                               name="search" 
+                               value="{{ request('search') }}"
+                               placeholder="{{ __('users.search_placeholder') }}"
+                               class="block w-full sm:w-64 pl-10 pr-4 py-2 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all">
+                    </div>
+                    <select name="role" 
+                            class="block w-full sm:w-40 px-4 py-2 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all">
+                        <option value="">{{ __('users.all_roles') }}</option>
+                        @foreach($roles as $role)
+                            <option value="{{ $role->id }}" {{ request('role') == $role->id ? 'selected' : '' }}>
+                                {{ $role->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <button type="submit" 
+                            class="inline-flex items-center justify-center px-4 py-2 bg-purple-600 text-white text-sm font-medium rounded-xl hover:bg-purple-700 transition-colors">
+                        <i class="fas fa-search mr-2"></i>
+                        {{ __('general.search') }}
+                    </button>
+                    @if(request('search') || request('role'))
+                        <a href="{{ route('users.index') }}" 
+                           class="inline-flex items-center justify-center px-4 py-2 bg-gray-200 text-gray-700 text-sm font-medium rounded-xl hover:bg-gray-300 transition-colors">
+                            <i class="fas fa-times mr-2"></i>
+                            {{ __('general.reset') }}
+                        </a>
+                    @endif
+                </form>
+            </div>
         </div>
+        
+        <!-- Search Results Info -->
+        @if(request('search') || request('role'))
+        <div class="px-6 py-3 bg-purple-50 border-b border-purple-100">
+            <div class="flex items-center justify-between">
+                <p class="text-sm text-purple-700">
+                    <i class="fas fa-filter mr-2"></i>
+                    {{ __('users.showing_results', ['count' => $users->total()]) }}
+                    @if(request('search'))
+                        {{ __('users.for_keyword', ['keyword' => request('search')]) }}
+                    @endif
+                    @if(request('role'))
+                        @php $selectedRole = $roles->find(request('role')); @endphp
+                        @if($selectedRole)
+                            {{ __('users.with_role', ['role' => $selectedRole->name]) }}
+                        @endif
+                    @endif
+                </p>
+            </div>
+        </div>
+        @endif
         
         <div class="overflow-x-auto">
             <table class="w-full">
                 <thead class="bg-gray-50 border-b border-gray-200">
                     <tr>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider w-16">No</th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Nama</th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Email</th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Role</th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Dibuat</th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider w-48">Aksi</th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider w-16">{{ __('general.no') }}</th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">{{ __('general.name') }}</th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">{{ __('general.email') }}</th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">{{ __('users.role') }}</th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">{{ __('general.created_at') }}</th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider w-48">{{ __('general.actions') }}</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200">
@@ -165,7 +223,7 @@
                                             @method('DELETE')
                                             <button type="button" 
                                                     class="btn-delete-user inline-flex items-center justify-center w-8 h-8 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition-colors duration-150" 
-                                                    title="Hapus">
+                                                    title="{{ __('general.delete') }}">
                                                 <i class="fas fa-trash text-sm"></i>
                                             </button>
                                         </form>
@@ -180,8 +238,8 @@
                                     <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-4">
                                         <i class="fas fa-inbox text-4xl text-gray-400"></i>
                                     </div>
-                                    <p class="text-gray-500 font-medium">Belum ada data user</p>
-                                    <p class="text-sm text-gray-400 mt-1">Klik tombol "Tambah User" untuk menambahkan user baru</p>
+                                    <p class="text-gray-500 font-medium">{{ __('users.no_data') }}</p>
+                                    <p class="text-sm text-gray-400 mt-1">{{ __('users.no_data_desc') }}</p>
                                 </div>
                             </td>
                         </tr>
@@ -210,15 +268,15 @@ document.querySelectorAll('.btn-reset-password').forEach(button => {
         const userName = form.dataset.userName;
         
         Swal.fire({
-            title: 'Reset Password User?',
+            title: '{{ __('users.reset_password_title') }}',
             html: `
                 <div style="text-align: left; padding: 0 20px;">
-                    <p style="margin-bottom: 15px;">Anda akan mereset password untuk:</p>
+                    <p style="margin-bottom: 15px;">{{ __('users.reset_password_for') }}</p>
                     <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
                         <i class="fas fa-user" style="color: #667eea; margin-right: 8px;"></i>
                         <strong style="color: #2d3748;">${userName}</strong>
                     </div>
-                    <p style="margin-bottom: 10px;">Password baru akan menjadi:</p>
+                    <p style="margin-bottom: 10px;">{{ __('users.new_password_will_be') }}</p>
                     <div style="background: #fff3cd; padding: 12px; border-radius: 8px; border-left: 4px solid #ffc107;">
                         <i class="fas fa-key" style="color: #f59e0b; margin-right: 8px;"></i>
                         <code style="background: #ffe8a1; padding: 4px 8px; border-radius: 4px; font-weight: 600;">password123</code>
@@ -229,8 +287,8 @@ document.querySelectorAll('.btn-reset-password').forEach(button => {
             showCancelButton: true,
             confirmButtonColor: '#667eea',
             cancelButtonColor: '#6c757d',
-            confirmButtonText: '<i class="fas fa-check me-2"></i>Ya, Reset Password',
-            cancelButtonText: '<i class="fas fa-times me-2"></i>Batal',
+            confirmButtonText: '<i class="fas fa-check me-2"></i>{{ __('users.yes_reset') }}',
+            cancelButtonText: '<i class="fas fa-times me-2"></i>{{ __('general.cancel') }}',
             customClass: {
                 popup: 'border-0 shadow-lg',
                 title: 'fs-5 fw-bold text-dark',
@@ -244,8 +302,8 @@ document.querySelectorAll('.btn-reset-password').forEach(button => {
             if (result.isConfirmed) {
                 // Show loading
                 Swal.fire({
-                    title: 'Memproses...',
-                    text: 'Mohon tunggu sebentar',
+                    title: '{{ __('general.loading') }}',
+                    text: '{{ __('general.please_wait') }}',
                     allowOutsideClick: false,
                     allowEscapeKey: false,
                     showConfirmButton: false,
@@ -269,17 +327,17 @@ document.querySelectorAll('.btn-delete-user').forEach(button => {
         const userName = form.dataset.userName;
         
         Swal.fire({
-            title: 'Hapus User?',
+            title: '{{ __('users.delete_title') }}',
             html: `
                 <div style="text-align: left; padding: 0 20px;">
-                    <p style="margin-bottom: 15px;">Anda akan menghapus user:</p>
+                    <p style="margin-bottom: 15px;">{{ __('users.delete_confirm_msg') }}</p>
                     <div style="background: #fee; padding: 15px; border-radius: 8px; border-left: 4px solid #dc3545; margin-bottom: 15px;">
                         <i class="fas fa-user-times" style="color: #dc3545; margin-right: 8px;"></i>
                         <strong style="color: #721c24;">${userName}</strong>
                     </div>
                     <div style="background: #fff3cd; padding: 12px; border-radius: 8px; margin-top: 10px;">
                         <i class="fas fa-exclamation-triangle" style="color: #f59e0b; margin-right: 8px;"></i>
-                        <small style="color: #856404;"><strong>Peringatan:</strong> Data yang dihapus tidak dapat dikembalikan!</small>
+                        <small style="color: #856404;"><strong>{{ __('general.warning') }}:</strong> {{ __('general.delete_warning') }}</small>
                     </div>
                 </div>
             `,
@@ -287,8 +345,8 @@ document.querySelectorAll('.btn-delete-user').forEach(button => {
             showCancelButton: true,
             confirmButtonColor: '#dc3545',
             cancelButtonColor: '#6c757d',
-            confirmButtonText: '<i class="fas fa-trash me-2"></i>Ya, Hapus User',
-            cancelButtonText: '<i class="fas fa-times me-2"></i>Batal',
+            confirmButtonText: '<i class="fas fa-trash me-2"></i>{{ __('users.yes_delete_user') }}',
+            cancelButtonText: '<i class="fas fa-times me-2"></i>{{ __('general.cancel') }}',
             customClass: {
                 popup: 'border-0 shadow-lg',
                 title: 'fs-5 fw-bold text-dark',
@@ -302,8 +360,8 @@ document.querySelectorAll('.btn-delete-user').forEach(button => {
             if (result.isConfirmed) {
                 // Show loading
                 Swal.fire({
-                    title: 'Menghapus...',
-                    text: 'Mohon tunggu sebentar',
+                    title: '{{ __('general.deleting') }}',
+                    text: '{{ __('general.please_wait') }}',
                     allowOutsideClick: false,
                     allowEscapeKey: false,
                     showConfirmButton: false,

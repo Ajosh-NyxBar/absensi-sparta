@@ -1,6 +1,6 @@
 @extends('layouts.modern')
 
-@section('title', 'Tambah User')
+@section('title', __('users.add_user'))
 
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -12,13 +12,13 @@
                     <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center">
                         <i class="fas fa-user-plus text-white text-xl"></i>
                     </div>
-                    Tambah User
+                    {{ __('users.add_user') }}
                 </h1>
-                <p class="text-gray-600 mt-2">Buat akun user baru untuk sistem</p>
+                <p class="text-gray-600 mt-2">{{ __('users.create_subtitle') }}</p>
             </div>
             <a href="{{ route('users.index') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-white text-gray-700 font-semibold rounded-xl border-2 border-gray-300 hover:bg-gray-50 transition-all duration-200 shadow-sm">
                 <i class="fas fa-arrow-left"></i>
-                <span>Kembali</span>
+                <span>{{ __('general.back') }}</span>
             </a>
         </div>
     </div>
@@ -30,7 +30,7 @@
                 <div class="px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-white">
                     <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
                         <i class="fas fa-edit text-green-600"></i>
-                        Form Tambah User
+                        {{ __('users.add_form_title') }}
                     </h2>
                 </div>
                 
@@ -41,7 +41,7 @@
                         <!-- Nama Lengkap -->
                         <div>
                             <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">
-                                Nama Lengkap <span class="text-red-500">*</span>
+                                {{ __('users.full_name') }} <span class="text-red-500">*</span>
                             </label>
                             <div class="relative">
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -52,7 +52,7 @@
                                        id="name" 
                                        name="name" 
                                        value="{{ old('name') }}" 
-                                       placeholder="Masukkan nama lengkap"
+                                       placeholder="{{ __('users.enter_full_name') }}"
                                        required>
                             </div>
                             @error('name')
@@ -66,7 +66,7 @@
                         <!-- Email -->
                         <div>
                             <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">
-                                Email <span class="text-red-500">*</span>
+                                {{ __('general.email') }} <span class="text-red-500">*</span>
                             </label>
                             <div class="relative">
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -91,7 +91,7 @@
                         <!-- Role -->
                         <div>
                             <label for="role_id" class="block text-sm font-semibold text-gray-700 mb-2">
-                                Role <span class="text-red-500">*</span>
+                                {{ __('users.role') }} <span class="text-red-500">*</span>
                             </label>
                             <div class="relative">
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -101,7 +101,7 @@
                                         id="role_id" 
                                         name="role_id" 
                                         required>
-                                    <option value="">-- Pilih Role --</option>
+                                    <option value="">{{ __('users.select_role_option') }}</option>
                                     @foreach($roles as $role)
                                         <option value="{{ $role->id }}" {{ old('role_id') == $role->id ? 'selected' : '' }}>
                                             {{ $role->name }}
@@ -123,7 +123,7 @@
                         <!-- Password -->
                         <div>
                             <label for="password" class="block text-sm font-semibold text-gray-700 mb-2">
-                                Password <span class="text-red-500">*</span>
+                                {{ __('users.password') }} <span class="text-red-500">*</span>
                             </label>
                             <div class="relative">
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -133,12 +133,12 @@
                                        class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 @error('password') border-red-500 @enderror" 
                                        id="password" 
                                        name="password" 
-                                       placeholder="Minimal 6 karakter"
+                                       placeholder="{{ __('users.min_characters', ['count' => 6]) }}"
                                        required>
                             </div>
                             <p class="mt-2 text-sm text-gray-600 flex items-center gap-1">
                                 <i class="fas fa-info-circle"></i>
-                                Minimal 6 karakter
+                                {{ __('users.min_characters', ['count' => 6]) }}
                             </p>
                             @error('password')
                                 <p class="mt-2 text-sm text-red-600 flex items-center gap-1">
@@ -151,7 +151,7 @@
                         <!-- Konfirmasi Password -->
                         <div>
                             <label for="password_confirmation" class="block text-sm font-semibold text-gray-700 mb-2">
-                                Konfirmasi Password <span class="text-red-500">*</span>
+                                {{ __('users.confirm_password') }} <span class="text-red-500">*</span>
                             </label>
                             <div class="relative">
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -161,7 +161,7 @@
                                        class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200" 
                                        id="password_confirmation" 
                                        name="password_confirmation" 
-                                       placeholder="Ulangi password"
+                                       placeholder="{{ __('users.repeat_password') }}"
                                        required>
                             </div>
                         </div>
@@ -170,11 +170,11 @@
                         <div class="flex flex-col sm:flex-row gap-3 pt-6 border-t border-gray-200">
                             <button type="submit" class="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold rounded-xl hover:from-green-600 hover:to-green-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
                                 <i class="fas fa-save"></i>
-                                <span>Simpan User</span>
+                                <span>{{ __('users.save_user') }}</span>
                             </button>
                             <a href="{{ route('users.index') }}" class="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-gray-700 font-semibold rounded-xl border-2 border-gray-300 hover:bg-gray-50 transition-all duration-200">
                                 <i class="fas fa-times"></i>
-                                <span>Batal</span>
+                                <span>{{ __('users.cancel') }}</span>
                             </a>
                         </div>
                     </form>
@@ -189,42 +189,42 @@
                     <div class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
                         <i class="fas fa-info-circle text-xl"></i>
                     </div>
-                    <h3 class="text-lg font-semibold">Informasi</h3>
+                    <h3 class="text-lg font-semibold">{{ __('users.tips_info') }}</h3>
                 </div>
                 
                 <div class="space-y-4">
                     <div>
-                        <p class="font-semibold mb-2">Role yang tersedia:</p>
+                        <p class="font-semibold mb-2">{{ __('users.role') }}:</p>
                         <ul class="space-y-2">
                             <li class="flex items-start gap-2">
                                 <i class="fas fa-check-circle text-white/80 mt-1"></i>
-                                <span><strong>Admin:</strong> Akses penuh ke semua fitur</span>
+                                <span><strong>Admin:</strong> {{ __('users.role_info.admin') }}</span>
                             </li>
                             <li class="flex items-start gap-2">
                                 <i class="fas fa-check-circle text-white/80 mt-1"></i>
-                                <span><strong>Kepala Sekolah:</strong> Dapat melihat laporan dan prestasi</span>
+                                <span><strong>{{ __('users.principal') }}:</strong> {{ __('users.role_info.principal') }}</span>
                             </li>
                             <li class="flex items-start gap-2">
                                 <i class="fas fa-check-circle text-white/80 mt-1"></i>
-                                <span><strong>Guru:</strong> Dapat input nilai dan melihat presensi</span>
+                                <span><strong>{{ __('users.teacher') }}:</strong> {{ __('users.role_info.teacher') }}</span>
                             </li>
                         </ul>
                     </div>
                     
                     <div class="pt-4 border-t border-white/20">
-                        <p class="font-semibold mb-2">Tips:</p>
+                        <p class="font-semibold mb-2">{{ __('users.tips_title') }}:</p>
                         <ul class="space-y-2 text-sm text-white/90">
                             <li class="flex items-start gap-2">
                                 <i class="fas fa-lightbulb text-yellow-300 mt-0.5"></i>
-                                <span>Gunakan email yang valid untuk pemulihan akun</span>
+                                <span>{{ __('users.tips.use_valid_email') }}</span>
                             </li>
                             <li class="flex items-start gap-2">
                                 <i class="fas fa-lightbulb text-yellow-300 mt-0.5"></i>
-                                <span>Password minimal 6 karakter untuk keamanan</span>
+                                <span>{{ __('users.tips.secure_password') }}</span>
                             </li>
                             <li class="flex items-start gap-2">
                                 <i class="fas fa-lightbulb text-yellow-300 mt-0.5"></i>
-                                <span>Pilih role sesuai tanggung jawab user</span>
+                                <span>{{ __('users.tips.choose_role_wisely') }}</span>
                             </li>
                         </ul>
                     </div>

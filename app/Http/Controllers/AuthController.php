@@ -70,8 +70,10 @@ class AuthController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->isAdmin()) {
-            return app(DashboardController::class)->admin();
+        if ($user->isKiosk()) {
+            return redirect()->route('kiosk.dashboard');
+        } elseif ($user->isAdmin()) {
+            return app(DashboardController::class)->admin(request());
         } elseif ($user->isHeadmaster()) {
             return app(DashboardController::class)->headmaster();
         } elseif ($user->isTeacher()) {

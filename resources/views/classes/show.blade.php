@@ -18,6 +18,10 @@
                 <p class="text-gray-600 mt-2">Informasi lengkap kelas <strong>{{ $class->name }}</strong></p>
             </div>
             <div class="flex items-center gap-3">
+                <a href="{{ route('attendances.class', $class->id) }}" class="inline-flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-teal-500 to-teal-600 text-white font-semibold rounded-xl hover:from-teal-600 hover:to-teal-700 transition-all duration-200 shadow-sm">
+                    <i class="fas fa-clipboard-list"></i>
+                    <span>Input Presensi</span>
+                </a>
                 <a href="{{ route('classes.edit', $class->id) }}" class="inline-flex items-center gap-2 px-4 py-2.5 bg-amber-500 text-white font-semibold rounded-xl hover:bg-amber-600 transition-all duration-200 shadow-sm">
                     <i class="fas fa-edit"></i>
                     <span>Edit</span>

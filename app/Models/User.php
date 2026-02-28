@@ -89,4 +89,12 @@ class User extends Authenticatable
     {
         return $this->role && $this->role->name === 'Kepala Sekolah';
     }
+
+    /**
+     * Check if user is kiosk (display mode for teacher attendance QR)
+     */
+    public function isKiosk(): bool
+    {
+        return $this->role && $this->role->name === 'Kiosk Presensi';
+    }
 }

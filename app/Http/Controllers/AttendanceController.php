@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use App\Services\NotificationService;
 
 class AttendanceController extends Controller
 {
@@ -527,6 +528,12 @@ class AttendanceController extends Controller
                     'check_in' => $data['status'] === 'present' ? Carbon::now() : null,
                 ]
             );
+        }
+        
+        // Count absences and send notification if there are many
+        $absentCount = collect($validated['attendances'])->where('status', 'absent')->count();
+        if ($absentCount > 0) {
+            NotificationService::lowAttendanceWarning($class->name, $absentCount);
         }
 
         return redirect()->back()

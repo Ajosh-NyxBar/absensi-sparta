@@ -1,0 +1,114 @@
+<mxfile host="app.diagrams.net" modified="2026-02-18T05:00:00.000Z" agent="Antigravity" version="22.0.0">
+  <diagram name="Activity Diagram - Penilaian Siswa (SAW)" id="penilaian-siswa">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="800" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="lane1" value="Admin / Kepala Sekolah" style="shape=swimlane;startSize=30;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=14;collapsible=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="320" height="1000" as="geometry"/>
+        </mxCell>
+        <mxCell id="lane2" value="Sistem" style="shape=swimlane;startSize=30;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=14;collapsible=0;" vertex="1" parent="1">
+          <mxGeometry x="360" y="40" width="320" height="1000" as="geometry"/>
+        </mxCell>
+
+        <!-- Start -->
+        <mxCell id="s" value="" style="ellipse;fillColor=#000;strokeColor=#000;" vertex="1" parent="lane1">
+          <mxGeometry x="140" y="50" width="30" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- A1: Login -->
+        <mxCell id="a1" value="Login ke Sistem&#xa;(Admin/Kepsek)" style="rounded=1;whiteSpace=wrap;arcSize=20;fillColor=#90CAF9;strokeColor=#1565C0;fontColor=#0D47A1;fontSize=11;" vertex="1" parent="lane1">
+          <mxGeometry x="80" y="110" width="160" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- A2: Buka Menu SAW Siswa -->
+        <mxCell id="a2" value="Membuka Menu&#xa;SAW Penilaian Siswa" style="rounded=1;whiteSpace=wrap;arcSize=20;fillColor=#90CAF9;strokeColor=#1565C0;fontColor=#0D47A1;fontSize=11;" vertex="1" parent="lane1">
+          <mxGeometry x="80" y="195" width="160" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- A3: Tampilkan Halaman -->
+        <mxCell id="a3" value="Menampilkan Halaman&#xa;Penilaian SAW Siswa&#xa;dan Daftar Kelas" style="rounded=1;whiteSpace=wrap;arcSize=20;fillColor=#A5D6A7;strokeColor=#2E7D32;fontColor=#1B5E20;fontSize=11;" vertex="1" parent="lane2">
+          <mxGeometry x="75" y="195" width="170" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- A4: Pilih Kelas, Semester, Tahun Ajaran -->
+        <mxCell id="a4" value="Memilih Kelas,&#xa;Semester, dan&#xa;Tahun Ajaran" style="rounded=1;whiteSpace=wrap;arcSize=20;fillColor=#90CAF9;strokeColor=#1565C0;fontColor=#0D47A1;fontSize=11;" vertex="1" parent="lane1">
+          <mxGeometry x="80" y="295" width="160" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- A5: Klik Hitung SAW -->
+        <mxCell id="a5" value="Klik Tombol&#xa;Hitung SAW" style="rounded=1;whiteSpace=wrap;arcSize=20;fillColor=#90CAF9;strokeColor=#1565C0;fontColor=#0D47A1;fontSize=11;" vertex="1" parent="lane1">
+          <mxGeometry x="80" y="385" width="160" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- A6: Ambil Data Siswa Aktif -->
+        <mxCell id="a6" value="Mengambil Data&#xa;Siswa Aktif di Kelas" style="rounded=1;whiteSpace=wrap;arcSize=20;fillColor=#A5D6A7;strokeColor=#2E7D32;fontColor=#1B5E20;fontSize=11;" vertex="1" parent="lane2">
+          <mxGeometry x="80" y="385" width="160" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- D1: Ada Siswa? -->
+        <mxCell id="d1" value="" style="rhombus;fillColor=#FFE082;strokeColor=#F9A825;" vertex="1" parent="lane2">
+          <mxGeometry x="135" y="465" width="40" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- A7: Hitung Skor Akademik -->
+        <mxCell id="a7" value="Hitung Skor Akademik&#xa;(Rata-rata Nilai&#xa;Semua Mapel)" style="rounded=1;whiteSpace=wrap;arcSize=20;fillColor=#A5D6A7;strokeColor=#2E7D32;fontColor=#1B5E20;fontSize=11;" vertex="1" parent="lane2">
+          <mxGeometry x="72" y="535" width="176" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- A8: Hitung Skor Kehadiran -->
+        <mxCell id="a8" value="Hitung Skor&#xa;Kehadiran Siswa" style="rounded=1;whiteSpace=wrap;arcSize=20;fillColor=#A5D6A7;strokeColor=#2E7D32;fontColor=#1B5E20;fontSize=11;" vertex="1" parent="lane2">
+          <mxGeometry x="80" y="620" width="160" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- A9: Hitung Skor Perilaku & Keterampilan -->
+        <mxCell id="a9" value="Hitung Skor&#xa;Perilaku &amp;&#xa;Keterampilan" style="rounded=1;whiteSpace=wrap;arcSize=20;fillColor=#A5D6A7;strokeColor=#2E7D32;fontColor=#1B5E20;fontSize=11;" vertex="1" parent="lane2">
+          <mxGeometry x="80" y="700" width="160" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- A10: Proses SAW -->
+        <mxCell id="a10" value="Proses SAW:&#xa;Normalisasi Matriks&#xa;Bobot &amp; Ranking" style="rounded=1;whiteSpace=wrap;arcSize=20;fillColor=#A5D6A7;strokeColor=#2E7D32;fontColor=#1B5E20;fontSize=11;" vertex="1" parent="lane2">
+          <mxGeometry x="75" y="785" width="170" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- A11: Simpan ke Database -->
+        <mxCell id="a11" value="Simpan Hasil Penilaian&#xa;&amp; Ranking ke Database" style="rounded=1;whiteSpace=wrap;arcSize=20;fillColor=#A5D6A7;strokeColor=#2E7D32;fontColor=#1B5E20;fontSize=11;" vertex="1" parent="lane2">
+          <mxGeometry x="75" y="870" width="170" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- A12: Error -->
+        <mxCell id="a12" value="Menampilkan&#xa;Pesan Error&#xa;(Tidak ada siswa aktif)" style="rounded=1;whiteSpace=wrap;arcSize=20;fillColor=#EF9A9A;strokeColor=#C62828;fontColor=#B71C1C;fontSize=11;" vertex="1" parent="lane1">
+          <mxGeometry x="80" y="470" width="160" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- A13: Tampilkan Hasil -->
+        <mxCell id="a13" value="Menampilkan Hasil&#xa;Ranking &amp; Skor&#xa;SAW Siswa" style="rounded=1;whiteSpace=wrap;arcSize=20;fillColor=#90CAF9;strokeColor=#1565C0;fontColor=#0D47A1;fontSize=11;" vertex="1" parent="lane1">
+          <mxGeometry x="80" y="830" width="160" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- End -->
+        <mxCell id="end" value="" style="ellipse;fillColor=#000;strokeColor=#000;strokeWidth=3;" vertex="1" parent="lane1">
+          <mxGeometry x="140" y="930" width="30" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- EDGES -->
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#333;" edge="1" source="s" target="a1" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#333;" edge="1" source="a1" target="a2" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#333;" edge="1" source="a2" target="a3" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#333;" edge="1" source="a3" target="a4" parent="1"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="520" y="270"/><mxPoint x="200" y="270"/></Array></mxGeometry></mxCell>
+        <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#333;" edge="1" source="a4" target="a5" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#333;" edge="1" source="a5" target="a6" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#333;" edge="1" source="a6" target="d1" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e8" value="[ada siswa aktif]" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#333;fontSize=10;" edge="1" source="d1" target="a7" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e9" value="[tidak ada]" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#C62828;fontSize=10;fontColor=#C62828;" edge="1" source="d1" target="a12" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e10" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#333;" edge="1" source="a7" target="a8" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e11" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#333;" edge="1" source="a8" target="a9" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e12" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#333;" edge="1" source="a9" target="a10" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e13" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#333;" edge="1" source="a10" target="a11" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e14" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#333;" edge="1" source="a11" target="a13" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e15" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#333;" edge="1" source="a13" target="end" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e16" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#999;dashed=1;" edge="1" source="a12" target="end" parent="1"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="55" y="537"/><mxPoint x="55" y="985"/></Array></mxGeometry></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

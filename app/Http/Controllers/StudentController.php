@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use App\Models\ClassRoom;
+use App\Services\NotificationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -78,7 +79,10 @@ class StudentController extends Controller
 
         $validated['status'] = 'active';
 
-        Student::create($validated);
+        $student = Student::create($validated);
+        
+        // Send notification
+        NotificationService::studentAdded($student->name);
 
         return redirect()->route('students.index')
             ->with('success', 'Data siswa berhasil ditambahkan.');

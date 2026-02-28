@@ -1,6 +1,6 @@
 @extends('layouts.modern')
 
-@section('title', 'Riwayat Presensi')
+@section('title', __('attendance.page_title'))
 
 @section('content')
 <div class="space-y-6">
@@ -8,16 +8,16 @@
     <div class="flex items-center justify-between">
         <div>
             <h1 class="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                Riwayat Presensi
+                {{ __('attendance.page_title') }}
             </h1>
-            <p class="text-gray-600 mt-1">Kelola dan lihat riwayat kehadiran Anda</p>
+            <p class="text-gray-600 mt-1">{{ __('attendance.subtitle') }}</p>
         </div>
         <div class="flex items-center gap-3">
             @if(Auth::user()->role->name === 'Admin' || Auth::user()->role->name === 'Kepala Sekolah')
             <a href="{{ route('attendances.admin-qr') }}" 
                class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-600 text-white font-semibold rounded-xl hover:from-purple-600 hover:to-pink-700 transition-all duration-200 shadow-lg hover:shadow-xl">
                 <i class="fas fa-qrcode"></i>
-                <span>Tampilkan QR Code</span>
+                <span>{{ __('attendance.show_qr') }}</span>
             </a>
             @endif
             
@@ -25,7 +25,7 @@
             <a href="{{ route('attendances.scanner') }}" 
                class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold rounded-xl hover:from-indigo-600 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl">
                 <i class="fas fa-camera"></i>
-                <span>Scan QR Code</span>
+                <span>{{ __('attendance.scan_qr') }}</span>
             </a>
             @endif
         </div>
@@ -34,33 +34,52 @@
     @php
         $teacher = Auth::user()->teacher;
         
+        // Get filter parameters
+        $filterMode = request('filter_mode', 'daily');
+        $selectedMonth = request('month', now()->month);
+        $selectedYear = request('year', now()->year);
+        
         // Statistics
         $totalAttendances = 0;
         $presentCount = 0;
         $lateCount = 0;
         $absentCount = 0;
         $attendanceRate = 0;
+        $displayMonth = '';
         
         if ($teacher) {
-            $startOfMonth = now()->startOfMonth();
-            $endOfMonth = now()->endOfMonth();
+            // Set date range based on filter mode
+            if ($filterMode === 'monthly') {
+                $startOfMonth = \Carbon\Carbon::createFromDate($selectedYear, $selectedMonth, 1)->startOfMonth();
+                $endOfMonth = \Carbon\Carbon::createFromDate($selectedYear, $selectedMonth, 1)->endOfMonth();
+                $displayMonth = $startOfMonth->format('F Y');
+            } else {
+                $startOfMonth = now()->startOfMonth();
+                $endOfMonth = now()->endOfMonth();
+                $displayMonth = now()->format('F Y');
+            }
             
             $monthlyAttendances = $teacher->attendances()
                 ->whereBetween('date', [$startOfMonth, $endOfMonth])
                 ->get();
             
             $totalAttendances = $monthlyAttendances->count();
-            $presentCount = $monthlyAttendances->where('status', 'Hadir')->count();
-            $lateCount = $monthlyAttendances->where('status', 'Terlambat')->count();
-            $absentCount = $monthlyAttendances->whereIn('status', ['Sakit', 'Izin', 'Alpha'])->count();
+            $presentCount = $monthlyAttendances->where('status', 'present')->count();
+            $lateCount = $monthlyAttendances->where('status', 'late')->count();
+            $absentCount = $monthlyAttendances->whereIn('status', ['sick', 'permission', 'absent'])->count();
             
             // Calculate attendance rate
-            $workingDays = now()->diffInDaysFiltered(function($date) use ($startOfMonth, $endOfMonth) {
-                return $date->isWeekday() && $date >= $startOfMonth && $date <= $endOfMonth;
-            }, $startOfMonth);
+            $workingDays = 0;
+            $currentDate = $startOfMonth->copy();
+            while ($currentDate <= $endOfMonth) {
+                if ($currentDate->isWeekday()) {
+                    $workingDays++;
+                }
+                $currentDate->addDay();
+            }
             
             if ($workingDays > 0) {
-                $attendanceRate = ($presentCount / $workingDays) * 100;
+                $attendanceRate = (($presentCount + $lateCount) / $workingDays) * 100;
             }
         }
     @endphp
@@ -75,7 +94,7 @@
                 </div>
             </div>
             <h3 class="text-3xl font-bold text-gray-900 mb-1">{{ $totalAttendances }}</h3>
-            <p class="text-sm text-gray-600">Total Presensi Bulan Ini</p>
+            <p class="text-sm text-gray-600">{{ __('attendance.total_this_month') }}</p>
         </div>
 
         <!-- Hadir -->
@@ -86,7 +105,7 @@
                 </div>
             </div>
             <h3 class="text-3xl font-bold text-gray-900 mb-1">{{ $presentCount }}</h3>
-            <p class="text-sm text-gray-600">Hadir</p>
+            <p class="text-sm text-gray-600">{{ __('attendance.present') }}</p>
         </div>
 
         <!-- Terlambat -->
@@ -97,7 +116,7 @@
                 </div>
             </div>
             <h3 class="text-3xl font-bold text-gray-900 mb-1">{{ $lateCount }}</h3>
-            <p class="text-sm text-gray-600">Terlambat</p>
+            <p class="text-sm text-gray-600">{{ __('attendance.late') }}</p>
         </div>
 
         <!-- Tidak Hadir -->
@@ -108,7 +127,7 @@
                 </div>
             </div>
             <h3 class="text-3xl font-bold text-gray-900 mb-1">{{ $absentCount }}</h3>
-            <p class="text-sm text-gray-600">Sakit/Izin/Alpha</p>
+            <p class="text-sm text-gray-600">{{ __('attendance.sick_permission_absent') }}</p>
         </div>
     </div>
 
@@ -116,55 +135,111 @@
     <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl shadow-sm p-6 border border-indigo-200">
         <div class="flex items-center justify-between mb-4">
             <div>
-                <h3 class="text-lg font-bold text-gray-900 mb-1">Tingkat Kehadiran Bulan Ini</h3>
-                <p class="text-sm text-gray-600">{{ now()->format('F Y') }}</p>
+                <h3 class="text-lg font-bold text-gray-900 mb-1">{{ __('attendance.attendance_rate_this_month') }}</h3>
+                <p class="text-sm text-gray-600">{{ $displayMonth }}</p>
             </div>
             <div class="text-right">
                 <p class="text-4xl font-bold text-indigo-600">{{ number_format($attendanceRate, 1) }}%</p>
             </div>
         </div>
         <div class="w-full bg-gray-200 rounded-full h-3">
-            <div class="bg-gradient-to-r from-indigo-500 to-purple-600 h-3 rounded-full transition-all duration-500" style="width: {{ $attendanceRate }}%"></div>
+            <div class="bg-gradient-to-r from-indigo-500 to-purple-600 h-3 rounded-full transition-all duration-500" style="width: {{ min($attendanceRate, 100) }}%"></div>
         </div>
     </div>
 
     <!-- Filter Section -->
     <div class="bg-white rounded-2xl shadow-sm p-6 border border-gray-100">
-        <form method="GET" action="{{ route('attendances.index') }}" class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <!-- Tanggal -->
-            <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-2">Tanggal</label>
-                <input type="date" 
-                       name="date" 
-                       value="{{ request('date', today()->format('Y-m-d')) }}" 
-                       class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all">
+        <form method="GET" action="{{ route('attendances.index') }}" class="space-y-4">
+            <!-- Filter Mode & Type -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">{{ __('attendance.filter_mode') }}</label>
+                    <select name="filter_mode" id="filterMode" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all">
+                        <option value="daily" {{ request('filter_mode', 'daily') == 'daily' ? 'selected' : '' }}>{{ __('attendance.per_day') }}</option>
+                        <option value="monthly" {{ request('filter_mode') == 'monthly' ? 'selected' : '' }}>{{ __('attendance.per_month') }}</option>
+                    </select>
+                </div>
+                
+                @if(Auth::user()->role->name !== 'Guru')
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">{{ __('attendance.type') }}</label>
+                    <select name="type" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all">
+                        <option value="">{{ __('general.all') }}</option>
+                        <option value="teacher" {{ request('type') == 'teacher' ? 'selected' : '' }}>{{ __('menu.teachers') }}</option>
+                        <option value="student" {{ request('type') == 'student' ? 'selected' : '' }}>{{ __('menu.students') }}</option>
+                    </select>
+                </div>
+                @endif
             </div>
-
-            <!-- Type (Untuk Admin) -->
-            @if(Auth::user()->role->name !== 'Guru')
-            <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-2">Tipe</label>
-                <select name="type" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all">
-                    <option value="">Semua</option>
-                    <option value="teacher" {{ request('type') == 'teacher' ? 'selected' : '' }}>Guru</option>
-                    <option value="student" {{ request('type') == 'student' ? 'selected' : '' }}>Siswa</option>
-                </select>
+            
+            <div class="grid grid-cols-1 gap-4">
+                <!-- Tanggal (Daily Mode) -->
+                <div id="dailyFilter" style="{{ request('filter_mode', 'daily') == 'daily' ? '' : 'display:none' }}">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">{{ __('general.date') }}</label>
+                    <input type="date" 
+                           name="date" 
+                           value="{{ request('date', today()->format('Y-m-d')) }}" 
+                           class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all">
+                </div>
+                
+                <!-- Bulan & Tahun (Monthly Mode) -->
+                <div id="monthlyFilter" style="{{ request('filter_mode') == 'monthly' ? '' : 'display:none' }}">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">{{ __('attendance.month') }}</label>
+                            <select name="month" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all">
+                                @for($m = 1; $m <= 12; $m++)
+                                    <option value="{{ $m }}" {{ request('month', now()->month) == $m ? 'selected' : '' }}>
+                                        {{ \Carbon\Carbon::createFromDate(null, $m, 1)->format('F') }}
+                                    </option>
+                                @endfor
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">{{ __('attendance.year') }}</label>
+                            <select name="year" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all">
+                                @for($y = now()->year - 2; $y <= now()->year + 1; $y++)
+                                    <option value="{{ $y }}" {{ request('year', now()->year) == $y ? 'selected' : '' }}>
+                                        {{ $y }}
+                                    </option>
+                                @endfor
+                            </select>
+                        </div>
+                    </div>
+                </div>
             </div>
-            @endif
 
             <!-- Button -->
             <div class="flex items-end gap-2">
                 <button type="submit" class="flex-1 inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold rounded-lg hover:from-indigo-600 hover:to-purple-700 transition-all duration-200">
                     <i class="fas fa-filter"></i>
-                    Filter
+                    {{ __('general.filter') }}
                 </button>
                 <a href="{{ route('attendances.index') }}" class="inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-gray-100 text-gray-700 font-semibold rounded-lg hover:bg-gray-200 transition-all duration-200">
                     <i class="fas fa-redo"></i>
-                    Reset
+                    {{ __('general.reset') }}
                 </a>
             </div>
         </form>
     </div>
+    
+    @push('scripts')
+    <script>
+        document.getElementById('filterMode').addEventListener('change', function() {
+            const mode = this.value;
+            const dailyFilter = document.getElementById('dailyFilter');
+            const monthlyFilter = document.getElementById('monthlyFilter');
+            
+            if (mode === 'daily') {
+                dailyFilter.style.display = 'block';
+                monthlyFilter.style.display = 'none';
+            } else {
+                dailyFilter.style.display = 'none';
+                monthlyFilter.style.display = 'block';
+            }
+        });
+    </script>
+    @endpush
 
     <!-- Attendance List -->
     <div class="bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100">
@@ -172,11 +247,13 @@
             <div class="flex items-center justify-between">
                 <h2 class="text-lg font-bold text-gray-900 flex items-center gap-2">
                     <i class="fas fa-list text-indigo-600"></i>
-                    Daftar Presensi
-                    @if(request('date'))
+                    {{ __('attendance.attendance_list') }}
+                    @if(request('filter_mode') == 'monthly')
+                        - {{ \Carbon\Carbon::createFromDate(request('year', now()->year), request('month', now()->month), 1)->format('F Y') }}
+                    @elseif(request('date'))
                         - {{ \Carbon\Carbon::parse(request('date'))->format('d M Y') }}
                     @else
-                        - Hari Ini
+                        - {{ __('attendance.today') }}
                     @endif
                 </h2>
             </div>
@@ -188,10 +265,10 @@
                     <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                         <i class="fas fa-calendar-times text-gray-400 text-3xl"></i>
                     </div>
-                    <p class="text-gray-500 mb-4">Tidak ada data presensi</p>
+                    <p class="text-gray-500 mb-4">{{ __('attendance.no_data') }}</p>
                     <a href="{{ route('attendances.qr-code') }}" class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold rounded-lg hover:from-indigo-600 hover:to-purple-700 transition-all duration-200">
                         <i class="fas fa-qrcode"></i>
-                        Scan QR Code
+                        {{ __('attendance.scan_qr') }}
                     </a>
                 </div>
             @else
@@ -220,11 +297,11 @@
                                         </span>
                                         @if($attendance->attendable_type === 'App\Models\Teacher')
                                             <span class="px-2 py-0.5 bg-blue-100 text-blue-700 rounded text-xs font-semibold">
-                                                Guru
+                                                {{ __('menu.teachers') }}
                                             </span>
                                         @else
                                             <span class="px-2 py-0.5 bg-purple-100 text-purple-700 rounded text-xs font-semibold">
-                                                Siswa
+                                                {{ __('menu.students') }}
                                             </span>
                                         @endif
                                     </div>

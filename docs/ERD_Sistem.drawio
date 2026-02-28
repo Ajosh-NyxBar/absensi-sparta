@@ -1,0 +1,221 @@
+<mxfile host="app.diagrams.net" modified="2026-02-06T00:00:00.000Z" agent="Mozilla/5.0" version="21.0.0" type="device">
+  <diagram name="ERD" id="erd-diagram">
+    <mxGraphModel dx="1434" dy="780" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Title -->
+        <mxCell id="title" value="Entity Relationship Diagram (ERD)&#xa;Sistem Informasi Absensi Guru dan Penilaian Siswa&#xa;SMPN 4 Purwakarta" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="400" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- USERS Entity -->
+        <mxCell id="users" value="USERS" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=14" vertex="1" parent="1">
+          <mxGeometry x="520" y="120" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- ROLES Entity -->
+        <mxCell id="roles" value="ROLES" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=14" vertex="1" parent="1">
+          <mxGeometry x="280" y="120" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- TEACHERS Entity -->
+        <mxCell id="teachers" value="TEACHERS" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=14" vertex="1" parent="1">
+          <mxGeometry x="520" y="240" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- STUDENTS Entity -->
+        <mxCell id="students" value="STUDENTS" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=14" vertex="1" parent="1">
+          <mxGeometry x="120" y="400" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- CLASSES Entity -->
+        <mxCell id="classes" value="CLASSES" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=14" vertex="1" parent="1">
+          <mxGeometry x="120" y="240" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- SUBJECTS Entity -->
+        <mxCell id="subjects" value="SUBJECTS" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=14" vertex="1" parent="1">
+          <mxGeometry x="760" y="240" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- TEACHER_SUBJECTS Entity -->
+        <mxCell id="teacher_subjects" value="TEACHER_SUBJECTS" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="520" y="360" width="140" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- ATTENDANCES Entity -->
+        <mxCell id="attendances" value="ATTENDANCES" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=14" vertex="1" parent="1">
+          <mxGeometry x="760" y="400" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- CRITERIA Entity -->
+        <mxCell id="criteria" value="CRITERIA" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;fontSize=14" vertex="1" parent="1">
+          <mxGeometry x="280" y="520" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- GRADES Entity -->
+        <mxCell id="grades" value="GRADES" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=14" vertex="1" parent="1">
+          <mxGeometry x="120" y="520" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- STUDENT_ASSESSMENTS Entity -->
+        <mxCell id="student_assessments" value="STUDENT_ASSESSMENTS" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="120" y="640" width="160" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- TEACHER_ASSESSMENTS Entity -->
+        <mxCell id="teacher_assessments" value="TEACHER_ASSESSMENTS" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="520" y="520" width="160" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- ACADEMIC_YEARS Entity -->
+        <mxCell id="academic_years" value="ACADEMIC_YEARS" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="760" y="520" width="140" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- SETTINGS Entity -->
+        <mxCell id="settings" value="SETTINGS" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;fontSize=14" vertex="1" parent="1">
+          <mxGeometry x="760" y="120" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- NOTIFICATIONS Entity -->
+        <mxCell id="notifications" value="NOTIFICATIONS" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="280" y="240" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Relationships -->
+        
+        <!-- Users - Roles (Many-to-One) -->
+        <mxCell id="rel1" value="" style="endArrow=ERmany;startArrow=ERone;endFill=0;startFill=0;strokeWidth=2" edge="1" parent="1" source="users" target="roles">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel1_label" value="has" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="430" y="125" width="40" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- Users - Teachers (One-to-One) -->
+        <mxCell id="rel2" value="" style="endArrow=ERone;startArrow=ERone;endFill=0;startFill=0;strokeWidth=2" edge="1" parent="1" source="users" target="teachers">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel2_label" value="1:1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="590" y="185" width="30" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- Users - Notifications (One-to-Many) -->
+        <mxCell id="rel3" value="" style="endArrow=ERmany;startArrow=ERone;endFill=0;startFill=0;strokeWidth=2" edge="1" parent="1" source="users" target="notifications">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel3_label" value="1:N" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="430" y="185" width="30" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- Classes - Students (One-to-Many) -->
+        <mxCell id="rel4" value="" style="endArrow=ERmany;startArrow=ERone;endFill=0;startFill=0;strokeWidth=2" edge="1" parent="1" source="classes" target="students">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel4_label" value="1:N" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="190" y="320" width="30" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- Teachers - Teacher_Subjects (One-to-Many) -->
+        <mxCell id="rel5" value="" style="endArrow=ERmany;startArrow=ERone;endFill=0;startFill=0;strokeWidth=2" edge="1" parent="1" source="teachers" target="teacher_subjects">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel5_label" value="1:N" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="600" y="300" width="30" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- Subjects - Teacher_Subjects (One-to-Many) -->
+        <mxCell id="rel6" value="" style="endArrow=ERmany;startArrow=ERone;endFill=0;startFill=0;strokeWidth=2" edge="1" parent="1" source="subjects" target="teacher_subjects">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel6_label" value="1:N" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="700" y="300" width="30" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- Classes - Teacher_Subjects (One-to-Many) -->
+        <mxCell id="rel7" value="" style="endArrow=ERmany;startArrow=ERone;endFill=0;startFill=0;strokeWidth=2" edge="1" parent="1" source="classes" target="teacher_subjects">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel7_label" value="1:N" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="320" y="380" width="30" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- Teachers - Attendances (One-to-Many Polymorphic) -->
+        <mxCell id="rel8" value="" style="endArrow=ERmany;startArrow=ERone;endFill=0;startFill=0;strokeWidth=2;dashed=1" edge="1" parent="1" source="teachers" target="attendances">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel8_label" value="1:N" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="700" y="340" width="30" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- Students - Attendances (One-to-Many Polymorphic) -->
+        <mxCell id="rel9" value="" style="endArrow=ERmany;startArrow=ERone;endFill=0;startFill=0;strokeWidth=2;dashed=1" edge="1" parent="1" source="students" target="attendances">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel9_label" value="1:N" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="440" y="410" width="30" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- Students - Grades (One-to-Many) -->
+        <mxCell id="rel10" value="" style="endArrow=ERmany;startArrow=ERone;endFill=0;startFill=0;strokeWidth=2" edge="1" parent="1" source="students" target="grades">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel10_label" value="1:N" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="190" y="460" width="30" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- Subjects - Grades (One-to-Many) -->
+        <mxCell id="rel11" value="" style="endArrow=ERmany;startArrow=ERone;endFill=0;startFill=0;strokeWidth=2" edge="1" parent="1" source="subjects" target="grades">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel11_label" value="1:N" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="440" y="380" width="30" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- Teachers - Grades (One-to-Many) -->
+        <mxCell id="rel12" value="" style="endArrow=ERmany;startArrow=ERone;endFill=0;startFill=0;strokeWidth=2" edge="1" parent="1" source="teachers" target="grades">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Students - Student_Assessments (One-to-Many) -->
+        <mxCell id="rel13" value="" style="endArrow=ERmany;startArrow=ERone;endFill=0;startFill=0;strokeWidth=2" edge="1" parent="1" source="students" target="student_assessments">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel13_label" value="1:N" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="130" y="570" width="30" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- Teachers - Teacher_Assessments (One-to-Many) -->
+        <mxCell id="rel14" value="" style="endArrow=ERmany;startArrow=ERone;endFill=0;startFill=0;strokeWidth=2" edge="1" parent="1" source="teachers" target="teacher_assessments">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel14_label" value="1:N" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="600" y="420" width="30" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- Classes - Student_Assessments (One-to-Many) -->
+        <mxCell id="rel15" value="" style="endArrow=ERmany;startArrow=ERone;endFill=0;startFill=0;strokeWidth=2" edge="1" parent="1" source="classes" target="student_assessments">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Legend -->
+        <mxCell id="legend" value="Keterangan:" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="760" y="600" width="100" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="legend1" value="1:1 = One-to-One" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="760" y="620" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="legend2" value="1:N = One-to-Many" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="760" y="640" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="legend3" value="--- = Polymorphic" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="760" y="660" width="120" height="20" as="geometry" />
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

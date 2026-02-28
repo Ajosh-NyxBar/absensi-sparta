@@ -26,10 +26,17 @@ class RoleSeeder extends Seeder
                 'name' => 'Guru',
                 'description' => 'Guru dengan akses presensi dan penilaian siswa'
             ],
+            [
+                'name' => 'Kiosk Presensi',
+                'description' => 'Akun khusus untuk display QR Code presensi guru di ruang guru'
+            ],
         ];
 
         foreach ($roles as $role) {
-            Role::create($role);
+            Role::updateOrCreate(
+                ['name' => $role['name']],
+                ['description' => $role['description']]
+            );
         }
     }
 }

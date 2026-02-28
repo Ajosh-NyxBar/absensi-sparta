@@ -161,14 +161,36 @@ class SAWService
     {
         $criteria = Criteria::where('for', $type)->get();
         
-        $matrix = $this->buildDecisionMatrix($data, $criteria, $type);
+        // Build matrix based on assessment data (already calculated)
+        $matrix = [];
+        $normalizedMatrix = [];
+        
+        foreach ($data as $index => $item) {
+            if ($type === 'student') {
+                $matrix[$index] = [
+                    'C1' => $item->academic_score ?? 0,
+                    'C2' => $item->attendance_score ?? 0,
+                    'C3' => $item->behavior_score ?? 0,
+                    'C4' => $item->skill_score ?? 0,
+                ];
+            } else {
+                $matrix[$index] = [
+                    'T1' => $item->attendance_score ?? 0,
+                    'T2' => $item->teaching_quality ?? 0,
+                    'T3' => $item->student_achievement ?? 0,
+                    'T4' => $item->discipline_score ?? 0,
+                ];
+            }
+        }
+        
+        // Normalize the matrix
         $normalizedMatrix = $this->normalizeMatrix($matrix, $criteria);
         $sawScores = $this->calculateSAWScores($normalizedMatrix, $criteria);
 
         return [
             'criteria' => $criteria,
-            'decision_matrix' => $matrix,
-            'normalized_matrix' => $normalizedMatrix,
+            'matrix' => $matrix,
+            'normalized' => $normalizedMatrix,
             'saw_scores' => $sawScores,
             'weights' => $criteria->pluck('weight', 'code')->toArray(),
         ];
