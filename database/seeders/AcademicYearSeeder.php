@@ -34,8 +34,8 @@ class AcademicYearSeeder extends Seeder
                 'semester' => 'Ganjil',
                 'start_date' => '2024-07-15',
                 'end_date' => '2024-12-21',
-                'is_active' => true,
-                'description' => 'Tahun ajaran 2024/2025 semester ganjil (Aktif)',
+                'is_active' => false,
+                'description' => 'Tahun ajaran 2024/2025 semester ganjil',
             ],
             [
                 'year' => '2024/2025',
@@ -52,6 +52,14 @@ class AcademicYearSeeder extends Seeder
                 'end_date' => '2025-12-20',
                 'is_active' => false,
                 'description' => 'Tahun ajaran 2025/2026 semester ganjil',
+            ],
+            [
+                'year' => '2025/2026',
+                'semester' => 'Genap',
+                'start_date' => '2026-01-05',
+                'end_date' => '2026-06-19',
+                'is_active' => true,
+                'description' => 'Tahun ajaran 2025/2026 semester genap (Aktif)',
             ],
         ];
 

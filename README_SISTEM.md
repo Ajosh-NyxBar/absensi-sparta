@@ -188,8 +188,8 @@ Penelitian ini menggunakan **SDLC Model Prototype**:
 ### Konfigurasi Geolocation
 Edit koordinat sekolah di `AttendanceController.php`:
 ```php
-$schoolLat = -6.5567;  // Latitude sekolah
-$schoolLong = 107.4442; // Longitude sekolah
+$schoolLat = -6.5465236;  // Latitude SMPN 4 Purwakarta
+$schoolLong = 107.4414175; // Longitude SMPN 4 Purwakarta
 $allowedRadius = 100;   // Radius dalam meter
 ```
 

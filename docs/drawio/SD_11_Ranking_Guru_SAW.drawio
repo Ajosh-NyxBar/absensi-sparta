@@ -1,0 +1,201 @@
+<mxfile host="app.diagrams.net" modified="2025-01-01T00:00:00.000Z" agent="5.0" version="24.0.0" type="device">
+  <diagram id="sd11" name="SD 11 - Ranking Guru SAW">
+    <mxGraphModel dx="1422" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="2" value="sd Lihat Ranking Guru (SAW)" style="shape=umlFrame;whiteSpace=wrap;html=1;width=190;height=20;boundedLbl=1;verticalAlign=top;align=left;spacingLeft=5;fillColor=none;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="20" y="10" width="810" height="770" as="geometry"/>
+        </mxCell>
+        <!-- P1: Pengguna (Actor) cx=95 -->
+        <mxCell id="p1" value="Pengguna" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="80" y="40" width="30" height="55" as="geometry"/>
+        </mxCell>
+        <mxCell id="ll1" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 4;strokeColor=#999999;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="95" y="110" as="sourcePoint"/>
+            <mxPoint x="95" y="760" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- P2: Halaman SAW (Boundary) cx=255 -->
+        <mxCell id="p2" value="Halaman SAW" style="shape=umlBoundary;whiteSpace=wrap;html=1;verticalLabelPosition=bottom;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="230" y="45" width="50" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="ll2" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 4;strokeColor=#999999;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="255" y="110" as="sourcePoint"/>
+            <mxPoint x="255" y="760" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- P3: SAWController (Control) cx=415 -->
+        <mxCell id="p3" value="SAWController" style="shape=umlControl;whiteSpace=wrap;html=1;verticalLabelPosition=bottom;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="390" y="45" width="50" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="ll3" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 4;strokeColor=#999999;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="415" y="110" as="sourcePoint"/>
+            <mxPoint x="415" y="760" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- P4: SAWService (Entity) cx=575 -->
+        <mxCell id="p4" value="SAWService" style="shape=umlEntity;whiteSpace=wrap;html=1;verticalLabelPosition=bottom;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="550" y="45" width="50" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="ll4" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 4;strokeColor=#999999;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="575" y="110" as="sourcePoint"/>
+            <mxPoint x="575" y="760" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- P5: Database (Entity) cx=735 -->
+        <mxCell id="p5" value="Database" style="shape=umlEntity;whiteSpace=wrap;html=1;verticalLabelPosition=bottom;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="710" y="45" width="50" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="ll5" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 4;strokeColor=#999999;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="735" y="110" as="sourcePoint"/>
+            <mxPoint x="735" y="760" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- Activation Bars -->
+        <mxCell id="a2" value="" style="fillColor=#E6E6E6;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="250" y="125" width="10" height="610" as="geometry"/>
+        </mxCell>
+        <mxCell id="a3" value="" style="fillColor=#E6E6E6;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="410" y="160" width="10" height="545" as="geometry"/>
+        </mxCell>
+        <mxCell id="a4" value="" style="fillColor=#E6E6E6;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="570" y="260" width="10" height="370" as="geometry"/>
+        </mxCell>
+        <mxCell id="a5" value="" style="fillColor=#E6E6E6;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="730" y="295" width="10" height="285" as="geometry"/>
+        </mxCell>
+        <!-- Messages -->
+        <mxCell id="m1" value="1: Membuka menu ranking guru" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="95" y="135" as="sourcePoint"/>
+            <mxPoint x="250" y="135" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m2" value="2: Request halaman ranking" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="170" as="sourcePoint"/>
+            <mxPoint x="410" y="170" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m3" value="3: Menampilkan halaman &amp; filter" style="html=1;verticalAlign=bottom;endArrow=open;endFill=0;dashed=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="410" y="200" as="sourcePoint"/>
+            <mxPoint x="260" y="200" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m4" value="4: Menampilkan filter periode" style="html=1;verticalAlign=bottom;endArrow=open;endFill=0;dashed=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="250" y="225" as="sourcePoint"/>
+            <mxPoint x="95" y="225" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m5" value="5: Memilih filter &amp; hitung ranking" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="95" y="255" as="sourcePoint"/>
+            <mxPoint x="250" y="255" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m6" value="6: Request perhitungan SAW" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="280" as="sourcePoint"/>
+            <mxPoint x="410" y="280" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m7" value="7: Menjalankan perhitungan SAW" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="305" as="sourcePoint"/>
+            <mxPoint x="570" y="305" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m8" value="8: Query data guru &amp; kriteria" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="580" y="335" as="sourcePoint"/>
+            <mxPoint x="730" y="335" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m9" value="9: Return data" style="html=1;verticalAlign=bottom;endArrow=open;endFill=0;dashed=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="730" y="360" as="sourcePoint"/>
+            <mxPoint x="580" y="360" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m10" value="10: Membangun matriks keputusan" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="580" y="390" as="sourcePoint"/>
+            <mxPoint x="580" y="415" as="targetPoint"/>
+            <Array as="points">
+              <mxPoint x="625" y="390"/>
+              <mxPoint x="625" y="415"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m11" value="11: Normalisasi matriks" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="580" y="435" as="sourcePoint"/>
+            <mxPoint x="580" y="460" as="targetPoint"/>
+            <Array as="points">
+              <mxPoint x="625" y="435"/>
+              <mxPoint x="625" y="460"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m12" value="12: Hitung nilai preferensi" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="580" y="480" as="sourcePoint"/>
+            <mxPoint x="580" y="505" as="targetPoint"/>
+            <Array as="points">
+              <mxPoint x="625" y="480"/>
+              <mxPoint x="625" y="505"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m13" value="13: Perankingan" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="580" y="525" as="sourcePoint"/>
+            <mxPoint x="580" y="550" as="targetPoint"/>
+            <Array as="points">
+              <mxPoint x="625" y="525"/>
+              <mxPoint x="625" y="550"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m14" value="14: Return hasil ranking" style="html=1;verticalAlign=bottom;endArrow=open;endFill=0;dashed=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="570" y="575" as="sourcePoint"/>
+            <mxPoint x="420" y="575" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m15" value="15: Simpan ke teacher_assessments" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="600" as="sourcePoint"/>
+            <mxPoint x="730" y="600" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m16" value="16: Konfirmasi tersimpan" style="html=1;verticalAlign=bottom;endArrow=open;endFill=0;dashed=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="730" y="625" as="sourcePoint"/>
+            <mxPoint x="420" y="625" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m17" value="17: Mengirim data ranking" style="html=1;verticalAlign=bottom;endArrow=open;endFill=0;dashed=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="410" y="660" as="sourcePoint"/>
+            <mxPoint x="260" y="660" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m18" value="18: Menampilkan tabel ranking &amp; detail SAW" style="html=1;verticalAlign=bottom;endArrow=open;endFill=0;dashed=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="250" y="700" as="sourcePoint"/>
+            <mxPoint x="95" y="700" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,169 @@
+<mxfile host="app.diagrams.net" modified="2025-01-01T00:00:00.000Z" agent="5.0" version="24.0.0" type="device">
+  <diagram id="sd12" name="SD 12 - Export Laporan">
+    <mxGraphModel dx="1422" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="650" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="2" value="sd Export Laporan" style="shape=umlFrame;whiteSpace=wrap;html=1;width=120;height=20;boundedLbl=1;verticalAlign=top;align=left;spacingLeft=5;fillColor=none;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="20" y="10" width="810" height="620" as="geometry"/>
+        </mxCell>
+        <!-- P1: Pengguna (Actor) cx=95 -->
+        <mxCell id="p1" value="Pengguna" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="80" y="40" width="30" height="55" as="geometry"/>
+        </mxCell>
+        <mxCell id="ll1" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 4;strokeColor=#999999;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="95" y="110" as="sourcePoint"/>
+            <mxPoint x="95" y="610" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- P2: Halaman Laporan (Boundary) cx=255 -->
+        <mxCell id="p2" value="Halaman Laporan" style="shape=umlBoundary;whiteSpace=wrap;html=1;verticalLabelPosition=bottom;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="230" y="45" width="50" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="ll2" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 4;strokeColor=#999999;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="255" y="110" as="sourcePoint"/>
+            <mxPoint x="255" y="610" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- P3: ReportController (Control) cx=415 -->
+        <mxCell id="p3" value="ReportController" style="shape=umlControl;whiteSpace=wrap;html=1;verticalLabelPosition=bottom;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="390" y="45" width="50" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="ll3" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 4;strokeColor=#999999;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="415" y="110" as="sourcePoint"/>
+            <mxPoint x="415" y="610" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- P4: Export Class (Entity) cx=575 -->
+        <mxCell id="p4" value="Export Class" style="shape=umlEntity;whiteSpace=wrap;html=1;verticalLabelPosition=bottom;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="550" y="45" width="50" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="ll4" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 4;strokeColor=#999999;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="575" y="110" as="sourcePoint"/>
+            <mxPoint x="575" y="610" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- P5: Database (Entity) cx=735 -->
+        <mxCell id="p5" value="Database" style="shape=umlEntity;whiteSpace=wrap;html=1;verticalLabelPosition=bottom;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="710" y="45" width="50" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="ll5" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 4;strokeColor=#999999;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="735" y="110" as="sourcePoint"/>
+            <mxPoint x="735" y="610" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- Activation Bars -->
+        <mxCell id="a2" value="" style="fillColor=#E6E6E6;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="250" y="125" width="10" height="460" as="geometry"/>
+        </mxCell>
+        <mxCell id="a3" value="" style="fillColor=#E6E6E6;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="410" y="160" width="10" height="395" as="geometry"/>
+        </mxCell>
+        <mxCell id="a4" value="" style="fillColor=#E6E6E6;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="570" y="340" width="10" height="160" as="geometry"/>
+        </mxCell>
+        <mxCell id="a5" value="" style="fillColor=#E6E6E6;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="730" y="380" width="10" height="40" as="geometry"/>
+        </mxCell>
+        <!-- Messages -->
+        <mxCell id="m1" value="1: Membuka menu laporan" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="95" y="135" as="sourcePoint"/>
+            <mxPoint x="250" y="135" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m2" value="2: Request halaman laporan" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="170" as="sourcePoint"/>
+            <mxPoint x="410" y="170" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m3" value="3: Menampilkan halaman &amp; filter" style="html=1;verticalAlign=bottom;endArrow=open;endFill=0;dashed=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="410" y="200" as="sourcePoint"/>
+            <mxPoint x="260" y="200" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m4" value="4: Menampilkan filter &amp; opsi format" style="html=1;verticalAlign=bottom;endArrow=open;endFill=0;dashed=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="250" y="230" as="sourcePoint"/>
+            <mxPoint x="95" y="230" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m5" value="5: Memilih jenis, filter, dan format" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="95" y="265" as="sourcePoint"/>
+            <mxPoint x="250" y="265" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m6" value="6: Request export" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="295" as="sourcePoint"/>
+            <mxPoint x="410" y="295" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m7" value="7: Memeriksa format (Excel/PDF)" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="320" as="sourcePoint"/>
+            <mxPoint x="420" y="345" as="targetPoint"/>
+            <Array as="points">
+              <mxPoint x="465" y="320"/>
+              <mxPoint x="465" y="345"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m8" value="8: Generate file export" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="365" as="sourcePoint"/>
+            <mxPoint x="570" y="365" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m9" value="9: Query data sesuai filter" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="580" y="395" as="sourcePoint"/>
+            <mxPoint x="730" y="395" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m10" value="10: Return data" style="html=1;verticalAlign=bottom;endArrow=open;endFill=0;dashed=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="730" y="420" as="sourcePoint"/>
+            <mxPoint x="580" y="420" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m11" value="11: Format data ke Excel/PDF" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="580" y="445" as="sourcePoint"/>
+            <mxPoint x="580" y="470" as="targetPoint"/>
+            <Array as="points">
+              <mxPoint x="625" y="445"/>
+              <mxPoint x="625" y="470"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m12" value="12: Return file" style="html=1;verticalAlign=bottom;endArrow=open;endFill=0;dashed=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="570" y="495" as="sourcePoint"/>
+            <mxPoint x="420" y="495" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m13" value="13: Download file" style="html=1;verticalAlign=bottom;endArrow=open;endFill=0;dashed=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="410" y="530" as="sourcePoint"/>
+            <mxPoint x="260" y="530" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m14" value="14: Mengunduh file ke perangkat" style="html=1;verticalAlign=bottom;endArrow=open;endFill=0;dashed=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="250" y="565" as="sourcePoint"/>
+            <mxPoint x="95" y="565" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

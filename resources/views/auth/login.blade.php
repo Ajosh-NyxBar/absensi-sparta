@@ -59,8 +59,8 @@
                 
                 <div class="grid md:grid-cols-2 gap-0">
                     
-                    <!-- Left Side - Branding & Info -->
-                    <div class="bg-gradient-to-br from-purple-600 to-indigo-600 px-6 sm:px-8 lg:px-10 py-8 sm:py-10 lg:py-12 text-center relative overflow-hidden flex flex-col justify-center min-h-[400px] sm:min-h-[500px] md:min-h-[600px]">
+                    <!-- Left Side - Branding & Info (hidden on mobile) -->
+                    <div class="hidden md:flex bg-gradient-to-br from-purple-600 to-indigo-600 px-6 sm:px-8 lg:px-10 py-8 sm:py-10 lg:py-12 text-center relative overflow-hidden flex-col justify-center min-h-[600px]">
                         <div class="absolute inset-0 bg-white/5"></div>
                         <div class="absolute inset-0 overflow-hidden">
                             <div class="absolute -top-20 -left-20 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>

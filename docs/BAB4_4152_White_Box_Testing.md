@@ -16,13 +16,13 @@ Peneliti menguji tiga method kritis pada sistem: `scanQR()`, `checkIn()`, dan `n
 
 Method `scanQR()` menangani proses pemindaian QR Code untuk absensi guru. Method ini memiliki beberapa titik keputusan yang menentukan alur eksekusi program.
 
-**Gambar 4.XX Flowgraph Method `scanQR()`**
+**Gambar 4.45 Flowgraph Method `scanQR()`**
 
 *(Lihat file: docs/drawio/Flowgraph_scanQR.drawio)*
 
 Berikut penjelasan setiap node pada flowgraph:
 
-**Tabel 4.XX Deskripsi Node Flowgraph `scanQR()`**
+**Tabel 4.62 Deskripsi Node Flowgraph `scanQR()`**
 
 | Node | Tipe | Deskripsi |
 |------|------|-----------|
@@ -48,7 +48,7 @@ Berikut penjelasan setiap node pada flowgraph:
 
 Artinya terdapat **8 jalur independen** yang harus diuji:
 
-**Tabel 4.XX Jalur Independen dan Hasil Pengujian `scanQR()`**
+**Tabel 4.63 Jalur Independen dan Hasil Pengujian `scanQR()`**
 
 | Jalur | Path | Keterangan | Hasil yang Diharapkan | Hasil Pengujian | Status |
 |-------|------|-----------|----------------------|----------------|--------|
@@ -69,11 +69,11 @@ Seluruh **8 jalur independen** berhasil diuji dan menghasilkan output sesuai yan
 
 Method `checkIn()` menangani proses absensi berbasis geolocation. Method ini memvalidasi koordinat GPS pengguna terhadap titik koordinat sekolah menggunakan formula Haversine.
 
-**Gambar 4.XX Flowgraph Method `checkIn()`**
+**Gambar 4.46 Flowgraph Method `checkIn()`**
 
 *(Lihat file: docs/drawio/Flowgraph_checkIn.drawio)*
 
-**Tabel 4.XX Deskripsi Node Flowgraph `checkIn()`**
+**Tabel 4.64 Deskripsi Node Flowgraph `checkIn()`**
 
 | Node | Tipe | Deskripsi |
 |------|------|-----------|
@@ -98,7 +98,7 @@ Method `checkIn()` menangani proses absensi berbasis geolocation. Method ini mem
 
 Artinya terdapat **5 jalur independen** yang harus diuji:
 
-**Tabel 4.XX Jalur Independen dan Hasil Pengujian `checkIn()`**
+**Tabel 4.65 Jalur Independen dan Hasil Pengujian `checkIn()`**
 
 | Jalur | Path | Keterangan | Hasil yang Diharapkan | Hasil Pengujian | Status |
 |-------|------|-----------|----------------------|----------------|--------|
@@ -110,13 +110,13 @@ Artinya terdapat **5 jalur independen** yang harus diuji:
 
 Seluruh **5 jalur independen** berhasil diuji. Pengujian ini juga memverifikasi bahwa formula Haversine pada method `calculateDistance()` menghasilkan perhitungan jarak yang akurat:
 
-**Tabel 4.XX Verifikasi Akurasi Formula Haversine**
+**Tabel 4.66 Verifikasi Akurasi Formula Haversine**
 
 | No | Koordinat 1 | Koordinat 2 | Jarak Referensi | Jarak Sistem | Selisih |
 |----|------------|------------|----------------|-------------|---------|
-| 1 | (-6.5567, 107.4442) | (-6.5567, 107.4442) | 0 m | 0 m | 0 m |
-| 2 | (-6.5567, 107.4442) | (-6.5570, 107.4445) | ~46 m | ~46 m | < 1 m |
-| 3 | (-6.5567, 107.4442) | (-6.5600, 107.4500) | ~714 m | ~714 m | < 1 m |
+| 1 | (-6.5465, 107.4414) | (-6.5465, 107.4414) | 0 m | 0 m | 0 m |
+| 2 | (-6.5465, 107.4414) | (-6.5468, 107.4417) | ~46 m | ~46 m | < 1 m |
+| 3 | (-6.5465, 107.4414) | (-6.5500, 107.4470) | ~714 m | ~714 m | < 1 m |
 
 ---
 
@@ -124,11 +124,11 @@ Seluruh **5 jalur independen** berhasil diuji. Pengujian ini juga memverifikasi 
 
 Method `normalizeMatrix()` merupakan inti dari algoritma SAW yang menangani normalisasi matriks keputusan. Method ini memiliki percabangan berdasarkan tipe kriteria (*benefit* atau *cost*) serta penanganan *edge case* pembagian dengan nol.
 
-**Gambar 4.XX Flowgraph Method `normalizeMatrix()`**
+**Gambar 4.47 Flowgraph Method `normalizeMatrix()`**
 
 *(Lihat file: docs/drawio/Flowgraph_normalizeMatrix.drawio)*
 
-**Tabel 4.XX Deskripsi Node Flowgraph `normalizeMatrix()`**
+**Tabel 4.67 Deskripsi Node Flowgraph `normalizeMatrix()`**
 
 | Node | Tipe | Deskripsi |
 |------|------|-----------|
@@ -157,7 +157,7 @@ Method `normalizeMatrix()` merupakan inti dari algoritma SAW yang menangani norm
 
 Artinya terdapat **6 jalur independen** yang harus diuji:
 
-**Tabel 4.XX Jalur Independen dan Hasil Pengujian `normalizeMatrix()`**
+**Tabel 4.68 Jalur Independen dan Hasil Pengujian `normalizeMatrix()`**
 
 | Jalur | Path | Keterangan | Hasil yang Diharapkan | Hasil Pengujian | Status |
 |-------|------|-----------|----------------------|----------------|--------|
@@ -170,7 +170,7 @@ Artinya terdapat **6 jalur independen** yang harus diuji:
 
 Seluruh **6 jalur independen** berhasil diuji. Secara khusus, peneliti juga memverifikasi kebenaran perhitungan SAW secara end-to-end dengan membandingkan hasil sistem terhadap perhitungan manual:
 
-**Tabel 4.XX Verifikasi Perhitungan SAW (Manual vs Sistem)**
+**Tabel 4.69 Verifikasi Perhitungan SAW (Manual vs Sistem)**
 
 Data sampel: 3 alternatif, 4 kriteria (bobot: C1=0.35, C2=0.25, C3=0.20, C4=0.20, semua benefit):
 
@@ -191,7 +191,7 @@ Perhitungan sistem **identik** dengan perhitungan manual hingga 4 digit desimal.
 
 ## d. Rekapitulasi Hasil White Box Testing
 
-**Tabel 4.XX Rekapitulasi Cyclomatic Complexity dan Hasil Pengujian**
+**Tabel 4.70 Rekapitulasi Cyclomatic Complexity dan Hasil Pengujian**
 
 | No | Method yang Diuji | Node (N) | Edge (E) | V(G) | Jalur Diuji | Berhasil | Status |
 |----|------------------|----------|----------|------|------------|----------|--------|

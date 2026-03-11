@@ -32,29 +32,67 @@
                     </div>
                 </div>
 
-                <form action="{{ route('reports.attendance.export') }}" method="POST" class="space-y-4">
+                <form action="{{ route('reports.attendance.export') }}" method="POST" class="space-y-4" id="attendanceForm">
                     @csrf
-                    
+
+                    <!-- Mode: Semester atau Manual -->
                     <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">
-                            {{ __('reports.start_date') }} <span class="text-red-500">*</span>
-                        </label>
-                        <input type="date" 
-                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200" 
-                               name="start_date" 
-                               value="{{ date('Y-m-01') }}" 
-                               required>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Mode Periode</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button type="button" onclick="setAttendanceMode('semester')" id="btnModeSemester"
+                                class="px-3 py-2 text-sm font-medium rounded-lg border-2 transition-all duration-200 border-purple-500 bg-purple-50 text-purple-700">
+                                <i class="fas fa-calendar-alt mr-1"></i> Semester
+                            </button>
+                            <button type="button" onclick="setAttendanceMode('manual')" id="btnModeManual"
+                                class="px-3 py-2 text-sm font-medium rounded-lg border-2 transition-all duration-200 border-gray-200 bg-white text-gray-600">
+                                <i class="fas fa-calendar-day mr-1"></i> Manual
+                            </button>
+                        </div>
                     </div>
-                    
-                    <div>
+
+                    <!-- Semester Mode -->
+                    <div id="semesterMode">
                         <label class="block text-sm font-semibold text-gray-700 mb-2">
-                            {{ __('reports.end_date') }} <span class="text-red-500">*</span>
+                            Pilih Semester <span class="text-red-500">*</span>
                         </label>
-                        <input type="date" 
-                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200" 
-                               name="end_date" 
-                               value="{{ date('Y-m-d') }}" 
-                               required>
+                        <select class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
+                                name="academic_year_id" id="academic_year_id">
+                            <option value="">-- Pilih Semester --</option>
+                            @foreach($academicYears as $ay)
+                                <option value="{{ $ay->id }}" {{ $ay->is_active ? 'selected' : '' }}>
+                                    {{ $ay->year }} - {{ $ay->semester }}
+                                    ({{ \Carbon\Carbon::parse($ay->start_date)->format('d/m/Y') }} s/d {{ \Carbon\Carbon::parse($ay->end_date)->format('d/m/Y') }})
+                                    @if($ay->is_active) ✓ Aktif @endif
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <!-- Manual Mode (hidden by default) -->
+                    <div id="manualMode" style="display: none;">
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                    {{ __('reports.start_date') }} <span class="text-red-500">*</span>
+                                </label>
+                                <input type="date"
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
+                                       name="start_date"
+                                       id="manual_start_date"
+                                       value="{{ date('Y-m-01') }}">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                    {{ __('reports.end_date') }} <span class="text-red-500">*</span>
+                                </label>
+                                <input type="date"
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
+                                       name="end_date"
+                                       id="manual_end_date"
+                                       value="{{ date('Y-m-d') }}">
+                            </div>
+                        </div>
                     </div>
                     
                     <div>
@@ -354,3 +392,45 @@
 </div>
 
 @endsection
+
+@push('scripts')
+<script>
+    let attendanceMode = 'semester';
+
+    function setAttendanceMode(mode) {
+        attendanceMode = mode;
+        const semesterEl = document.getElementById('semesterMode');
+        const manualEl = document.getElementById('manualMode');
+        const btnSemester = document.getElementById('btnModeSemester');
+        const btnManual = document.getElementById('btnModeManual');
+        const academicYearId = document.getElementById('academic_year_id');
+        const startDate = document.getElementById('manual_start_date');
+        const endDate = document.getElementById('manual_end_date');
+
+        if (mode === 'semester') {
+            semesterEl.style.display = '';
+            manualEl.style.display = 'none';
+            btnSemester.className = 'px-3 py-2 text-sm font-medium rounded-lg border-2 transition-all duration-200 border-purple-500 bg-purple-50 text-purple-700';
+            btnManual.className = 'px-3 py-2 text-sm font-medium rounded-lg border-2 transition-all duration-200 border-gray-200 bg-white text-gray-600';
+            // Enable semester, disable manual dates
+            academicYearId.disabled = false;
+            if (startDate) startDate.disabled = true;
+            if (endDate) endDate.disabled = true;
+        } else {
+            semesterEl.style.display = 'none';
+            manualEl.style.display = '';
+            btnManual.className = 'px-3 py-2 text-sm font-medium rounded-lg border-2 transition-all duration-200 border-purple-500 bg-purple-50 text-purple-700';
+            btnSemester.className = 'px-3 py-2 text-sm font-medium rounded-lg border-2 transition-all duration-200 border-gray-200 bg-white text-gray-600';
+            // Disable semester, enable manual dates
+            academicYearId.disabled = true;
+            if (startDate) startDate.disabled = false;
+            if (endDate) endDate.disabled = false;
+        }
+    }
+
+    // Initialize on load
+    document.addEventListener('DOMContentLoaded', function() {
+        setAttendanceMode('semester');
+    });
+</script>
+@endpush

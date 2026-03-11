@@ -30,7 +30,8 @@
                     Masukkan nilai untuk setiap siswa. Nilai akhir akan dihitung otomatis dengan bobot: 
                     <span class="font-semibold">Tugas Harian (30%)</span>, 
                     <span class="font-semibold">UTS (30%)</span>, 
-                    <span class="font-semibold">UAS (40%)</span>
+                    <span class="font-semibold">UAS (40%)</span>.
+                    Nilai <span class="font-semibold">Sikap</span> dan <span class="font-semibold">Keterampilan</span> diisi terpisah (0-100).
                 </p>
             </div>
         </div>
@@ -105,10 +106,22 @@
                                             <span class="text-xs text-gray-500 font-normal">(40%)</span>
                                         </div>
                                     </th>
-                                    <th class="px-4 py-4 text-center text-xs font-bold text-gray-700 uppercase bg-gray-50 rounded-tr-lg">
+                                    <th class="px-4 py-4 text-center text-xs font-bold text-gray-700 uppercase bg-gray-50">
                                         <div class="flex flex-col">
                                             <span>Nilai Akhir</span>
                                             <span class="text-xs text-gray-500 font-normal">(Auto)</span>
+                                        </div>
+                                    </th>
+                                    <th class="px-4 py-4 text-center text-xs font-bold text-gray-700 uppercase bg-gray-50">
+                                        <div class="flex flex-col">
+                                            <span>Sikap</span>
+                                            <span class="text-xs text-gray-500 font-normal">(0-100)</span>
+                                        </div>
+                                    </th>
+                                    <th class="px-4 py-4 text-center text-xs font-bold text-gray-700 uppercase bg-gray-50 rounded-tr-lg">
+                                        <div class="flex flex-col">
+                                            <span>Keterampilan</span>
+                                            <span class="text-xs text-gray-500 font-normal">(0-100)</span>
                                         </div>
                                     </th>
                                 </tr>
@@ -177,6 +190,26 @@
                                             <span id="final-grade-{{ $index }}" class="inline-flex items-center px-3 py-1 rounded-lg text-sm font-bold bg-gradient-to-r from-green-500 to-green-600 text-white">
                                                 {{ $existingGrade ? number_format($existingGrade->final_grade, 2) : '0.00' }}
                                             </span>
+                                        </td>
+                                        <td class="px-4 py-4">
+                                            <input type="number" 
+                                                   name="students[{{ $index }}][behavior_score]" 
+                                                   value="{{ old("students.{$index}.behavior_score", $existingGrade->behavior_score ?? '') }}"
+                                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all text-center" 
+                                                   min="0" 
+                                                   max="100" 
+                                                   step="0.01"
+                                                   placeholder="0-100">
+                                        </td>
+                                        <td class="px-4 py-4">
+                                            <input type="number" 
+                                                   name="students[{{ $index }}][skill_score]" 
+                                                   value="{{ old("students.{$index}.skill_score", $existingGrade->skill_score ?? '') }}"
+                                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all text-center" 
+                                                   min="0" 
+                                                   max="100" 
+                                                   step="0.01"
+                                                   placeholder="0-100">
                                         </td>
                                     </tr>
                                 @endforeach

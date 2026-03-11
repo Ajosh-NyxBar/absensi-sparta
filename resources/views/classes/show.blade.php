@@ -79,7 +79,7 @@
                         <span class="text-gray-900 font-semibold">{{ $class->academic_year }}</span>
                     </div>
                     
-                    <div class="flex items-start justify-between">
+                    <div class="flex items-start justify-between pb-4 border-b border-gray-100">
                         <div class="flex items-center gap-3 text-gray-600">
                             <div class="w-10 h-10 bg-purple-50 rounded-lg flex items-center justify-center">
                                 <i class="fas fa-chair text-purple-600"></i>
@@ -87,6 +87,20 @@
                             <span class="text-sm font-medium">Kapasitas</span>
                         </div>
                         <span class="text-gray-900 font-semibold">{{ $class->capacity ?? 30 }} siswa</span>
+                    </div>
+
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-center gap-3 text-gray-600">
+                            <div class="w-10 h-10 bg-amber-50 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-user-tie text-amber-600"></i>
+                            </div>
+                            <span class="text-sm font-medium">Wali Kelas</span>
+                        </div>
+                        @if($class->homeroomTeacher)
+                            <span class="text-gray-900 font-semibold">{{ $class->homeroomTeacher->name }}</span>
+                        @else
+                            <span class="text-gray-400 italic text-sm">Belum ditentukan</span>
+                        @endif
                     </div>
                 </div>
             </div>

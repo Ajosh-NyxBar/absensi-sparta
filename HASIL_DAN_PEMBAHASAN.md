@@ -266,9 +266,9 @@ Test Case: Haversine Formula
 ```php
 public function testCalculateDistance()
 {
-    // SMPN 4 Purwakarta coordinates
-    $schoolLat = -6.5567;
-    $schoolLong = 107.4442;
+    // SMPN 4 Purwakarta coordinates (Google Maps)
+    $schoolLat = -6.5465236;
+    $schoolLong = 107.4414175;
     
     // Test location 50 meters away
     $testLat = -6.5572;

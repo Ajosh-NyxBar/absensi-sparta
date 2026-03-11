@@ -22,8 +22,14 @@ class DatabaseSeeder extends Seeder
             SubjectSeeder::class,
             ClassSeeder::class,
             StudentSeeder::class,
+            AcademicYearSeeder::class,
+            SettingSeeder::class,
             CriteriaSeeder::class,
+            TeacherSubjectAssignmentSeeder::class,
             AttendanceSeeder::class,
+            GradeSeeder::class,
+            StudentAssessmentSeeder::class,
+            TeacherAssessmentSeeder::class,
         ]);
     }
 }

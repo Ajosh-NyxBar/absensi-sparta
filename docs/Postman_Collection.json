@@ -1,0 +1,2367 @@
+{
+	"info": {
+		"_postman_id": "si-absensi-guru-smpn4",
+		"name": "Sistem Informasi Absensi Guru & Penilaian Siswa - SMPN 4 Purwakarta",
+		"description": "Dokumentasi API lengkap untuk Sistem Informasi Absensi Guru menggunakan QR Code dan Penilaian Siswa Berbasis Web dengan Metode SAW.\n\nBase URL: http://localhost:8000\nAuth: Session-based (Cookie)\nCSRF: Required for POST/PUT/DELETE requests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "csrf_token",
+			"value": "",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "01. Authentication",
+			"description": "Endpoint untuk login, logout, dan akses dashboard.",
+			"item": [
+				{
+					"name": "GET Login Page",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/login",
+							"host": ["{{base_url}}"],
+							"path": ["login"]
+						},
+						"description": "Menampilkan halaman login. Mengambil CSRF token dari cookie untuk digunakan di request selanjutnya."
+					}
+				},
+				{
+					"name": "POST Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "Content-Type", "value": "application/x-www-form-urlencoded"},
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"},
+							{"key": "Accept", "value": "text/html"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}", "description": "CSRF Token"},
+								{"key": "email", "value": "admin@admin.com", "description": "Email pengguna (required, format email)"},
+								{"key": "password", "value": "password", "description": "Password pengguna (required)"},
+								{"key": "remember", "value": "on", "description": "Remember me (optional: on)"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/login",
+							"host": ["{{base_url}}"],
+							"path": ["login"]
+						},
+						"description": "Login ke sistem. Redirect ke dashboard sesuai role:\n- Admin → /dashboard (admin-modern)\n- Guru → /dashboard (teacher)\n- Kepala Sekolah → /dashboard (headmaster)\n- Kiosk Presensi → /kiosk-dashboard"
+					}
+				},
+				{
+					"name": "POST Logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"},
+							{"key": "Accept", "value": "text/html"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/logout",
+							"host": ["{{base_url}}"],
+							"path": ["logout"]
+						},
+						"description": "Logout dari sistem. Redirect ke halaman login."
+					}
+				},
+				{
+					"name": "GET Dashboard",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/dashboard",
+							"host": ["{{base_url}}"],
+							"path": ["dashboard"]
+						},
+						"description": "Redirect ke dashboard sesuai role user yang login."
+					}
+				}
+			]
+		},
+		{
+			"name": "02. Profile Management",
+			"description": "Endpoint untuk mengelola profil pengguna yang sedang login.",
+			"item": [
+				{
+					"name": "GET Edit Profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/profile",
+							"host": ["{{base_url}}"],
+							"path": ["profile"]
+						},
+						"description": "Menampilkan halaman edit profil user yang sedang login."
+					}
+				},
+				{
+					"name": "PUT Update Profile",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"},
+							{"key": "Content-Type", "value": "multipart/form-data"}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "_method", "value": "PUT"},
+								{"key": "name", "value": "Admin User", "description": "Nama lengkap (required, max 255)"},
+								{"key": "email", "value": "admin@admin.com", "description": "Email (required, unique kecuali milik sendiri)"},
+								{"key": "profile_photo", "type": "file", "description": "Foto profil (optional, image, max 2MB)"},
+								{"key": "remove_photo", "value": "0", "description": "Hapus foto (optional: 1 untuk hapus)"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/profile",
+							"host": ["{{base_url}}"],
+							"path": ["profile"]
+						},
+						"description": "Update profil user. Upload foto profil baru atau hapus foto yang ada."
+					}
+				},
+				{
+					"name": "PUT Update Password",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"},
+							{"key": "Content-Type", "value": "application/x-www-form-urlencoded"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "_method", "value": "PUT"},
+								{"key": "current_password", "value": "password", "description": "Password saat ini (required)"},
+								{"key": "password", "value": "newpassword", "description": "Password baru (required, min 8)"},
+								{"key": "password_confirmation", "value": "newpassword", "description": "Konfirmasi password baru (required, sama dengan password)"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/profile/password",
+							"host": ["{{base_url}}"],
+							"path": ["profile", "password"]
+						},
+						"description": "Ganti password user yang sedang login."
+					}
+				}
+			]
+		},
+		{
+			"name": "03. User Management (Admin)",
+			"description": "CRUD pengguna sistem. Hanya dapat diakses oleh Admin.",
+			"item": [
+				{
+					"name": "GET List Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users?search=&role=",
+							"host": ["{{base_url}}"],
+							"path": ["users"],
+							"query": [
+								{"key": "search", "value": "", "description": "Cari berdasarkan nama/email (optional)"},
+								{"key": "role", "value": "", "description": "Filter berdasarkan role (optional)"}
+							]
+						},
+						"description": "Menampilkan daftar semua user. Paginated 10/page. Filter: search, role."
+					}
+				},
+				{
+					"name": "GET Create User Form",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/create",
+							"host": ["{{base_url}}"],
+							"path": ["users", "create"]
+						},
+						"description": "Menampilkan form tambah user baru."
+					}
+				},
+				{
+					"name": "POST Store User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"},
+							{"key": "Content-Type", "value": "application/x-www-form-urlencoded"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "name", "value": "User Baru", "description": "Nama lengkap (required, max 255)"},
+								{"key": "email", "value": "user@example.com", "description": "Email (required, unique, format email)"},
+								{"key": "password", "value": "password123", "description": "Password (required, min 6)"},
+								{"key": "password_confirmation", "value": "password123", "description": "Konfirmasi password (required, sama)"},
+								{"key": "role_id", "value": "1", "description": "ID Role (required, exists di tabel roles)"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": ["{{base_url}}"],
+							"path": ["users"]
+						},
+						"description": "Simpan user baru ke database."
+					}
+				},
+				{
+					"name": "GET Show User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/1",
+							"host": ["{{base_url}}"],
+							"path": ["users", "1"]
+						},
+						"description": "Menampilkan detail user berdasarkan ID."
+					}
+				},
+				{
+					"name": "GET Edit User Form",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/1/edit",
+							"host": ["{{base_url}}"],
+							"path": ["users", "1", "edit"]
+						},
+						"description": "Menampilkan form edit user."
+					}
+				},
+				{
+					"name": "PUT Update User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"},
+							{"key": "Content-Type", "value": "application/x-www-form-urlencoded"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "_method", "value": "PUT"},
+								{"key": "name", "value": "User Updated", "description": "Nama (required, max 255)"},
+								{"key": "email", "value": "user@example.com", "description": "Email (required, unique kecuali current)"},
+								{"key": "role_id", "value": "1", "description": "ID Role (required, exists)"},
+								{"key": "password", "value": "", "description": "Password baru (optional, min 6)"},
+								{"key": "password_confirmation", "value": "", "description": "Konfirmasi password (required jika password diisi)"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/users/1",
+							"host": ["{{base_url}}"],
+							"path": ["users", "1"]
+						},
+						"description": "Update data user. Password opsional (kosongkan jika tidak ingin ganti)."
+					}
+				},
+				{
+					"name": "DELETE Destroy User",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "_method", "value": "DELETE"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/users/1",
+							"host": ["{{base_url}}"],
+							"path": ["users", "1"]
+						},
+						"description": "Hapus user. Tidak bisa menghapus diri sendiri."
+					}
+				},
+				{
+					"name": "POST Reset Password User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/users/1/reset-password",
+							"host": ["{{base_url}}"],
+							"path": ["users", "1", "reset-password"]
+						},
+						"description": "Reset password user ke default 'password123'."
+					}
+				}
+			]
+		},
+		{
+			"name": "04. Teacher Management (Admin)",
+			"description": "CRUD data guru. Hanya dapat diakses oleh Admin.",
+			"item": [
+				{
+					"name": "GET List Teachers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/teachers",
+							"host": ["{{base_url}}"],
+							"path": ["teachers"]
+						},
+						"description": "Daftar semua guru. Paginated 10/page."
+					}
+				},
+				{
+					"name": "GET Create Teacher Form",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/teachers/create",
+							"host": ["{{base_url}}"],
+							"path": ["teachers", "create"]
+						}
+					}
+				},
+				{
+					"name": "POST Store Teacher",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"},
+							{"key": "Content-Type", "value": "multipart/form-data"}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "nip", "value": "1234567890", "description": "NIP (required, unique, max 20)"},
+								{"key": "name", "value": "Guru Baru", "description": "Nama lengkap (required, max 255)"},
+								{"key": "email", "value": "guru@example.com", "description": "Email (required, unique, format email)"},
+								{"key": "password", "value": "password123", "description": "Password akun guru (required, min 6)"},
+								{"key": "gender", "value": "L", "description": "Jenis kelamin (required: L/P)"},
+								{"key": "phone", "value": "081234567890", "description": "No telepon (optional, max 20)"},
+								{"key": "address", "value": "Jl. Contoh No. 1", "description": "Alamat (optional)"},
+								{"key": "birth_date", "value": "1985-01-15", "description": "Tanggal lahir (optional, format Y-m-d)"},
+								{"key": "photo", "type": "file", "description": "Foto guru (optional, image, max 2MB)"},
+								{"key": "education_level", "value": "S1", "description": "Jenjang pendidikan (optional)"},
+								{"key": "position", "value": "Guru Mata Pelajaran", "description": "Jabatan (optional)"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/teachers",
+							"host": ["{{base_url}}"],
+							"path": ["teachers"]
+						},
+						"description": "Tambah guru baru. Otomatis membuat akun user dengan role Guru."
+					}
+				},
+				{
+					"name": "GET Show Teacher",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/teachers/1",
+							"host": ["{{base_url}}"],
+							"path": ["teachers", "1"]
+						},
+						"description": "Detail guru beserta mata pelajaran yang diampu."
+					}
+				},
+				{
+					"name": "PUT Update Teacher",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"},
+							{"key": "Content-Type", "value": "multipart/form-data"}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "_method", "value": "PUT"},
+								{"key": "nip", "value": "1234567890", "description": "NIP (unique kecuali current)"},
+								{"key": "name", "value": "Guru Updated", "description": "Nama lengkap"},
+								{"key": "email", "value": "guru@example.com", "description": "Email (unique kecuali current)"},
+								{"key": "gender", "value": "L", "description": "L/P"},
+								{"key": "phone", "value": "081234567890"},
+								{"key": "address", "value": "Jl. Contoh No. 1"},
+								{"key": "birth_date", "value": "1985-01-15"},
+								{"key": "photo", "type": "file", "description": "Foto baru (optional)"},
+								{"key": "education_level", "value": "S1"},
+								{"key": "position", "value": "Guru Mata Pelajaran"},
+								{"key": "status", "value": "active", "description": "Status (active/inactive)"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/teachers/1",
+							"host": ["{{base_url}}"],
+							"path": ["teachers", "1"]
+						},
+						"description": "Update data guru."
+					}
+				},
+				{
+					"name": "DELETE Destroy Teacher",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "_method", "value": "DELETE"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/teachers/1",
+							"host": ["{{base_url}}"],
+							"path": ["teachers", "1"]
+						},
+						"description": "Hapus guru dan akun user terkait."
+					}
+				}
+			]
+		},
+		{
+			"name": "05. Student Management (Admin)",
+			"description": "CRUD data siswa. Hanya Admin.",
+			"item": [
+				{
+					"name": "GET List Students",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/students?class_id=&status=&search=",
+							"host": ["{{base_url}}"],
+							"path": ["students"],
+							"query": [
+								{"key": "class_id", "value": "", "description": "Filter kelas (optional)"},
+								{"key": "status", "value": "", "description": "Filter status: active/inactive/graduated (optional)"},
+								{"key": "search", "value": "", "description": "Cari nama/NISN/NIS (optional)"}
+							]
+						},
+						"description": "Daftar siswa. Paginated 10/page. Filter: class_id, status, search."
+					}
+				},
+				{
+					"name": "POST Store Student",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"},
+							{"key": "Content-Type", "value": "multipart/form-data"}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "class_id", "value": "1", "description": "ID Kelas (required, exists)"},
+								{"key": "nisn", "value": "0012345678", "description": "NISN (required, unique, max 20)"},
+								{"key": "nis", "value": "12345", "description": "NIS (required, unique, max 20)"},
+								{"key": "name", "value": "Siswa Baru", "description": "Nama lengkap (required, max 255)"},
+								{"key": "gender", "value": "L", "description": "Jenis kelamin (required: L/P)"},
+								{"key": "phone", "value": "081234567890", "description": "No telepon (optional)"},
+								{"key": "address", "value": "Jl. Siswa No. 1", "description": "Alamat (optional)"},
+								{"key": "birth_date", "value": "2010-05-15", "description": "Tanggal lahir (optional, Y-m-d)"},
+								{"key": "birth_place", "value": "Purwakarta", "description": "Tempat lahir (optional)"},
+								{"key": "photo", "type": "file", "description": "Foto siswa (optional, image, max 2MB)"},
+								{"key": "parent_name", "value": "Orang Tua", "description": "Nama orang tua (optional)"},
+								{"key": "parent_phone", "value": "081234567891", "description": "No telepon orang tua (optional)"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/students",
+							"host": ["{{base_url}}"],
+							"path": ["students"]
+						},
+						"description": "Tambah siswa baru ke kelas tertentu."
+					}
+				},
+				{
+					"name": "GET Show Student",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/students/1",
+							"host": ["{{base_url}}"],
+							"path": ["students", "1"]
+						},
+						"description": "Detail siswa beserta nilai dan rekap kehadiran."
+					}
+				},
+				{
+					"name": "PUT Update Student",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"},
+							{"key": "Content-Type", "value": "multipart/form-data"}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "_method", "value": "PUT"},
+								{"key": "class_id", "value": "1"},
+								{"key": "nisn", "value": "0012345678"},
+								{"key": "nis", "value": "12345"},
+								{"key": "name", "value": "Siswa Updated"},
+								{"key": "gender", "value": "L"},
+								{"key": "phone", "value": "081234567890"},
+								{"key": "address", "value": "Jl. Siswa No. 1"},
+								{"key": "birth_date", "value": "2010-05-15"},
+								{"key": "birth_place", "value": "Purwakarta"},
+								{"key": "photo", "type": "file"},
+								{"key": "parent_name", "value": "Orang Tua"},
+								{"key": "parent_phone", "value": "081234567891"},
+								{"key": "status", "value": "active", "description": "Status: active/inactive/graduated"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/students/1",
+							"host": ["{{base_url}}"],
+							"path": ["students", "1"]
+						},
+						"description": "Update data siswa."
+					}
+				},
+				{
+					"name": "DELETE Destroy Student",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "_method", "value": "DELETE"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/students/1",
+							"host": ["{{base_url}}"],
+							"path": ["students", "1"]
+						},
+						"description": "Hapus data siswa."
+					}
+				}
+			]
+		},
+		{
+			"name": "06. Class Management (Admin)",
+			"description": "CRUD data kelas. Hanya Admin.",
+			"item": [
+				{
+					"name": "GET List Classes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/classes",
+							"host": ["{{base_url}}"],
+							"path": ["classes"]
+						},
+						"description": "Daftar kelas. Paginated 10/page."
+					}
+				},
+				{
+					"name": "POST Store Class",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "name", "value": "VII-A", "description": "Nama kelas (required, max 255)"},
+								{"key": "grade", "value": "7", "description": "Tingkat (required: 7/8/9)"},
+								{"key": "academic_year", "value": "2024/2025", "description": "Tahun ajaran (required)"},
+								{"key": "capacity", "value": "32", "description": "Kapasitas (optional, 1-50)"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/classes",
+							"host": ["{{base_url}}"],
+							"path": ["classes"]
+						},
+						"description": "Tambah kelas baru."
+					}
+				},
+				{
+					"name": "GET Show Class",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/classes/1",
+							"host": ["{{base_url}}"],
+							"path": ["classes", "1"]
+						},
+						"description": "Detail kelas beserta daftar siswa dan guru-mapel."
+					}
+				},
+				{
+					"name": "PUT Update Class",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "_method", "value": "PUT"},
+								{"key": "name", "value": "VII-A"},
+								{"key": "grade", "value": "7"},
+								{"key": "academic_year", "value": "2024/2025"},
+								{"key": "capacity", "value": "32"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/classes/1",
+							"host": ["{{base_url}}"],
+							"path": ["classes", "1"]
+						},
+						"description": "Update data kelas."
+					}
+				},
+				{
+					"name": "DELETE Destroy Class",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "_method", "value": "DELETE"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/classes/1",
+							"host": ["{{base_url}}"],
+							"path": ["classes", "1"]
+						},
+						"description": "Hapus kelas. Gagal jika masih ada siswa/mapel terkait."
+					}
+				}
+			]
+		},
+		{
+			"name": "07. Subject Management (Admin)",
+			"description": "CRUD data mata pelajaran. Hanya Admin.",
+			"item": [
+				{
+					"name": "GET List Subjects",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/subjects",
+							"host": ["{{base_url}}"],
+							"path": ["subjects"]
+						},
+						"description": "Daftar mata pelajaran. Paginated 10/page."
+					}
+				},
+				{
+					"name": "POST Store Subject",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "code", "value": "MTK", "description": "Kode mapel (required, unique, max 20)"},
+								{"key": "name", "value": "Matematika", "description": "Nama mapel (required, max 255)"},
+								{"key": "description", "value": "Mata pelajaran Matematika", "description": "Deskripsi (optional)"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/subjects",
+							"host": ["{{base_url}}"],
+							"path": ["subjects"]
+						},
+						"description": "Tambah mata pelajaran baru."
+					}
+				},
+				{
+					"name": "GET Show Subject",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/subjects/1",
+							"host": ["{{base_url}}"],
+							"path": ["subjects", "1"]
+						},
+						"description": "Detail mapel beserta guru yang mengajar dan nilai."
+					}
+				},
+				{
+					"name": "PUT Update Subject",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "_method", "value": "PUT"},
+								{"key": "code", "value": "MTK"},
+								{"key": "name", "value": "Matematika"},
+								{"key": "description", "value": "Mata pelajaran Matematika SMP"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/subjects/1",
+							"host": ["{{base_url}}"],
+							"path": ["subjects", "1"]
+						},
+						"description": "Update mata pelajaran."
+					}
+				},
+				{
+					"name": "DELETE Destroy Subject",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "_method", "value": "DELETE"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/subjects/1",
+							"host": ["{{base_url}}"],
+							"path": ["subjects", "1"]
+						},
+						"description": "Hapus mapel. Gagal jika masih ada guru/nilai terkait."
+					}
+				}
+			]
+		},
+		{
+			"name": "08. Academic Year (Admin)",
+			"description": "CRUD tahun ajaran. Hanya Admin.",
+			"item": [
+				{
+					"name": "GET List Academic Years",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/academic-years",
+							"host": ["{{base_url}}"],
+							"path": ["academic-years"]
+						},
+						"description": "Daftar tahun ajaran. Paginated 10/page."
+					}
+				},
+				{
+					"name": "POST Store Academic Year",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "year", "value": "2024/2025", "description": "Tahun ajaran (required)"},
+								{"key": "semester", "value": "Ganjil", "description": "Semester (required: Ganjil/Genap)"},
+								{"key": "start_date", "value": "2024-07-15", "description": "Tanggal mulai (required, Y-m-d)"},
+								{"key": "end_date", "value": "2024-12-20", "description": "Tanggal selesai (required, > start_date)"},
+								{"key": "is_active", "value": "1", "description": "Aktif (optional: 1/0)"},
+								{"key": "description", "value": "Tahun ajaran ganjil", "description": "Deskripsi (optional)"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/academic-years",
+							"host": ["{{base_url}}"],
+							"path": ["academic-years"]
+						},
+						"description": "Tambah tahun ajaran. Kombinasi year+semester harus unik."
+					}
+				},
+				{
+					"name": "GET Show Academic Year",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/academic-years/1",
+							"host": ["{{base_url}}"],
+							"path": ["academic-years", "1"]
+						},
+						"description": "Detail tahun ajaran beserta jumlah data terkait."
+					}
+				},
+				{
+					"name": "PUT Update Academic Year",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "_method", "value": "PUT"},
+								{"key": "year", "value": "2024/2025"},
+								{"key": "semester", "value": "Ganjil"},
+								{"key": "start_date", "value": "2024-07-15"},
+								{"key": "end_date", "value": "2024-12-20"},
+								{"key": "is_active", "value": "1"},
+								{"key": "description", "value": ""}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/academic-years/1",
+							"host": ["{{base_url}}"],
+							"path": ["academic-years", "1"]
+						},
+						"description": "Update tahun ajaran."
+					}
+				},
+				{
+					"name": "DELETE Destroy Academic Year",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "_method", "value": "DELETE"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/academic-years/1",
+							"host": ["{{base_url}}"],
+							"path": ["academic-years", "1"]
+						},
+						"description": "Hapus tahun ajaran. Gagal jika masih aktif atau ada data terkait."
+					}
+				},
+				{
+					"name": "POST Toggle Active Academic Year",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/academic-years/1/toggle-active",
+							"host": ["{{base_url}}"],
+							"path": ["academic-years", "1", "toggle-active"]
+						},
+						"description": "Aktifkan/nonaktifkan tahun ajaran. Hanya 1 yang bisa aktif."
+					}
+				}
+			]
+		},
+		{
+			"name": "09. Teacher-Subject Assignment (Admin)",
+			"description": "Penugasan guru-mata pelajaran-kelas. Hanya Admin.",
+			"item": [
+				{
+					"name": "GET List Assignments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/teacher-subjects?teacher_id=&subject_id=&class_id=&academic_year=",
+							"host": ["{{base_url}}"],
+							"path": ["teacher-subjects"],
+							"query": [
+								{"key": "teacher_id", "value": "", "description": "Filter guru (optional)"},
+								{"key": "subject_id", "value": "", "description": "Filter mapel (optional)"},
+								{"key": "class_id", "value": "", "description": "Filter kelas (optional)"},
+								{"key": "academic_year", "value": "", "description": "Filter tahun ajaran (optional)"}
+							]
+						},
+						"description": "Daftar penugasan guru-mapel-kelas. Paginated 15/page."
+					}
+				},
+				{
+					"name": "POST Store Assignment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "teacher_id", "value": "1", "description": "ID Guru (required, exists)"},
+								{"key": "subject_id", "value": "1", "description": "ID Mapel (required, exists)"},
+								{"key": "class_id", "value": "1", "description": "ID Kelas (required, exists)"},
+								{"key": "academic_year", "value": "2024/2025", "description": "Tahun ajaran (required)"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/teacher-subjects",
+							"host": ["{{base_url}}"],
+							"path": ["teacher-subjects"]
+						},
+						"description": "Tambah penugasan guru-mapel-kelas. Kombinasi guru+mapel+kelas+tahun harus unik."
+					}
+				},
+				{
+					"name": "PUT Update Assignment",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "_method", "value": "PUT"},
+								{"key": "teacher_id", "value": "1"},
+								{"key": "subject_id", "value": "1"},
+								{"key": "class_id", "value": "1"},
+								{"key": "academic_year", "value": "2024/2025"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/teacher-subjects/1",
+							"host": ["{{base_url}}"],
+							"path": ["teacher-subjects", "1"]
+						}
+					}
+				},
+				{
+					"name": "DELETE Destroy Assignment",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "_method", "value": "DELETE"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/teacher-subjects/1",
+							"host": ["{{base_url}}"],
+							"path": ["teacher-subjects", "1"]
+						}
+					}
+				},
+				{
+					"name": "GET Subjects by Teacher (AJAX)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/teacher/1/subjects",
+							"host": ["{{base_url}}"],
+							"path": ["api", "teacher", "1", "subjects"]
+						},
+						"description": "Ambil daftar mapel yang diampu guru tertentu. Response: [{id, name, ...}]"
+					}
+				},
+				{
+					"name": "GET Teachers by Subject (AJAX)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/subject/1/teachers",
+							"host": ["{{base_url}}"],
+							"path": ["api", "subject", "1", "teachers"]
+						},
+						"description": "Ambil daftar guru yang mengajar mapel tertentu. Response: [{id, name, ...}]"
+					}
+				}
+			]
+		},
+		{
+			"name": "10. Attendance & QR Code",
+			"description": "Absensi guru menggunakan QR Code dengan validasi geolokasi.",
+			"item": [
+				{
+					"name": "GET Attendance List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/attendance?type=&date=",
+							"host": ["{{base_url}}"],
+							"path": ["attendance"],
+							"query": [
+								{"key": "type", "value": "", "description": "Filter type: teacher/student (optional)"},
+								{"key": "date", "value": "", "description": "Filter tanggal: Y-m-d (optional)"}
+							]
+						},
+						"description": "Daftar kehadiran. Paginated 20/page. Filter: type, date."
+					}
+				},
+				{
+					"name": "GET QR Code Page",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/attendance/qr-code",
+							"host": ["{{base_url}}"],
+							"path": ["attendance", "qr-code"]
+						},
+						"description": "Redirect ke halaman QR Code sesuai role:\n- Admin → admin-qr (pilih guru)\n- Guru → scanner (scan langsung)"
+					}
+				},
+				{
+					"name": "GET Admin QR Page",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/attendance/admin-qr",
+							"host": ["{{base_url}}"],
+							"path": ["attendance", "admin-qr"]
+						},
+						"description": "Halaman admin untuk generate QR Code per guru."
+					}
+				},
+				{
+					"name": "GET Scanner Page",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/attendance/scanner",
+							"host": ["{{base_url}}"],
+							"path": ["attendance", "scanner"]
+						},
+						"description": "Halaman scanner QR Code untuk guru."
+					}
+				},
+				{
+					"name": "GET Teacher QR Code (AJAX)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/teacher/1/qr-code",
+							"host": ["{{base_url}}"],
+							"path": ["api", "teacher", "1", "qr-code"]
+						},
+						"description": "Generate QR Code untuk guru tertentu.\nResponse JSON:\n{\n  \"success\": true,\n  \"qrCode\": \"<svg>...</svg>\",\n  \"type\": \"check_in\" | \"check_out\"\n}\n\nQR dienkripsi AES-256-CBC, expired 600 detik."
+					}
+				},
+				{
+					"name": "GET Teacher Attendance Status (AJAX)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/teacher/1/attendance-status",
+							"host": ["{{base_url}}"],
+							"path": ["api", "teacher", "1", "attendance-status"]
+						},
+						"description": "Cek status kehadiran guru hari ini.\nResponse JSON:\n{\n  \"success\": true,\n  \"attendance\": {\n    \"check_in\": \"07:30:00\",\n    \"check_out\": null,\n    \"status\": \"present\"\n  }\n}"
+					}
+				},
+				{
+					"name": "POST Scan QR Code",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"},
+							{"key": "Accept", "value": "application/json"},
+							{"key": "Content-Type", "value": "application/json"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"qr_data\": \"encrypted_qr_string_from_scan\",\n  \"latitude\": -6.5465236,\n  \"longitude\": 107.4414175\n}",
+							"options": {"raw": {"language": "json"}}
+						},
+						"url": {
+							"raw": "{{base_url}}/attendance/scan-qr",
+							"host": ["{{base_url}}"],
+							"path": ["attendance", "scan-qr"]
+						},
+						"description": "Proses scan QR Code dari kamera guru.\nValidasi:\n- QR data harus valid (AES-256-CBC)\n- QR belum expired (600 detik)\n- Lokasi dalam radius 100m dari sekolah (Haversine)\n\nResponse JSON:\n{\n  \"success\": true,\n  \"action\": \"check_in\" | \"check_out\",\n  \"message\": \"Check-in berhasil!\",\n  \"data\": { ... }\n}"
+					}
+				},
+				{
+					"name": "POST Check In",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"},
+							{"key": "Accept", "value": "application/json"},
+							{"key": "Content-Type", "value": "application/json"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"latitude\": -6.5465236,\n  \"longitude\": 107.4414175,\n  \"type\": \"teacher\",\n  \"id\": 1\n}",
+							"options": {"raw": {"language": "json"}}
+						},
+						"url": {
+							"raw": "{{base_url}}/attendance/check-in",
+							"host": ["{{base_url}}"],
+							"path": ["attendance", "check-in"]
+						},
+						"description": "Check-in kehadiran manual (alternatif scan QR).\nValidasi lokasi dalam radius 100m.\n\nResponse JSON:\n{\n  \"success\": true,\n  \"message\": \"Check-in berhasil\",\n  \"data\": {\n    \"teacher_id\": 1,\n    \"check_in\": \"07:30:00\",\n    \"status\": \"present\"\n  }\n}"
+					}
+				},
+				{
+					"name": "POST Check Out",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"},
+							{"key": "Accept", "value": "application/json"},
+							{"key": "Content-Type", "value": "application/json"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"latitude\": -6.5465236,\n  \"longitude\": 107.4414175,\n  \"type\": \"teacher\",\n  \"id\": 1\n}",
+							"options": {"raw": {"language": "json"}}
+						},
+						"url": {
+							"raw": "{{base_url}}/attendance/check-out",
+							"host": ["{{base_url}}"],
+							"path": ["attendance", "check-out"]
+						},
+						"description": "Check-out kehadiran."
+					}
+				},
+				{
+					"name": "GET Class Attendance (Admin)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/attendance/class/1",
+							"host": ["{{base_url}}"],
+							"path": ["attendance", "class", "1"]
+						},
+						"description": "Halaman kehadiran siswa per kelas. Admin only."
+					}
+				},
+				{
+					"name": "POST Save Class Attendance (Admin)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "students[1][status]", "value": "present", "description": "Status siswa: present/absent/late/sick/permission"},
+								{"key": "students[2][status]", "value": "absent"},
+								{"key": "date", "value": "2024-10-15", "description": "Tanggal kehadiran"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/attendance/class/1",
+							"host": ["{{base_url}}"],
+							"path": ["attendance", "class", "1"]
+						},
+						"description": "Simpan kehadiran seluruh siswa di kelas. Array students berisi ID siswa dan statusnya."
+					}
+				}
+			]
+		},
+		{
+			"name": "11. Kiosk Mode (Public & Auth)",
+			"description": "Mode kiosk untuk display monitor di depan ruang guru. Sebagian endpoint public (tanpa auth).",
+			"item": [
+				{
+					"name": "GET Kiosk Index (Public)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/kiosk",
+							"host": ["{{base_url}}"],
+							"path": ["kiosk"]
+						},
+						"description": "Halaman utama kiosk. Menampilkan daftar guru aktif untuk dipilih. No auth required."
+					}
+				},
+				{
+					"name": "GET Generate QR for Teacher (Public AJAX)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{base_url}}/kiosk/api/qr/1",
+							"host": ["{{base_url}}"],
+							"path": ["kiosk", "api", "qr", "1"]
+						},
+						"description": "Generate QR Code untuk guru di kiosk.\nResponse JSON:\n{\n  \"success\": true,\n  \"qrCode\": \"<svg>...</svg>\",\n  \"teacher\": { \"name\": \"...\", \"nip\": \"...\" },\n  \"generated_at\": \"2024-10-15 07:30:00\",\n  \"expires_in\": 600\n}"
+					}
+				},
+				{
+					"name": "GET Teacher Status (Public AJAX)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{base_url}}/kiosk/api/status/1",
+							"host": ["{{base_url}}"],
+							"path": ["kiosk", "api", "status", "1"]
+						},
+						"description": "Status kehadiran guru hari ini.\nResponse JSON:\n{\n  \"success\": true,\n  \"teacher\": { \"name\": \"...\", \"nip\": \"...\" },\n  \"attendance\": {\n    \"status_text\": \"Sudah Check-in\",\n    \"status_class\": \"success\",\n    \"check_in\": \"07:30:00\",\n    \"check_out\": null\n  }\n}"
+					}
+				},
+				{
+					"name": "GET Today Summary (Public AJAX)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{base_url}}/kiosk/api/summary",
+							"host": ["{{base_url}}"],
+							"path": ["kiosk", "api", "summary"]
+						},
+						"description": "Ringkasan kehadiran hari ini untuk semua guru."
+					}
+				},
+				{
+					"name": "POST Process QR Scan (Auth Required)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"},
+							{"key": "Accept", "value": "application/json"},
+							{"key": "Content-Type", "value": "application/json"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"qr_data\": \"encrypted_qr_string\",\n  \"latitude\": -6.5465236,\n  \"longitude\": 107.4414175\n}",
+							"options": {"raw": {"language": "json"}}
+						},
+						"url": {
+							"raw": "{{base_url}}/kiosk/api/scan",
+							"host": ["{{base_url}}"],
+							"path": ["kiosk", "api", "scan"]
+						},
+						"description": "Proses scan QR dari mobile guru. Memerlukan autentikasi.\nValidasi: QR valid, belum expired, lokasi dalam 100m."
+					}
+				},
+				{
+					"name": "GET Kiosk Dashboard (Auth)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/kiosk-dashboard",
+							"host": ["{{base_url}}"],
+							"path": ["kiosk-dashboard"]
+						},
+						"description": "Dashboard untuk user dengan role Kiosk Presensi."
+					}
+				},
+				{
+					"name": "GET My Attendance Status (Auth AJAX)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/attendance/my-status",
+							"host": ["{{base_url}}"],
+							"path": ["api", "attendance", "my-status"]
+						},
+						"description": "Status kehadiran guru yang sedang login hari ini."
+					}
+				},
+				{
+					"name": "GET Teacher Scanner Page (Auth)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/scan-presensi",
+							"host": ["{{base_url}}"],
+							"path": ["scan-presensi"]
+						},
+						"description": "Halaman scanner QR untuk guru (mobile)."
+					}
+				}
+			]
+		},
+		{
+			"name": "12. Grade Management (Admin & Guru)",
+			"description": "Input dan kelola nilai siswa. Akses: Admin dan Guru.",
+			"item": [
+				{
+					"name": "GET Grade List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/grades?semester=&academic_year=&subject_id=&class_id=",
+							"host": ["{{base_url}}"],
+							"path": ["grades"],
+							"query": [
+								{"key": "semester", "value": "", "description": "Filter semester (optional)"},
+								{"key": "academic_year", "value": "", "description": "Filter tahun ajaran (optional)"},
+								{"key": "subject_id", "value": "", "description": "Filter mapel (optional)"},
+								{"key": "class_id", "value": "", "description": "Filter kelas (optional)"}
+							]
+						},
+						"description": "Daftar nilai. Paginated 20/page. Guru hanya lihat kelasnya sendiri."
+					}
+				},
+				{
+					"name": "GET Create Grade Form",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/grades/create",
+							"host": ["{{base_url}}"],
+							"path": ["grades", "create"]
+						},
+						"description": "Form pilih kelas dan mapel untuk input nilai."
+					}
+				},
+				{
+					"name": "POST Input By Class",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "class_id", "value": "1", "description": "ID Kelas (required, exists)"},
+								{"key": "subject_id", "value": "1", "description": "ID Mapel (required, exists)"},
+								{"key": "semester", "value": "Ganjil", "description": "Semester (required)"},
+								{"key": "academic_year", "value": "2024/2025", "description": "Tahun ajaran (required)"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/grades/input-by-class",
+							"host": ["{{base_url}}"],
+							"path": ["grades", "input-by-class"]
+						},
+						"description": "Tampilkan form input nilai per kelas. Menampilkan semua siswa di kelas beserta nilai yang sudah ada."
+					}
+				},
+				{
+					"name": "POST Store Multiple Grades",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "class_id", "value": "1", "description": "ID Kelas"},
+								{"key": "subject_id", "value": "1", "description": "ID Mapel"},
+								{"key": "semester", "value": "Ganjil", "description": "Semester"},
+								{"key": "academic_year", "value": "2024/2025", "description": "Tahun ajaran"},
+								{"key": "students[1][daily_test]", "value": "85", "description": "Nilai ulangan harian (0-100)"},
+								{"key": "students[1][midterm_exam]", "value": "80", "description": "Nilai UTS (0-100)"},
+								{"key": "students[1][final_exam]", "value": "90", "description": "Nilai UAS (0-100)"},
+								{"key": "students[1][behavior_score]", "value": "88", "description": "Nilai sikap (0-100)"},
+								{"key": "students[1][skill_score]", "value": "87", "description": "Nilai keterampilan (0-100)"},
+								{"key": "students[1][notes]", "value": "Baik", "description": "Catatan (optional)"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/grades/store-multiple",
+							"host": ["{{base_url}}"],
+							"path": ["grades", "store-multiple"]
+						},
+						"description": "Simpan nilai seluruh siswa dalam satu kelas sekaligus.\nNilai Akhir = (daily_test × 0.3) + (midterm_exam × 0.3) + (final_exam × 0.4)"
+					}
+				},
+				{
+					"name": "GET Edit Grade",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/grades/1/edit",
+							"host": ["{{base_url}}"],
+							"path": ["grades", "1", "edit"]
+						},
+						"description": "Form edit nilai individual."
+					}
+				},
+				{
+					"name": "PUT Update Grade",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "_method", "value": "PUT"},
+								{"key": "daily_test", "value": "85", "description": "Ulangan harian (0-100)"},
+								{"key": "midterm_exam", "value": "80", "description": "UTS (0-100)"},
+								{"key": "final_exam", "value": "90", "description": "UAS (0-100)"},
+								{"key": "behavior_score", "value": "88", "description": "Sikap (0-100)"},
+								{"key": "skill_score", "value": "87", "description": "Keterampilan (0-100)"},
+								{"key": "notes", "value": "Baik", "description": "Catatan"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/grades/1",
+							"host": ["{{base_url}}"],
+							"path": ["grades", "1"]
+						},
+						"description": "Update nilai siswa individual."
+					}
+				},
+				{
+					"name": "DELETE Destroy Grade",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "_method", "value": "DELETE"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/grades/1",
+							"host": ["{{base_url}}"],
+							"path": ["grades", "1"]
+						},
+						"description": "Hapus nilai siswa."
+					}
+				},
+				{
+					"name": "GET Report Card",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/students/1/report-card?semester=Ganjil&academic_year=2024/2025",
+							"host": ["{{base_url}}"],
+							"path": ["students", "1", "report-card"],
+							"query": [
+								{"key": "semester", "value": "Ganjil", "description": "Semester"},
+								{"key": "academic_year", "value": "2024/2025", "description": "Tahun ajaran"}
+							]
+						},
+						"description": "Rapor siswa. Menampilkan semua nilai per mapel dan rata-rata. Akses: Admin & Kepala Sekolah."
+					}
+				}
+			]
+		},
+		{
+			"name": "13. SAW Calculation (Admin & Kepsek)",
+			"description": "Perhitungan ranking menggunakan metode Simple Additive Weighting. Akses: Admin dan Kepala Sekolah.",
+			"item": [
+				{
+					"name": "GET Student SAW Index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/saw/students?class_id=&semester=&academic_year=",
+							"host": ["{{base_url}}"],
+							"path": ["saw", "students"],
+							"query": [
+								{"key": "class_id", "value": "", "description": "Filter kelas (optional)"},
+								{"key": "semester", "value": "", "description": "Filter semester (optional)"},
+								{"key": "academic_year", "value": "", "description": "Filter tahun ajaran (optional)"}
+							]
+						},
+						"description": "Halaman ranking siswa dengan metode SAW.\nKriteria Siswa:\n- C1: Nilai Akademik (benefit)\n- C2: Kehadiran (benefit)\n- C3: Nilai Sikap (benefit)\n- C4: Nilai Keterampilan (benefit)\n\nMenampilkan: matriks keputusan, matriks normalisasi, skor SAW, ranking."
+					}
+				},
+				{
+					"name": "POST Calculate Student SAW",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "class_id", "value": "1", "description": "ID Kelas (required, exists)"},
+								{"key": "semester", "value": "Ganjil", "description": "Semester (required)"},
+								{"key": "academic_year", "value": "2024/2025", "description": "Tahun ajaran (required)"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/saw/students/calculate",
+							"host": ["{{base_url}}"],
+							"path": ["saw", "students", "calculate"]
+						},
+						"description": "Hitung ranking siswa SAW. Redirect ke halaman hasil dengan filter params."
+					}
+				},
+				{
+					"name": "GET Teacher SAW Index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/saw/teachers?period=&academic_year=",
+							"host": ["{{base_url}}"],
+							"path": ["saw", "teachers"],
+							"query": [
+								{"key": "period", "value": "", "description": "Filter periode (optional)"},
+								{"key": "academic_year", "value": "", "description": "Filter tahun ajaran (optional)"}
+							]
+						},
+						"description": "Halaman ranking guru dengan metode SAW.\nKriteria Guru:\n- K1: Kehadiran (benefit)\n- K2: Kualitas Mengajar (benefit)\n- K3: Prestasi Siswa (benefit)\n- K4: Kedisiplinan (benefit)"
+					}
+				},
+				{
+					"name": "POST Calculate Teacher SAW",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "period", "value": "Semester Ganjil", "description": "Periode penilaian (required)"},
+								{"key": "academic_year", "value": "2024/2025", "description": "Tahun ajaran (required)"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/saw/teachers/calculate",
+							"host": ["{{base_url}}"],
+							"path": ["saw", "teachers", "calculate"]
+						},
+						"description": "Hitung ranking guru SAW."
+					}
+				}
+			]
+		},
+		{
+			"name": "13b. Teacher Assessment (Admin & Kepsek)",
+			"description": "Penilaian kinerja guru berdasarkan metode SAW. Admin dan Kepala Sekolah dapat melihat dan menginput penilaian.",
+			"item": [
+				{
+					"name": "GET Teacher Assessment Index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/teacher-assessments?academic_year=2025/2026&period=Ganjil",
+							"host": ["{{base_url}}"],
+							"path": ["teacher-assessments"],
+							"query": [
+								{"key": "academic_year", "value": "2025/2026", "description": "Tahun ajaran (optional)"},
+								{"key": "period", "value": "Ganjil", "description": "Semester/periode (optional: Ganjil/Genap)"}
+							]
+						},
+						"description": "Daftar penilaian guru. Menampilkan tabel guru beserta skor K1-K4 dan ranking SAW."
+					}
+				},
+				{
+					"name": "POST Store Teacher Assessment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "Content-Type", "value": "application/x-www-form-urlencoded"},
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"},
+							{"key": "Accept", "value": "text/html"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}", "description": "CSRF Token"},
+								{"key": "teacher_id", "value": "1", "description": "ID guru (required)"},
+								{"key": "period", "value": "Ganjil", "description": "Semester (required: Ganjil/Genap)"},
+								{"key": "academic_year", "value": "2025/2026", "description": "Tahun ajaran (required)"},
+								{"key": "teaching_quality", "value": "85.50", "description": "K2: Kualitas Mengajar (required, numeric 0-100)"},
+								{"key": "discipline_score", "value": "90.00", "description": "K4: Kedisiplinan (required, numeric 0-100)"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/teacher-assessments",
+							"host": ["{{base_url}}"],
+							"path": ["teacher-assessments"]
+						},
+						"description": "Input/update penilaian guru. K1 (Kehadiran) dan K3 (Prestasi Siswa) dihitung otomatis dari data absensi dan nilai siswa."
+					}
+				}
+			]
+		},
+		{
+			"name": "14. Criteria Management (Admin)",
+			"description": "CRUD kriteria SAW. Hanya Admin.",
+			"item": [
+				{
+					"name": "GET List Criteria",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/criteria",
+							"host": ["{{base_url}}"],
+							"path": ["criteria"]
+						},
+						"description": "Daftar kriteria SAW terpisah: student_criteria dan teacher_criteria."
+					}
+				},
+				{
+					"name": "POST Store Criteria",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "code", "value": "C5", "description": "Kode kriteria (required, unique)"},
+								{"key": "name", "value": "Kriteria Baru", "description": "Nama (required)"},
+								{"key": "type", "value": "benefit", "description": "Tipe (required: benefit/cost)"},
+								{"key": "weight", "value": "0.2", "description": "Bobot (required, 0-1)"},
+								{"key": "for", "value": "student", "description": "Untuk (required: student/teacher)"},
+								{"key": "description", "value": "Deskripsi kriteria", "description": "Deskripsi (optional)"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/criteria",
+							"host": ["{{base_url}}"],
+							"path": ["criteria"]
+						},
+						"description": "Tambah kriteria SAW. Total bobot per kategori tidak boleh > 1.0."
+					}
+				},
+				{
+					"name": "GET Show Criteria",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/criteria/1",
+							"host": ["{{base_url}}"],
+							"path": ["criteria", "1"]
+						}
+					}
+				},
+				{
+					"name": "PUT Update Criteria",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "_method", "value": "PUT"},
+								{"key": "code", "value": "C5"},
+								{"key": "name", "value": "Kriteria Updated"},
+								{"key": "type", "value": "benefit"},
+								{"key": "weight", "value": "0.2"},
+								{"key": "for", "value": "student"},
+								{"key": "description", "value": ""}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/criteria/1",
+							"host": ["{{base_url}}"],
+							"path": ["criteria", "1"]
+						}
+					}
+				},
+				{
+					"name": "DELETE Destroy Criteria",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "_method", "value": "DELETE"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/criteria/1",
+							"host": ["{{base_url}}"],
+							"path": ["criteria", "1"]
+						},
+						"description": "Hapus kriteria. Gagal jika sudah dipakai di assessment."
+					}
+				},
+				{
+					"name": "POST Normalize Weights",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "type", "value": "student", "description": "Kategori: student/teacher"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/criteria/normalize",
+							"host": ["{{base_url}}"],
+							"path": ["criteria", "normalize"]
+						},
+						"description": "Normalisasi bobot sehingga total = 1.0 untuk kategori yang dipilih."
+					}
+				}
+			]
+		},
+		{
+			"name": "15. Reports & Export (Admin)",
+			"description": "Export laporan ke Excel/PDF. Hanya Admin.",
+			"item": [
+				{
+					"name": "GET Reports Page",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/reports",
+							"host": ["{{base_url}}"],
+							"path": ["reports"]
+						},
+						"description": "Halaman utama laporan dengan form-form export."
+					}
+				},
+				{
+					"name": "POST Export Attendance",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "start_date", "value": "2024-10-01", "description": "Tanggal mulai (optional)"},
+								{"key": "end_date", "value": "2024-10-31", "description": "Tanggal selesai (optional)"},
+								{"key": "academic_year_id", "value": "1", "description": "ID Tahun ajaran (optional)"},
+								{"key": "type", "value": "teacher", "description": "Tipe: teacher/student (optional)"},
+								{"key": "format", "value": "excel", "description": "Format output (required: excel/pdf)"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/reports/attendance/export",
+							"host": ["{{base_url}}"],
+							"path": ["reports", "attendance", "export"]
+						},
+						"description": "Export laporan kehadiran. Download file attendance_YYYY-MM-DD.xlsx/.pdf"
+					}
+				},
+				{
+					"name": "POST Export Grades",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "class_id", "value": "1", "description": "Filter kelas (optional)"},
+								{"key": "semester", "value": "Ganjil", "description": "Filter semester (optional)"},
+								{"key": "academic_year", "value": "2024/2025", "description": "Filter tahun ajaran (optional)"},
+								{"key": "format", "value": "excel", "description": "Format: excel/pdf (required)"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/reports/grades/export",
+							"host": ["{{base_url}}"],
+							"path": ["reports", "grades", "export"]
+						},
+						"description": "Export laporan nilai siswa. Download file laporan_nilai.xlsx/.pdf"
+					}
+				},
+				{
+					"name": "POST Export Students",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "class_id", "value": "", "description": "Filter kelas (optional)"},
+								{"key": "grade", "value": "", "description": "Filter tingkat: 7/8/9 (optional)"},
+								{"key": "status", "value": "", "description": "Filter status: active/inactive/graduated (optional)"},
+								{"key": "format", "value": "excel", "description": "Format: excel/pdf (required)"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/reports/students/export",
+							"host": ["{{base_url}}"],
+							"path": ["reports", "students", "export"]
+						},
+						"description": "Export laporan data siswa. Download file laporan_siswa.xlsx/.pdf"
+					}
+				},
+				{
+					"name": "POST Export Teachers",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "format", "value": "excel", "description": "Format: excel/pdf (required)"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/reports/teachers/export",
+							"host": ["{{base_url}}"],
+							"path": ["reports", "teachers", "export"]
+						},
+						"description": "Export laporan data guru. Download file laporan_guru_YYYY-MM-DD.xlsx/.pdf"
+					}
+				}
+			]
+		},
+		{
+			"name": "16. Settings (Admin)",
+			"description": "Pengaturan sistem. Hanya Admin.",
+			"item": [
+				{
+					"name": "GET Settings Page",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/settings",
+							"host": ["{{base_url}}"],
+							"path": ["settings"]
+						},
+						"description": "Halaman pengaturan: sekolah, umum, tampilan, notifikasi, sistem."
+					}
+				},
+				{
+					"name": "PUT Update School Settings",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"},
+							{"key": "Content-Type", "value": "multipart/form-data"}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "_method", "value": "PUT"},
+								{"key": "school_name", "value": "SMPN 4 Purwakarta", "description": "Nama sekolah (required)"},
+								{"key": "school_npsn", "value": "20212345", "description": "NPSN (optional)"},
+								{"key": "school_address", "value": "Jl. Veteran No. 1", "description": "Alamat (optional)"},
+								{"key": "school_phone", "value": "0264-123456", "description": "Telepon (optional)"},
+								{"key": "school_email", "value": "info@smpn4pwk.sch.id", "description": "Email sekolah (optional, format email)"},
+								{"key": "school_website", "value": "https://smpn4pwk.sch.id", "description": "Website (optional, format URL)"},
+								{"key": "school_logo", "type": "file", "description": "Logo sekolah (optional, image, max 2MB)"},
+								{"key": "headmaster_name", "value": "Mohamad Nursodik, M.Pd", "description": "Nama kepala sekolah (optional)"},
+								{"key": "headmaster_nip", "value": "196512051990031005", "description": "NIP kepala sekolah (optional)"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/settings/school",
+							"host": ["{{base_url}}"],
+							"path": ["settings", "school"]
+						},
+						"description": "Update pengaturan informasi sekolah."
+					}
+				},
+				{
+					"name": "PUT Update General Settings",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "_method", "value": "PUT"},
+								{"key": "app_name", "value": "SI Absensi SMPN 4", "description": "Nama aplikasi (optional)"},
+								{"key": "app_timezone", "value": "Asia/Jakarta", "description": "Timezone (optional)"},
+								{"key": "app_language", "value": "id", "description": "Bahasa (optional: id/en)"},
+								{"key": "date_format", "value": "d/m/Y", "description": "Format tanggal (optional)"},
+								{"key": "time_format", "value": "H:i", "description": "Format waktu (optional)"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/settings/general",
+							"host": ["{{base_url}}"],
+							"path": ["settings", "general"]
+						},
+						"description": "Update pengaturan umum aplikasi."
+					}
+				},
+				{
+					"name": "PUT Update Appearance",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "_method", "value": "PUT"},
+								{"key": "theme_color", "value": "#4F46E5", "description": "Warna tema (7 karakter hex)"},
+								{"key": "sidebar_color", "value": "dark", "description": "Warna sidebar: dark/light"},
+								{"key": "items_per_page", "value": "10", "description": "Item per halaman (5-100)"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/settings/appearance",
+							"host": ["{{base_url}}"],
+							"path": ["settings", "appearance"]
+						},
+						"description": "Update pengaturan tampilan."
+					}
+				},
+				{
+					"name": "PUT Update Notification",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "_method", "value": "PUT"},
+								{"key": "email_notifications", "value": "1", "description": "Aktifkan email notifikasi (checkbox: 0/1)"},
+								{"key": "sms_notifications", "value": "0", "description": "Aktifkan SMS notifikasi (checkbox: 0/1)"},
+								{"key": "notification_email", "value": "admin@smpn4pwk.sch.id", "description": "Email tujuan notifikasi (required, email)"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/settings/notification",
+							"host": ["{{base_url}}"],
+							"path": ["settings", "notification"]
+						},
+						"description": "Update pengaturan notifikasi."
+					}
+				},
+				{
+					"name": "PUT Update System",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "_method", "value": "PUT"},
+								{"key": "maintenance_mode", "value": "0", "description": "Mode maintenance (0/1)"},
+								{"key": "auto_backup", "value": "1", "description": "Backup otomatis (0/1)"},
+								{"key": "backup_schedule", "value": "daily", "description": "Jadwal backup: daily/weekly/monthly"},
+								{"key": "max_upload_size", "value": "5120", "description": "Max upload size KB (1024-10240)"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/settings/system",
+							"host": ["{{base_url}}"],
+							"path": ["settings", "system"]
+						},
+						"description": "Update pengaturan sistem."
+					}
+				},
+				{
+					"name": "POST Clear Cache",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/settings/cache/clear",
+							"host": ["{{base_url}}"],
+							"path": ["settings", "cache", "clear"]
+						},
+						"description": "Hapus cache aplikasi (config, route, view, application cache)."
+					}
+				},
+				{
+					"name": "POST Backup Database",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/settings/backup",
+							"host": ["{{base_url}}"],
+							"path": ["settings", "backup"]
+						},
+						"description": "Backup database MySQL menggunakan mysqldump."
+					}
+				}
+			]
+		},
+		{
+			"name": "17. Notifications (AJAX)",
+			"description": "API notifikasi untuk semua user yang login.",
+			"item": [
+				{
+					"name": "GET All Notifications Page",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/notifications",
+							"host": ["{{base_url}}"],
+							"path": ["notifications"]
+						},
+						"description": "Halaman semua notifikasi. Paginated 20/page."
+					}
+				},
+				{
+					"name": "GET Notifications (AJAX)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/notifications",
+							"host": ["{{base_url}}"],
+							"path": ["api", "notifications"]
+						},
+						"description": "Ambil 10 notifikasi terbaru.\nResponse JSON:\n{\n  \"notifications\": [...],\n  \"unread_count\": 3\n}"
+					}
+				},
+				{
+					"name": "GET Unread Count (AJAX)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/notifications/unread-count",
+							"host": ["{{base_url}}"],
+							"path": ["api", "notifications", "unread-count"]
+						},
+						"description": "Jumlah notifikasi belum dibaca.\nResponse JSON: { \"count\": 3 }"
+					}
+				},
+				{
+					"name": "POST Mark as Read (AJAX)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"},
+							{"key": "Accept", "value": "application/json"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/notifications/1/read",
+							"host": ["{{base_url}}"],
+							"path": ["api", "notifications", "1", "read"]
+						},
+						"description": "Tandai notifikasi sebagai dibaca.\nResponse: { \"success\": true }\nError 403 jika bukan milik user."
+					}
+				},
+				{
+					"name": "POST Mark All as Read (AJAX)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"},
+							{"key": "Accept", "value": "application/json"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/notifications/read-all",
+							"host": ["{{base_url}}"],
+							"path": ["api", "notifications", "read-all"]
+						},
+						"description": "Tandai semua notifikasi sebagai dibaca.\nResponse: { \"success\": true }"
+					}
+				},
+				{
+					"name": "DELETE Destroy Notification (AJAX)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"},
+							{"key": "Accept", "value": "application/json"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "_method", "value": "DELETE"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/notifications/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "notifications", "1"]
+						},
+						"description": "Hapus notifikasi.\nResponse: { \"success\": true }"
+					}
+				}
+			]
+		},
+		{
+			"name": "18. Teacher Features (Guru)",
+			"description": "Fitur khusus untuk guru yang login.",
+			"item": [
+				{
+					"name": "GET My Classes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/my-classes",
+							"host": ["{{base_url}}"],
+							"path": ["my-classes"]
+						},
+						"description": "Daftar kelas yang diampu guru yang login."
+					}
+				},
+				{
+					"name": "GET My Profile (Teacher)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/my-profile",
+							"host": ["{{base_url}}"],
+							"path": ["my-profile"]
+						},
+						"description": "Edit profil guru sendiri."
+					}
+				},
+				{
+					"name": "PUT Update My Profile (Teacher)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"},
+							{"key": "Content-Type", "value": "multipart/form-data"}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{"key": "_token", "value": "{{csrf_token}}"},
+								{"key": "_method", "value": "PUT"},
+								{"key": "name", "value": "Nama Guru", "description": "Nama (required, max 255)"},
+								{"key": "nip", "value": "1234567890", "description": "NIP (required, unique)"},
+								{"key": "phone", "value": "081234567890"},
+								{"key": "address", "value": "Jl. Guru No. 1"},
+								{"key": "birth_date", "value": "1985-01-15"},
+								{"key": "birth_place", "value": "Purwakarta"},
+								{"key": "gender", "value": "L", "description": "L/P"},
+								{"key": "religion", "value": "Islam"},
+								{"key": "education_level", "value": "S1"},
+								{"key": "major", "value": "Pend. Matematika"},
+								{"key": "photo", "type": "file", "description": "Foto (optional, max 2MB)"},
+								{"key": "email", "value": "guru@example.com", "description": "Email (unique)"},
+								{"key": "password", "value": "", "description": "Password baru (optional, min 8)"},
+								{"key": "password_confirmation", "value": "", "description": "Konfirmasi password"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/my-profile",
+							"host": ["{{base_url}}"],
+							"path": ["my-profile"]
+						},
+						"description": "Update profil guru sendiri."
+					}
+				}
+			]
+		},
+		{
+			"name": "19. Language & Misc",
+			"description": "Fitur bahasa dan lainnya.",
+			"item": [
+				{
+					"name": "GET Switch Language",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/language/id",
+							"host": ["{{base_url}}"],
+							"path": ["language", "id"]
+						},
+						"description": "Ganti bahasa. Parameter: locale (id/en). Redirect back."
+					}
+				},
+				{
+					"name": "GET Switch to English",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/language/en",
+							"host": ["{{base_url}}"],
+							"path": ["language", "en"]
+						},
+						"description": "Ganti ke Bahasa Inggris."
+					}
+				},
+				{
+					"name": "GET Switch Semester",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/semester/1",
+							"host": ["{{base_url}}"],
+							"path": ["semester", "1"]
+						},
+						"description": "Ganti semester aktif. Parameter: academicYear ID. Session akan menyimpan semester terpilih. Redirect back."
+					}
+				}
+			]
+		}
+	]
+}

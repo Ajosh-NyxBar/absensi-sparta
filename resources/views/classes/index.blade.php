@@ -122,6 +122,14 @@
                             <i class="fas fa-calendar-alt text-gray-400"></i>
                             {{ $classRoom->academic_year }}
                         </p>
+                        <p class="text-sm text-gray-600 flex items-center gap-2 mt-1">
+                            <i class="fas fa-user-tie text-blue-400"></i>
+                            @if($classRoom->homeroomTeacher)
+                                <span class="font-semibold text-blue-700">{{ $classRoom->homeroomTeacher->name }}</span>
+                            @else
+                                <span class="text-gray-400 italic">Belum ada wali kelas</span>
+                            @endif
+                        </p>
                     </div>
 
                     <!-- Stats Grid -->

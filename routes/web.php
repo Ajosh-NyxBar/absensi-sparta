@@ -17,11 +17,18 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\CriteriaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TeacherSubjectController;
+use App\Http\Controllers\TeacherAssessmentController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\NotificationController;
 
 // Language switcher route (available for all)
 Route::get('/language/{locale}', [LanguageController::class, 'switch'])->name('language.switch');
+
+// Semester switcher route (available for all authenticated)
+Route::get('/semester/{academicYear}', function (\App\Models\AcademicYear $academicYear) {
+    session(['active_semester_id' => $academicYear->id]);
+    return redirect()->back()->with('success', 'Semester aktif diubah ke ' . $academicYear->year . ' ' . $academicYear->semester);
+})->middleware('auth')->name('semester.switch');
 
 // Guest routes
 Route::middleware('guest')->group(function () {
@@ -134,6 +141,10 @@ Route::middleware('auth')->group(function () {
     
     // Admin and Kepala Sekolah routes
     Route::middleware(\App\Http\Middleware\CheckRole::class . ':Admin,Kepala Sekolah')->group(function () {
+        // Teacher Assessment Input (K2: Kualitas Mengajar, K4: Kedisiplinan)
+        Route::get('/teacher-assessments', [TeacherAssessmentController::class, 'index'])->name('teacher-assessments.index');
+        Route::post('/teacher-assessments', [TeacherAssessmentController::class, 'store'])->name('teacher-assessments.store');
+
         // SAW for students
         Route::get('/saw/students', [SAWController::class, 'studentIndex'])->name('saw.students.index');
         Route::post('/saw/students/calculate', [SAWController::class, 'calculateStudents'])->name('saw.students.calculate');
@@ -180,5 +191,60 @@ Route::middleware(['auth'])->group(function () {
 // Redirect root to login
 Route::get('/', function () {
     return redirect()->route('login');
+});
+
+// ===============================
+// JSON DATA API (Returns JSON, not HTML)
+// Prefix: /api/v1/
+// ===============================
+Route::prefix('api/v1')->name('api.v1.')->middleware('auth')->group(function () {
+    $ctrl = App\Http\Controllers\Api\DataController::class;
+
+    // Dashboard
+    Route::get('/dashboard', [$ctrl, 'dashboardStats'])->name('dashboard');
+
+    // Teachers
+    Route::get('/teachers', [$ctrl, 'teachers'])->name('teachers.index');
+    Route::get('/teachers/{teacher}', [$ctrl, 'teacherShow'])->name('teachers.show');
+
+    // Students
+    Route::get('/students', [$ctrl, 'students'])->name('students.index');
+    Route::get('/students/{student}', [$ctrl, 'studentShow'])->name('students.show');
+
+    // Users
+    Route::get('/users', [$ctrl, 'users'])->name('users.index');
+    Route::get('/users/{user}', [$ctrl, 'userShow'])->name('users.show');
+
+    // Classes
+    Route::get('/classes', [$ctrl, 'classes'])->name('classes.index');
+    Route::get('/classes/{class}', [$ctrl, 'classShow'])->name('classes.show');
+
+    // Subjects
+    Route::get('/subjects', [$ctrl, 'subjects'])->name('subjects.index');
+    Route::get('/subjects/{subject}', [$ctrl, 'subjectShow'])->name('subjects.show');
+
+    // Academic Years
+    Route::get('/academic-years', [$ctrl, 'academicYears'])->name('academic-years.index');
+    Route::get('/academic-years/{academicYear}', [$ctrl, 'academicYearShow'])->name('academic-years.show');
+
+    // Grades
+    Route::get('/grades', [$ctrl, 'grades'])->name('grades.index');
+    Route::get('/grades/{grade}', [$ctrl, 'gradeShow'])->name('grades.show');
+
+    // Attendance
+    Route::get('/attendances', [$ctrl, 'attendances'])->name('attendances.index');
+
+    // Criteria (SAW)
+    Route::get('/criteria', [$ctrl, 'criteria'])->name('criteria.index');
+
+    // SAW Rankings
+    Route::get('/saw/students', [$ctrl, 'sawStudents'])->name('saw.students');
+    Route::get('/saw/teachers', [$ctrl, 'sawTeachers'])->name('saw.teachers');
+
+    // Teacher Subjects
+    Route::get('/teacher-subjects', [$ctrl, 'teacherSubjects'])->name('teacher-subjects.index');
+
+    // Settings
+    Route::get('/settings', [$ctrl, 'settings'])->name('settings.index');
 });
 

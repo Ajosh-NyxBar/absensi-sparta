@@ -59,10 +59,10 @@ class SAWService
             } else {
                 // For teachers: attendance_score, teaching_quality, student_achievement, discipline_score
                 $matrix[$index] = [
-                    'T1' => $item->attendance_score ?? 0,      // Kehadiran
-                    'T2' => $item->teaching_quality ?? 0,      // Kualitas Mengajar
-                    'T3' => $item->student_achievement ?? 0,   // Prestasi Siswa
-                    'T4' => $item->discipline_score ?? 0,      // Kedisiplinan
+                    'K1' => $item->attendance_score ?? 0,      // Kehadiran
+                    'K2' => $item->teaching_quality ?? 0,      // Kualitas Mengajar
+                    'K3' => $item->student_achievement ?? 0,   // Prestasi Siswa
+                    'K4' => $item->discipline_score ?? 0,      // Kedisiplinan
                 ];
             }
         }
@@ -80,6 +80,13 @@ class SAWService
         foreach ($criteria as $criterion) {
             $criterionCode = $criterion->code;
             $values = array_column($matrix, $criterionCode);
+
+            if (empty($values)) {
+                foreach ($matrix as $index => $row) {
+                    $normalized[$index][$criterionCode] = 0;
+                }
+                continue;
+            }
 
             if ($criterion->type === 'benefit') {
                 // For benefit criteria: r_ij = x_ij / max(x_ij)
@@ -175,10 +182,10 @@ class SAWService
                 ];
             } else {
                 $matrix[$index] = [
-                    'T1' => $item->attendance_score ?? 0,
-                    'T2' => $item->teaching_quality ?? 0,
-                    'T3' => $item->student_achievement ?? 0,
-                    'T4' => $item->discipline_score ?? 0,
+                    'K1' => $item->attendance_score ?? 0,
+                    'K2' => $item->teaching_quality ?? 0,
+                    'K3' => $item->student_achievement ?? 0,
+                    'K4' => $item->discipline_score ?? 0,
                 ];
             }
         }

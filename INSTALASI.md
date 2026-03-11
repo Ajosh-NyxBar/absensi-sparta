@@ -65,8 +65,8 @@ DB_PASSWORD=
 # Konfigurasi sekolah
 SCHOOL_NAME="SMPN 4 Purwakarta"
 SCHOOL_ADDRESS="Purwakarta, Jawa Barat"
-SCHOOL_LATITUDE=-6.5567
-SCHOOL_LONGITUDE=107.4442
+SCHOOL_LATITUDE=-6.5465236
+SCHOOL_LONGITUDE=107.4414175
 ATTENDANCE_RADIUS=100
 ```
 
@@ -134,8 +134,8 @@ Akses di browser: `http://localhost:8000`
 
 Edit `app/Http/Controllers/AttendanceController.php` baris 89-91:
 ```php
-$schoolLat = -6.5567;  // Ganti dengan latitude sekolah
-$schoolLong = 107.4442; // Ganti dengan longitude sekolah
+$schoolLat = -6.5465236;  // Latitude SMPN 4 Purwakarta
+$schoolLong = 107.4414175; // Longitude SMPN 4 Purwakarta
 $allowedRadius = 100;   // Radius dalam meter
 ```
 

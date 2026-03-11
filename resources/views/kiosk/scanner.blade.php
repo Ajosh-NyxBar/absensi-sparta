@@ -282,7 +282,40 @@
         
         function processQRCode(qrData) {
             // Show loading
-            showResult('loading', 'Memproses...', 'Mohon tunggu sebentar');
+            showResult('loading', 'Memproses...', 'Mengambil lokasi GPS...');
+            
+            // Get GPS location first, then send to server
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        sendScanData(qrData, position.coords.latitude, position.coords.longitude);
+                    },
+                    function(error) {
+                        let errorMsg = 'Tidak dapat mengakses lokasi GPS.';
+                        switch(error.code) {
+                            case error.PERMISSION_DENIED:
+                                errorMsg = 'Izin lokasi ditolak. Aktifkan izin lokasi di pengaturan browser.';
+                                break;
+                            case error.POSITION_UNAVAILABLE:
+                                errorMsg = 'Informasi lokasi tidak tersedia.';
+                                break;
+                            case error.TIMEOUT:
+                                errorMsg = 'Permintaan lokasi timeout. Silakan coba lagi.';
+                                break;
+                        }
+                        showResult('error', 'Gagal Mendapatkan Lokasi', errorMsg);
+                        isScanning = true;
+                    },
+                    { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+                );
+            } else {
+                showResult('error', 'GPS Tidak Didukung', 'Browser Anda tidak mendukung Geolocation.');
+                isScanning = true;
+            }
+        }
+        
+        function sendScanData(qrData, latitude, longitude) {
+            showResult('loading', 'Memproses...', 'Memvalidasi lokasi dan QR Code...');
             
             fetch('/kiosk/api/scan', {
                 method: 'POST',
@@ -291,7 +324,11 @@
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
                     'Accept': 'application/json'
                 },
-                body: JSON.stringify({ qr_data: qrData })
+                body: JSON.stringify({ 
+                    qr_data: qrData,
+                    latitude: latitude,
+                    longitude: longitude
+                })
             })
             .then(res => res.json())
             .then(data => {

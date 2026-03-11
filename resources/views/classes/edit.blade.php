@@ -113,6 +113,27 @@
                         <p class="mt-1 text-sm text-red-600"><i class="fas fa-exclamation-circle mr-1"></i>{{ $message }}</p>
                     @enderror
                 </div>
+
+                <!-- Wali Kelas -->
+                <div>
+                    <label for="homeroom_teacher_id" class="block text-sm font-semibold text-gray-700 mb-2">
+                        <i class="fas fa-user-tie text-amber-600 mr-1"></i> Wali Kelas
+                    </label>
+                    <select id="homeroom_teacher_id" 
+                            name="homeroom_teacher_id" 
+                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 @error('homeroom_teacher_id') border-red-500 @enderror">
+                        <option value="">-- Belum Ditentukan --</option>
+                        @foreach($teachers as $teacher)
+                        <option value="{{ $teacher->id }}" {{ old('homeroom_teacher_id', $class->homeroom_teacher_id) == $teacher->id ? 'selected' : '' }}>
+                            {{ $teacher->name }} ({{ $teacher->nip }})
+                        </option>
+                        @endforeach
+                    </select>
+                    <p class="mt-1 text-sm text-gray-500">Pilih guru yang ditugaskan sebagai wali kelas</p>
+                    @error('homeroom_teacher_id')
+                        <p class="mt-1 text-sm text-red-600"><i class="fas fa-exclamation-circle mr-1"></i>{{ $message }}</p>
+                    @enderror
+                </div>
                 
                 <!-- Action Buttons -->
                 <div class="flex gap-3 pt-6 border-t border-gray-200">

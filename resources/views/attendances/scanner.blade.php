@@ -255,7 +255,7 @@ function onScanSuccess(decodedText, decodedResult) {
         // Show loading
         Swal.fire({
             title: 'Memproses...',
-            html: 'Sedang memproses QR Code',
+            html: 'Mengambil lokasi GPS dan memproses QR Code',
             allowOutsideClick: false,
             allowEscapeKey: false,
             didOpen: () => {
@@ -263,59 +263,94 @@ function onScanSuccess(decodedText, decodedResult) {
             }
         });
 
-        // Send to server
-        fetch('{{ route('attendances.scan-qr') }}', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            body: JSON.stringify({
-                qr_data: decodedText
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // Update status card
-                updateStatusCard(data);
-                
-                // Show success message
-                Swal.fire({
-                    icon: 'success',
-                    title: data.message,
-                    html: formatSuccessMessage(data),
-                    confirmButtonColor: '#10b981',
-                    timer: 5000,
-                    timerProgressBar: true
-                });
-
-                // Stop scanner after successful scan
-                setTimeout(() => {
-                    if (isScanning) {
-                        document.getElementById('stop-scan').click();
+        // Get GPS location first, then send to server
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    // GPS success - send data with coordinates
+                    sendScanData(decodedText, position.coords.latitude, position.coords.longitude);
+                },
+                function(error) {
+                    // GPS failed
+                    let errorMsg = 'Tidak dapat mengakses lokasi GPS.';
+                    switch(error.code) {
+                        case error.PERMISSION_DENIED:
+                            errorMsg = 'Izin lokasi ditolak. Aktifkan izin lokasi di pengaturan browser.';
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            errorMsg = 'Informasi lokasi tidak tersedia.';
+                            break;
+                        case error.TIMEOUT:
+                            errorMsg = 'Permintaan lokasi timeout. Silakan coba lagi.';
+                            break;
                     }
-                }, 2000);
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Gagal',
-                    text: data.message,
-                    confirmButtonColor: '#ef4444',
-                });
-                
-                // Resume scanning
-                if (isScanning) {
-                    html5QrCode.resume();
-                }
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Gagal Mendapatkan Lokasi',
+                        text: errorMsg,
+                        confirmButtonColor: '#ef4444',
+                    });
+                    if (isScanning) {
+                        html5QrCode.resume();
+                    }
+                },
+                { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+            );
+        } else {
             Swal.fire({
                 icon: 'error',
-                title: 'Terjadi Kesalahan',
-                text: 'Gagal memproses QR Code. Silakan coba lagi.',
+                title: 'GPS Tidak Didukung',
+                text: 'Browser Anda tidak mendukung Geolocation. Gunakan browser modern dengan HTTPS.',
+                confirmButtonColor: '#ef4444',
+            });
+            if (isScanning) {
+                html5QrCode.resume();
+            }
+        }
+    }
+}
+
+// Send scan data with GPS coordinates to server
+function sendScanData(qrData, latitude, longitude) {
+    fetch('{{ route('attendances.scan-qr') }}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        body: JSON.stringify({
+            qr_data: qrData,
+            latitude: latitude,
+            longitude: longitude
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Update status card
+            updateStatusCard(data);
+            
+            // Show success message
+            Swal.fire({
+                icon: 'success',
+                title: data.message,
+                html: formatSuccessMessage(data),
+                confirmButtonColor: '#10b981',
+                timer: 5000,
+                timerProgressBar: true
+            });
+
+            // Stop scanner after successful scan
+            setTimeout(() => {
+                if (isScanning) {
+                    document.getElementById('stop-scan').click();
+                }
+            }, 2000);
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal',
+                text: data.message,
                 confirmButtonColor: '#ef4444',
             });
             
@@ -323,8 +358,22 @@ function onScanSuccess(decodedText, decodedResult) {
             if (isScanning) {
                 html5QrCode.resume();
             }
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Terjadi Kesalahan',
+            text: 'Gagal memproses QR Code. Silakan coba lagi.',
+            confirmButtonColor: '#ef4444',
         });
-    }
+        
+        // Resume scanning
+        if (isScanning) {
+            html5QrCode.resume();
+        }
+    });
 }
 
 // Handle scan failure

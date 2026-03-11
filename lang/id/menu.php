@@ -9,6 +9,7 @@ return [
     'academic_year' => 'Tahun Ajaran',
     'classes' => 'Kelas',
     'subjects' => 'Mata Pelajaran',
+    'teacher_subjects' => 'Penugasan Guru',
     
     // User Data Section
     'user_data' => 'Data Pengguna',
@@ -25,6 +26,7 @@ return [
     'saw_assessment' => 'Penilaian SAW',
     'criteria' => 'Kriteria',
     'student_ranking' => 'Ranking Siswa',
+    'teacher_assessment' => 'Input Penilaian Guru',
     'teacher_ranking' => 'Ranking Guru',
     
     // Reports Section

@@ -96,8 +96,8 @@
                                         class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all duration-200 @error('semester') border-red-500 @enderror" 
                                         required>
                                     <option value="">-- Pilih Semester --</option>
-                                    <option value="Ganjil" {{ old('semester') == 'Ganjil' ? 'selected' : '' }}>Ganjil</option>
-                                    <option value="Genap" {{ old('semester') == 'Genap' ? 'selected' : '' }}>Genap</option>
+                                    <option value="Ganjil" {{ old('semester', $defaultSemester) == 'Ganjil' ? 'selected' : '' }}>Ganjil</option>
+                                    <option value="Genap" {{ old('semester', $defaultSemester) == 'Genap' ? 'selected' : '' }}>Genap</option>
                                 </select>
                                 @error('semester')
                                     <p class="mt-1 text-sm text-red-600"><i class="fas fa-exclamation-circle mr-1"></i>{{ $message }}</p>
@@ -109,13 +109,14 @@
                                 <label for="academic_year" class="block text-sm font-semibold text-gray-700 mb-2">
                                     Tahun Ajaran <span class="text-red-500">*</span>
                                 </label>
-                                <input type="text" 
-                                       id="academic_year" 
+                                <select id="academic_year" 
                                        name="academic_year" 
-                                       value="{{ old('academic_year', '2024/2025') }}" 
-                                       placeholder="2024/2025"
                                        class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all duration-200 @error('academic_year') border-red-500 @enderror" 
                                        required>
+                                    @foreach($academicYears as $year)
+                                        <option value="{{ $year }}" {{ old('academic_year', $defaultAcademicYear) == $year ? 'selected' : '' }}>{{ $year }}</option>
+                                    @endforeach
+                                </select>
                                 @error('academic_year')
                                     <p class="mt-1 text-sm text-red-600"><i class="fas fa-exclamation-circle mr-1"></i>{{ $message }}</p>
                                 @enderror

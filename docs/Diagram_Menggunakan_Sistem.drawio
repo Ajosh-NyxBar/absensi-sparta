@@ -1,0 +1,304 @@
+<mxfile host="app.diagrams.net" modified="2026-03-11T12:00:00.000Z" agent="draw.io" type="device">
+  <diagram id="menggunakan-sistem" name="4.1.7 Menggunakan Sistem">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="&lt;b style=&quot;font-size:18px&quot;&gt;4.1.7 Menggunakan Sistem&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:11px&quot;&gt;Sistem Informasi Absensi Guru &amp;amp; Penilaian Siswa &amp;mdash; SMPN 4 Purwakarta&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="400" y="10" width="800" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="start" value="Sistem&lt;br&gt;&lt;b&gt;User Accepted&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="105" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="earrow1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=2;strokeColor=#555;endArrow=blockThin;endFill=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="start" target="sec1_box" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sec1_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;shadow=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="170" y="67" width="280" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="sec1_server" value="" style="shape=mxgraph.cisco.servers.standard_server;html=1;fillColor=#1565C0;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="185" y="78" width="40" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="sec1_db" value="" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=8;fillColor=#1565C0;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="235" y="83" width="30" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="sec1_cloud" value="" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=#1565C0;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="275" y="83" width="45" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="sec1_title" value="&lt;b style=&quot;font-size:13px;color:#1565C0&quot;&gt;4.1.7.1 Deployment Sistem&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="325" y="78" width="120" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="sec1_info" value="&lt;font style=&quot;font-size:10px&quot;&gt;Apache/Nginx &amp;bull; PHP 8.2 &amp;bull; MySQL&lt;br&gt;Node.js &amp;bull; HTTPS/SSL (wajib)&lt;br&gt;&lt;b&gt;10 langkah instalasi&lt;/b&gt; + konfigurasi&lt;br&gt;Koordinat, radius 100m, QR 10 mnt&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=top;strokeColor=none;fillColor=none;spacingLeft=5;" vertex="1" parent="1">
+          <mxGeometry x="180" y="130" width="260" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="earrow2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=2;strokeColor=#555;endArrow=blockThin;endFill=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="sec1_box" target="sec2_box" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sec2_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;shadow=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="480" y="67" width="280" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="sec2_person1" value="" style="shape=mxgraph.basic.person;fillColor=#2E7D32;strokeColor=none;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="500" y="78" width="28" height="38" as="geometry" />
+        </mxCell>
+        <mxCell id="sec2_person2" value="" style="shape=mxgraph.basic.person;fillColor=#43A047;strokeColor=none;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="530" y="78" width="28" height="38" as="geometry" />
+        </mxCell>
+        <mxCell id="sec2_person3" value="" style="shape=mxgraph.basic.person;fillColor=#66BB6A;strokeColor=none;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="560" y="78" width="28" height="38" as="geometry" />
+        </mxCell>
+        <mxCell id="sec2_laptop" value="" style="shape=mxgraph.cisco.computers_and_peripherals.laptop;html=1;fillColor=#2E7D32;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="600" y="80" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="sec2_title" value="&lt;b style=&quot;font-size:13px;color:#2E7D32&quot;&gt;4.1.7.2 Pelatihan&lt;br&gt;Pengguna&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="645" y="73" width="110" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="sec2_info" value="&lt;font style=&quot;font-size:10px&quot;&gt;&lt;b&gt;Admin TU&lt;/b&gt; (1) &amp;bull; &lt;b&gt;Guru&lt;/b&gt; (semua) &amp;bull; &lt;b&gt;Kepsek&lt;/b&gt; (1)&lt;br&gt;Demonstrasi → Praktik Mandiri → Tanya Jawab&lt;br&gt;Panduan penggunaan &amp;amp; dokumentasi pelatihan&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=top;strokeColor=none;fillColor=none;spacingLeft=5;" vertex="1" parent="1">
+          <mxGeometry x="490" y="125" width="260" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="earrow3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=2;strokeColor=#555;endArrow=blockThin;endFill=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="sec2_box" target="sec3_box" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sec3_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;shadow=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="790" y="67" width="280" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="sec3_phone" value="" style="shape=mxgraph.android.phone2;strokeColor=none;fillColor=#E65100;" vertex="1" parent="1">
+          <mxGeometry x="808" y="75" width="22" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="sec3_monitor" value="" style="shape=mxgraph.cisco.computers_and_peripherals.monitor;html=1;fillColor=#E65100;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="838" y="78" width="35" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="sec3_pc" value="" style="shape=mxgraph.cisco.computers_and_peripherals.pc;html=1;fillColor=#E65100;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="880" y="75" width="35" height="38" as="geometry" />
+        </mxCell>
+        <mxCell id="sec3_title" value="&lt;b style=&quot;font-size:13px;color:#E65100&quot;&gt;4.1.7.3&lt;br&gt;Implementasi&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="925" y="73" width="135" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="sec3_info" value="&lt;font style=&quot;font-size:10px&quot;&gt;&lt;b style=&quot;color:#E65100&quot;&gt;Fase 1&lt;/b&gt; Paralel (Mg 1) &amp;bull; &lt;b style=&quot;color:#FF9800&quot;&gt;Fase 2&lt;/b&gt; Transisi (Mg 2)&lt;br&gt;&lt;b style=&quot;color:#4CAF50&quot;&gt;Fase 3&lt;/b&gt; Full Digital (Mg 3+)&lt;br&gt;Monitoring: uptime ≥99%, scan ≤10s, 0 bug&lt;br&gt;Dukungan teknis + transfer knowledge&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=top;strokeColor=none;fillColor=none;spacingLeft=5;" vertex="1" parent="1">
+          <mxGeometry x="800" y="125" width="260" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="earrow4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=2;strokeColor=#555;endArrow=blockThin;endFill=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="sec3_box" target="sec4_box" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sec4_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=2;shadow=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="67" width="280" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="sec4_chart" value="" style="shape=mxgraph.signs.healthcare.first_aid2;fillColor=#6A1B9A;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1120" y="78" width="35" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="sec4_check" value="&lt;font style=&quot;font-size:22px;color:#6A1B9A&quot;&gt;&#10004;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1160" y="78" width="30" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="sec4_speed" value="" style="shape=mxgraph.ios7.misc.gauge;fillColor=#6A1B9A;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1195" y="78" width="35" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="sec4_title" value="&lt;b style=&quot;font-size:13px;color:#6A1B9A&quot;&gt;4.1.7.4&lt;br&gt;Hasil Implementasi&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1240" y="73" width="135" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="sec4_info" value="&lt;font style=&quot;font-size:10px&quot;&gt;Absensi: ~2 mnt → &lt;b style=&quot;color:#2E7D32&quot;&gt;~10 detik (12x cepat)&lt;/b&gt;&lt;br&gt;Rekap: 2-3 hari → &lt;b style=&quot;color:#2E7D32&quot;&gt;Instan (Excel/PDF)&lt;/b&gt;&lt;br&gt;Dashboard real-time &amp;bull; SAW transparan&lt;br&gt;&lt;b style=&quot;color:#2E7D32&quot;&gt;Zero critical bug&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=top;strokeColor=none;fillColor=none;spacingLeft=5;" vertex="1" parent="1">
+          <mxGeometry x="1110" y="125" width="260" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="earrow5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=2;strokeColor=#555;endArrow=blockThin;endFill=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="sec4_box" target="endnode" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="endnode" value="&lt;b&gt;Sistem&lt;br&gt;Beroperasi&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#2E7D32;strokeColor=#1B5E20;fontSize=11;shadow=1;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="1420" y="105" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="phase_bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#E65100;strokeWidth=1;dashed=1;opacity=40;" vertex="1" parent="1">
+          <mxGeometry x="170" y="220" width="1210" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="phase_title" value="&lt;b style=&quot;color:#BF360C;font-size:12px&quot;&gt;Strategi Go-Live &amp;mdash; Phased Rollout&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="180" y="225" width="300" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="ph1_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E65100;strokeColor=#BF360C;strokeWidth=2;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="195" y="260" width="230" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="ph1_icon_phone" value="" style="shape=mxgraph.android.phone2;strokeColor=none;fillColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="225" y="273" width="20" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="ph1_icon_book" value="&lt;font style=&quot;font-size:22px;color:#FFF&quot;&gt;&#128214;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="265" y="270" width="35" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="ph1_title" value="&lt;b style=&quot;color:#FFF;font-size:13px&quot;&gt;Fase 1: Paralel&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="305" y="272" width="115" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ph1_week" value="&lt;font style=&quot;color:#FFCC80;font-size:10px&quot;&gt;Minggu ke-1&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="305" y="296" width="100" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="ph1_digital" value="&lt;b style=&quot;color:#FFF&quot;&gt;Sistem Digital&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#BF360C;strokeColor=none;fontSize=10;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="210" y="320" width="95" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ph1_plus" value="&lt;b style=&quot;color:#FFF;font-size:16px&quot;&gt;+&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="305" y="320" width="20" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ph1_manual" value="&lt;b style=&quot;color:#FFF&quot;&gt;Buku Manual&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#BF360C;strokeColor=none;fontSize=10;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="325" y="320" width="85" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ph1_desc" value="&lt;font style=&quot;font-size:9px;color:#FFCC80&quot;&gt;Data digital harus konsisten&lt;br&gt;dengan pencatatan manual&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="210" y="360" width="200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ph1_bar" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFCC80;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="210" y="400" width="70" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="ph1_bar_label" value="&lt;font style=&quot;font-size:8px;color:#FFF&quot;&gt;33% digital&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="290" y="397" width="80" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="pharrow1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=2;strokeColor=#E65100;endArrow=blockThin;endFill=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="ph1_box" target="ph2_box" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ph2_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FF9800;strokeColor=#E65100;strokeWidth=2;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="475" y="260" width="230" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="ph2_icon_phone" value="" style="shape=mxgraph.android.phone2;strokeColor=none;fillColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="500" y="273" width="25" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ph2_icon_monitor" value="" style="shape=mxgraph.cisco.computers_and_peripherals.monitor;html=1;fillColor=#FFFFFF;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="535" y="278" width="30" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="ph2_title" value="&lt;b style=&quot;color:#FFF;font-size:13px&quot;&gt;Fase 2: Transisi&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="575" y="272" width="125" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ph2_week" value="&lt;font style=&quot;color:#FFF3E0;font-size:10px&quot;&gt;Minggu ke-2&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="575" y="296" width="100" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="ph2_digital" value="&lt;b style=&quot;color:#FFF;font-size:11px&quot;&gt;DIGITAL (Utama)&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E65100;strokeColor=none;fontSize=10;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="490" y="325" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ph2_manual" value="&lt;font style=&quot;color:#FFF3E0;font-size:9px&quot;&gt;manual&lt;br&gt;(cadangan)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E65100;strokeColor=none;fontColor=#FFF3E0;opacity=70;" vertex="1" parent="1">
+          <mxGeometry x="630" y="325" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ph2_desc" value="&lt;font style=&quot;font-size:9px;color:#FFF3E0&quot;&gt;Membiasakan pengguna,&lt;br&gt;validasi keandalan harian&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="490" y="365" width="200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ph2_bar" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="490" y="400" width="130" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="ph2_bar_label" value="&lt;font style=&quot;font-size:8px;color:#FFF&quot;&gt;66% digital&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="625" y="397" width="70" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="pharrow2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=2;strokeColor=#E65100;endArrow=blockThin;endFill=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="ph2_box" target="ph3_box" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ph3_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#4CAF50;strokeColor=#2E7D32;strokeWidth=2;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="755" y="260" width="230" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="ph3_icon_laptop" value="" style="shape=mxgraph.cisco.computers_and_peripherals.laptop;html=1;fillColor=#FFFFFF;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="780" y="278" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ph3_icon_phone" value="" style="shape=mxgraph.android.phone2;strokeColor=none;fillColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="825" y="273" width="20" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="ph3_title" value="&lt;b style=&quot;color:#FFF;font-size:13px&quot;&gt;Fase 3: Full Digital&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="852" y="272" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ph3_week" value="&lt;font style=&quot;color:#C8E6C9;font-size:10px&quot;&gt;Minggu ke-3+&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="852" y="296" width="100" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="ph3_digital" value="&lt;b style=&quot;color:#FFF;font-size:12px&quot;&gt;100% DIGITAL&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2E7D32;strokeColor=none;fontSize=11;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="775" y="325" width="190" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ph3_desc" value="&lt;font style=&quot;font-size:9px;color:#C8E6C9&quot;&gt;Buku absensi manual dihentikan&lt;br&gt;Operasional penuh sistem digital&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="770" y="365" width="200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ph3_bar" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="775" y="400" width="190" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="ph3_bar_label" value="&lt;font style=&quot;font-size:8px;color:#FFF&quot;&gt;100% digital&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="775" y="397" width="190" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="result_bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE7F6;strokeColor=#9673a6;strokeWidth=1;dashed=1;opacity=40;" vertex="1" parent="1">
+          <mxGeometry x="1030" y="220" width="350" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="result_title" value="&lt;b style=&quot;color:#4A148C;font-size:12px&quot;&gt;Hasil Implementasi&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="225" width="200" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="res1_icon" value="" style="shape=mxgraph.android.phone2;strokeColor=none;fillColor=#7E57C2;" vertex="1" parent="1">
+          <mxGeometry x="1050" y="260" width="18" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="res1" value="&lt;font style=&quot;font-size:10px&quot;&gt;&lt;b&gt;Absensi QR:&lt;/b&gt; ~2 mnt → &lt;b style=&quot;color:#2E7D32&quot;&gt;~10 dtk (12x cepat)&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1075" y="260" width="290" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="res2_icon" value="" style="shape=mxgraph.cisco.computers_and_peripherals.printer;html=1;fillColor=#7E57C2;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1050" y="295" width="22" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="res2" value="&lt;font style=&quot;font-size:10px&quot;&gt;&lt;b&gt;Rekap:&lt;/b&gt; 2-3 hari → &lt;b style=&quot;color:#2E7D32&quot;&gt;Instan (Excel/PDF)&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1075" y="292" width="290" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="res3_icon" value="" style="shape=mxgraph.cisco.computers_and_peripherals.monitor;html=1;fillColor=#7E57C2;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1050" y="325" width="22" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="res3" value="&lt;font style=&quot;font-size:10px&quot;&gt;&lt;b&gt;Dashboard:&lt;/b&gt; Kepsek pantau &lt;b style=&quot;color:#2E7D32&quot;&gt;real-time&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1075" y="323" width="290" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="res4_icon" value="" style="shape=mxgraph.cisco.computers_and_peripherals.laptop;html=1;fillColor=#7E57C2;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1050" y="355" width="22" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="res4" value="&lt;font style=&quot;font-size:10px&quot;&gt;&lt;b&gt;Nilai:&lt;/b&gt; Form interaktif + &lt;b style=&quot;color:#2E7D32&quot;&gt;hitung otomatis SAW&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1075" y="352" width="290" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="res5_icon" value="" style="shape=mxgraph.signs.healthcare.first_aid2;fillColor=#2E7D32;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1050" y="387" width="22" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="res5" value="&lt;font style=&quot;font-size:10px&quot;&gt;&lt;b style=&quot;color:#2E7D32&quot;&gt;Zero Critical Bug&lt;/b&gt; selama implementasi&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1075" y="385" width="290" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="res6_icon" value="" style="shape=mxgraph.ios7.misc.gauge;fillColor=#2E7D32;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1050" y="417" width="22" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="res6" value="&lt;font style=&quot;font-size:10px&quot;&gt;&lt;b&gt;Scan QR:&lt;/b&gt; &lt;b style=&quot;color:#2E7D32&quot;&gt;≤10 detik&lt;/b&gt; per transaksi&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1075" y="415" width="290" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="conn_sec1_phase" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=1;strokeColor=#999;dashed=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;entryX=0.15;entryY=0;" edge="1" source="sec1_box" target="phase_bg" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="conn_sec3_phase" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=1;strokeColor=#999;dashed=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;entryX=0.55;entryY=0;" edge="1" source="sec3_box" target="phase_bg" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="conn_sec4_result" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=1;strokeColor=#999;dashed=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" source="sec4_box" target="result_bg" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="legend_bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FAFAFA;strokeColor=#BDBDBD;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="480" width="140" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="legend_title" value="&lt;b style=&quot;font-size:10px&quot;&gt;Legenda&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="30" y="483" width="80" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="leg1c" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="30" y="505" width="16" height="12" as="geometry" />
+        </mxCell>
+        <mxCell id="leg1t" value="&lt;font style=&quot;font-size:9px&quot;&gt;Deployment&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="52" y="501" width="100" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="leg2c" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="30" y="523" width="16" height="12" as="geometry" />
+        </mxCell>
+        <mxCell id="leg2t" value="&lt;font style=&quot;font-size:9px&quot;&gt;Pelatihan&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="52" y="519" width="100" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="leg3c" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="30" y="541" width="16" height="12" as="geometry" />
+        </mxCell>
+        <mxCell id="leg3t" value="&lt;font style=&quot;font-size:9px&quot;&gt;Implementasi&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="52" y="537" width="100" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="leg4c" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="30" y="559" width="16" height="12" as="geometry" />
+        </mxCell>
+        <mxCell id="leg4t" value="&lt;font style=&quot;font-size:9px&quot;&gt;Hasil&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="52" y="555" width="100" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="leg5c" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E65100;strokeColor=#BF360C;" vertex="1" parent="1">
+          <mxGeometry x="30" y="577" width="5" height="12" as="geometry" />
+        </mxCell>
+        <mxCell id="leg6c" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FF9800;strokeColor=#E65100;" vertex="1" parent="1">
+          <mxGeometry x="36" y="577" width="5" height="12" as="geometry" />
+        </mxCell>
+        <mxCell id="leg7c" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#4CAF50;strokeColor=#2E7D32;" vertex="1" parent="1">
+          <mxGeometry x="42" y="577" width="5" height="12" as="geometry" />
+        </mxCell>
+        <mxCell id="leg5t" value="&lt;font style=&quot;font-size:9px&quot;&gt;Fase 1 → 2 → 3&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="52" y="573" width="100" height="18" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

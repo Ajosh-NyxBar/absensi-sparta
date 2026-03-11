@@ -1,0 +1,262 @@
+<mxfile host="app.diagrams.net" modified="2026-03-01T08:02:00.000Z" agent="draw.io" type="device">
+  <diagram id="network-architecture" name="Arsitektur Jaringan">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ==================== TITLE ==================== -->
+        <mxCell id="title" value="&lt;b&gt;Arsitektur Jaringan&lt;/b&gt;&lt;br&gt;Sistem Informasi Absensi Guru &amp; Penilaian Siswa&lt;br&gt;SMPN 4 Purwakarta" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=16;fontColor=#1a1a2e;" vertex="1" parent="1">
+          <mxGeometry x="500" y="20" width="600" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== CLIENT LAYER ==================== -->
+        <mxCell id="client-layer" value="&lt;b&gt;Client Layer&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#4361ee;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="100" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="client-bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f0fe;strokeColor=#4361ee;strokeWidth=2;dashed=1;opacity=30;" vertex="1" parent="1">
+          <mxGeometry x="30" y="130" width="1540" height="240" as="geometry" />
+        </mxCell>
+
+        <!-- Smartphone Guru -->
+        <mxCell id="phone-guru" value="&lt;b&gt;Smartphone Guru&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;Browser + Kamera&lt;br&gt;+ GPS (Geolocation)&lt;/font&gt;" style="shape=mxgraph.android.phone2;strokeColor=#4361ee;fillColor=#dbeafe;strokeWidth=2;whiteSpace=wrap;html=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="80" y="160" width="130" height="190" as="geometry" />
+        </mxCell>
+
+        <!-- PC Admin -->
+        <mxCell id="pc-admin" value="&lt;b&gt;PC Admin&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;Browser (Chrome/Firefox)&lt;br&gt;Dashboard Admin&lt;/font&gt;" style="shape=mxgraph.cisco.computers_and_peripherals.pc;html=1;fillColor=#dbeafe;strokeColor=#4361ee;strokeWidth=2;whiteSpace=wrap;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="340" y="170" width="140" height="130" as="geometry" />
+        </mxCell>
+
+        <!-- PC Kepala Sekolah -->
+        <mxCell id="pc-kepsek" value="&lt;b&gt;PC Kepala Sekolah&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;Browser&lt;br&gt;Dashboard Laporan&lt;/font&gt;" style="shape=mxgraph.cisco.computers_and_peripherals.pc;html=1;fillColor=#dbeafe;strokeColor=#4361ee;strokeWidth=2;whiteSpace=wrap;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="590" y="170" width="140" height="130" as="geometry" />
+        </mxCell>
+
+        <!-- Kiosk PC -->
+        <mxCell id="pc-kiosk" value="&lt;b&gt;PC Kiosk&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;Monitor Ruang Guru&lt;br&gt;Menampilkan QR Code&lt;/font&gt;" style="shape=mxgraph.cisco.computers_and_peripherals.monitor;html=1;fillColor=#fef3c7;strokeColor=#f59e0b;strokeWidth=2;whiteSpace=wrap;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="860" y="170" width="150" height="130" as="geometry" />
+        </mxCell>
+
+        <!-- PC Guru (input nilai) -->
+        <mxCell id="pc-guru-nilai" value="&lt;b&gt;PC/Laptop Guru&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;Browser&lt;br&gt;Input Nilai Siswa&lt;/font&gt;" style="shape=mxgraph.cisco.computers_and_peripherals.laptop;html=1;fillColor=#dbeafe;strokeColor=#4361ee;strokeWidth=2;whiteSpace=wrap;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1120" y="170" width="150" height="130" as="geometry" />
+        </mxCell>
+
+        <!-- Smartphone Guru (SAW) -->
+        <mxCell id="phone-siswa" value="&lt;b&gt;Browser Siswa&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;Akses Nilai&lt;br&gt;(Opsional)&lt;/font&gt;" style="shape=mxgraph.android.phone2;strokeColor=#9ca3af;fillColor=#f3f4f6;strokeWidth=1;whiteSpace=wrap;html=1;fontSize=10;fontColor=#6b7280;" vertex="1" parent="1">
+          <mxGeometry x="1380" y="175" width="100" height="155" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== NETWORK / INTERNET ==================== -->
+        <mxCell id="net-layer" value="&lt;b&gt;Network Layer&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#7c3aed;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="390" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="net-bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f3e8ff;strokeColor=#7c3aed;strokeWidth=2;dashed=1;opacity=30;" vertex="1" parent="1">
+          <mxGeometry x="30" y="420" width="1540" height="130" as="geometry" />
+        </mxCell>
+
+        <!-- Internet Cloud -->
+        <mxCell id="internet" value="&lt;b&gt;Internet&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;HTTPS (SSL/TLS)&lt;br&gt;Port 443&lt;/font&gt;" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=#ede9fe;strokeColor=#7c3aed;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="310" y="425" width="280" height="120" as="geometry" />
+        </mxCell>
+
+        <!-- LAN Sekolah -->
+        <mxCell id="lan" value="&lt;b&gt;LAN Sekolah&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;WiFi / Ethernet&lt;br&gt;192.168.x.x&lt;/font&gt;" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#f59e0b;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="980" y="425" width="280" height="120" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow: LAN to Internet -->
+        <mxCell id="lan-to-internet" value="&lt;font style=&quot;font-size:10px&quot;&gt;Router / ISP&lt;/font&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#7c3aed;strokeWidth=2;html=1;" edge="1" source="lan" target="internet" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== SERVER LAYER ==================== -->
+        <mxCell id="server-layer" value="&lt;b&gt;Server Layer&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#059669;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="575" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="server-bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ecfdf5;strokeColor=#059669;strokeWidth=2;dashed=1;opacity=30;" vertex="1" parent="1">
+          <mxGeometry x="30" y="605" width="1540" height="290" as="geometry" />
+        </mxCell>
+
+        <!-- Web Server -->
+        <mxCell id="web-server" value="&lt;b&gt;Web Server&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;Apache / Nginx&lt;br&gt;(Shared Hosting)&lt;/font&gt;" style="shape=mxgraph.cisco.servers.standard_server;html=1;fillColor=#d1fae5;strokeColor=#059669;strokeWidth=2;whiteSpace=wrap;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="130" y="630" width="120" height="120" as="geometry" />
+        </mxCell>
+
+        <!-- Laravel App -->
+        <mxCell id="laravel-app" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#059669;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="340" y="620" width="460" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="laravel-title" value="&lt;b&gt;Laravel Application (PHP 8.x)&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontColor=#059669;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="420" y="625" width="300" height="25" as="geometry" />
+        </mxCell>
+
+        <!-- MVC Components inside Laravel -->
+        <mxCell id="routing" value="&lt;b&gt;Routing&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;web.php&lt;br&gt;api.php&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#f59e0b;strokeWidth=1;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="360" y="660" width="90" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="middleware" value="&lt;b&gt;Middleware&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Auth, CSRF&lt;br&gt;Role Check&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#f59e0b;strokeWidth=1;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="460" y="660" width="90" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="controllers" value="&lt;b&gt;Controllers&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;AttendanceController&lt;br&gt;KioskController&lt;br&gt;SAWController&lt;br&gt;AuthController&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#4361ee;strokeWidth=1;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="360" y="735" width="120" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="models" value="&lt;b&gt;Models (Eloquent)&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Teacher, Student&lt;br&gt;Attendance, Score&lt;br&gt;User, ClassRoom&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#4361ee;strokeWidth=1;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="500" y="735" width="120" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="views" value="&lt;b&gt;Views (Blade)&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;scanner.blade.php&lt;br&gt;dashboard.blade.php&lt;br&gt;kiosk/*.blade.php&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#4361ee;strokeWidth=1;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="640" y="735" width="130" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="services" value="&lt;b&gt;Services&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;NotificationService&lt;br&gt;QR Code Generator&lt;br&gt;Geolocation (Haversine)&lt;br&gt;SAW Calculator&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fce7f3;strokeColor=#ec4899;strokeWidth=1;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="560" y="660" width="130" height="65" as="geometry" />
+        </mxCell>
+
+        <mxCell id="encryption" value="&lt;b&gt;Security&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Encrypt/Decrypt QR&lt;br&gt;Bcrypt Password&lt;br&gt;CSRF Token&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fee2e2;strokeColor=#ef4444;strokeWidth=1;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="700" y="660" width="90" height="65" as="geometry" />
+        </mxCell>
+
+        <!-- Database Server -->
+        <mxCell id="db-server" value="&lt;b&gt;Database Server&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:11px&quot;&gt;MySQL 8.x&lt;/font&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#d1fae5;strokeColor=#059669;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="920" y="645" width="140" height="120" as="geometry" />
+        </mxCell>
+
+        <!-- Database Tables -->
+        <mxCell id="db-tables" value="&lt;b&gt;Tabel Utama:&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;• users&lt;br&gt;• teachers&lt;br&gt;• students&lt;br&gt;• attendances&lt;br&gt;&amp;nbsp;&amp;nbsp;(latitude_in, longitude_in,&lt;br&gt;&amp;nbsp;&amp;nbsp; latitude_out, longitude_out)&lt;br&gt;• scores&lt;br&gt;• class_rooms&lt;br&gt;• criteria (SAW)&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=top;fontSize=10;fillColor=#ffffff;strokeColor=#059669;rounded=1;strokeWidth=1;spacingLeft=5;spacingTop=3;" vertex="1" parent="1">
+          <mxGeometry x="900" y="780" width="180" height="145" as="geometry" />
+        </mxCell>
+
+        <!-- File Storage -->
+        <mxCell id="file-storage" value="&lt;b&gt;File Storage&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;Export: Excel, PDF&lt;br&gt;Foto Profil&lt;br&gt;public/storage&lt;/font&gt;" style="shape=mxgraph.cisco.storage.disk_subsystem;html=1;fillColor=#d1fae5;strokeColor=#059669;strokeWidth=2;whiteSpace=wrap;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1170" y="650" width="120" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Geolocation API -->
+        <mxCell id="geo-api" value="&lt;b&gt;Geolocation API&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;navigator.geolocation&lt;br&gt;GPS Coordinates&lt;br&gt;Haversine Formula&lt;br&gt;Radius: 100m&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#f59e0b;strokeWidth=2;fontSize=11;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="1340" y="640" width="160" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== CONNECTIONS ==================== -->
+
+        <!-- Phone Guru -> Internet -->
+        <mxCell id="conn-phone-inet" value="&lt;font style=&quot;font-size:9px&quot;&gt;HTTPS&lt;br&gt;QR Scan +&lt;br&gt;GPS Data&lt;/font&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;strokeColor=#4361ee;strokeWidth=2;html=1;" edge="1" source="phone-guru" target="internet" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- PC Admin -> Internet -->
+        <mxCell id="conn-admin-inet" value="&lt;font style=&quot;font-size:9px&quot;&gt;HTTPS&lt;/font&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.4;entryY=0;entryDx=0;entryDy=0;strokeColor=#4361ee;strokeWidth=2;html=1;" edge="1" source="pc-admin" target="internet" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- PC Kepsek -> Internet -->
+        <mxCell id="conn-kepsek-inet" value="&lt;font style=&quot;font-size:9px&quot;&gt;HTTPS&lt;/font&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.6;entryY=0;entryDx=0;entryDy=0;strokeColor=#4361ee;strokeWidth=2;html=1;" edge="1" source="pc-kepsek" target="internet" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Kiosk -> LAN -->
+        <mxCell id="conn-kiosk-lan" value="&lt;font style=&quot;font-size:9px&quot;&gt;LAN&lt;br&gt;Tampilkan QR&lt;/font&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.3;entryY=0;entryDx=0;entryDy=0;strokeColor=#f59e0b;strokeWidth=2;html=1;" edge="1" source="pc-kiosk" target="lan" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- PC Guru Nilai -> LAN -->
+        <mxCell id="conn-gurunilai-lan" value="&lt;font style=&quot;font-size:9px&quot;&gt;WiFi / LAN&lt;/font&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.6;entryY=0;entryDx=0;entryDy=0;strokeColor=#4361ee;strokeWidth=2;html=1;" edge="1" source="pc-guru-nilai" target="lan" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Siswa -> Internet -->
+        <mxCell id="conn-siswa-inet" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.85;entryY=0;entryDx=0;entryDy=0;strokeColor=#9ca3af;strokeWidth=1;dashed=1;html=1;" edge="1" source="phone-siswa" target="lan" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Internet -> Web Server -->
+        <mxCell id="conn-inet-ws" value="&lt;font style=&quot;font-size:9px&quot;&gt;HTTP Request&lt;br&gt;Port 443&lt;/font&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.3;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#059669;strokeWidth=2;html=1;" edge="1" source="internet" target="web-server" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Web Server -> Laravel -->
+        <mxCell id="conn-ws-laravel" value="&lt;font style=&quot;font-size:9px&quot;&gt;PHP-FPM&lt;/font&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.3;entryDx=0;entryDy=0;strokeColor=#059669;strokeWidth=2;html=1;" edge="1" source="web-server" target="laravel-app" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Laravel -> Database -->
+        <mxCell id="conn-laravel-db" value="&lt;font style=&quot;font-size:9px&quot;&gt;MySQL&lt;br&gt;Port 3306&lt;/font&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.3;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#059669;strokeWidth=2;html=1;" edge="1" source="laravel-app" target="db-server" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- DB -> Tables -->
+        <mxCell id="conn-db-tables" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#059669;strokeWidth=1;dashed=1;html=1;" edge="1" source="db-server" target="db-tables" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Laravel -> File Storage -->
+        <mxCell id="conn-laravel-fs" value="&lt;font style=&quot;font-size:9px&quot;&gt;File I/O&lt;/font&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;exitX=1;exitY=0.6;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#059669;strokeWidth=1;html=1;" edge="1" source="laravel-app" target="file-storage" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Geo API connection -->
+        <mxCell id="conn-geo" value="&lt;font style=&quot;font-size:9px&quot;&gt;Browser API&lt;/font&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=1;entryDx=0;entryDy=0;strokeColor=#f59e0b;strokeWidth=2;dashed=1;html=1;" edge="1" source="geo-api" target="phone-guru" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1420" y="350" />
+              <mxPoint x="210" y="350" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- ==================== LEGEND ==================== -->
+        <mxCell id="legend-bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6b7280;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="1170" y="790" width="370" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-title" value="&lt;b&gt;Keterangan&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#1a1a2e;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1185" y="795" width="100" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="leg1" value="" style="endArrow=classic;html=1;strokeColor=#4361ee;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1185" y="830" as="sourcePoint" />
+            <mxPoint x="1235" y="830" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="leg1-text" value="&lt;font style=&quot;font-size:10px&quot;&gt;Koneksi HTTPS (Client → Server)&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1245" y="820" width="200" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="leg2" value="" style="endArrow=classic;html=1;strokeColor=#059669;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1185" y="855" as="sourcePoint" />
+            <mxPoint x="1235" y="855" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="leg2-text" value="&lt;font style=&quot;font-size:10px&quot;&gt;Koneksi Internal Server&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1245" y="845" width="200" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="leg3" value="" style="endArrow=classic;html=1;strokeColor=#f59e0b;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1185" y="880" as="sourcePoint" />
+            <mxPoint x="1235" y="880" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="leg3-text" value="&lt;font style=&quot;font-size:10px&quot;&gt;Koneksi LAN / Geolocation&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1245" y="870" width="200" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="leg4" value="" style="endArrow=classic;html=1;strokeColor=#9ca3af;strokeWidth=1;dashed=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1185" y="905" as="sourcePoint" />
+            <mxPoint x="1235" y="905" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="leg4-text" value="&lt;font style=&quot;font-size:10px&quot;&gt;Koneksi Opsional&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1245" y="895" width="200" height="20" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

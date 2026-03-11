@@ -26,14 +26,15 @@ class GradeController extends Controller
             $query->where('teacher_id', $user->teacher->id);
         }
 
-        // Filter by semester
-        if ($request->filled('semester')) {
-            $query->where('semester', $request->semester);
+        // Filter by semester (default dari semester aktif)
+        $activeSem = \App\Helpers\SemesterHelper::getActive();
+        $semester = $request->input('semester', $activeSem?->semester);
+        $academicYear = $request->input('academic_year', $activeSem?->year);
+        if ($semester) {
+            $query->where('semester', $semester);
         }
-
-        // Filter by academic year
-        if ($request->filled('academic_year')) {
-            $query->where('academic_year', $request->academic_year);
+        if ($academicYear) {
+            $query->where('academic_year', $academicYear);
         }
 
         // Filter by subject
@@ -91,7 +92,12 @@ class GradeController extends Controller
             $subjects = Subject::all();
         }
 
-        return view('grades.create', compact('classes', 'subjects'));
+        $activeSem = \App\Helpers\SemesterHelper::getActive();
+        $academicYears = \App\Models\AcademicYear::select('year')->distinct()->orderByDesc('year')->pluck('year');
+        $defaultAcademicYear = $activeSem?->year ?? '2025/2026';
+        $defaultSemester = $activeSem?->semester ?? 'Ganjil';
+
+        return view('grades.create', compact('classes', 'subjects', 'academicYears', 'defaultAcademicYear', 'defaultSemester'));
     }
 
     /**
@@ -145,6 +151,8 @@ class GradeController extends Controller
             'students.*.daily_test' => 'nullable|numeric|min:0|max:100',
             'students.*.midterm_exam' => 'nullable|numeric|min:0|max:100',
             'students.*.final_exam' => 'nullable|numeric|min:0|max:100',
+            'students.*.behavior_score' => 'nullable|numeric|min:0|max:100',
+            'students.*.skill_score' => 'nullable|numeric|min:0|max:100',
         ]);
 
         $teacher = Auth::user()->teacher;
@@ -162,6 +170,9 @@ class GradeController extends Controller
 
             $finalGrade = ($dailyTest * 0.3) + ($midtermExam * 0.3) + ($finalExam * 0.4);
 
+            $behaviorScore = $gradeData['behavior_score'] ?? null;
+            $skillScore = $gradeData['skill_score'] ?? null;
+
             Grade::updateOrCreate(
                 [
                     'student_id' => $gradeData['student_id'],
@@ -175,6 +186,8 @@ class GradeController extends Controller
                     'midterm_exam' => $midtermExam,
                     'final_exam' => $finalExam,
                     'final_grade' => $finalGrade,
+                    'behavior_score' => $behaviorScore,
+                    'skill_score' => $skillScore,
                 ]
             );
         }

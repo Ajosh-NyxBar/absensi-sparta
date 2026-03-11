@@ -197,7 +197,29 @@ class AttendanceController extends Controller
     {
         $validated = $request->validate([
             'qr_data' => 'required|string',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
         ]);
+
+        // Koordinat SMPN 4 Purwakarta (Google Maps)
+        $schoolLat = -6.5465236;
+        $schoolLong = 107.4414175;
+        $allowedRadius = 100; // meter
+
+        // Validasi jarak menggunakan rumus Haversine
+        $distance = $this->calculateDistance(
+            $schoolLat,
+            $schoolLong,
+            $validated['latitude'],
+            $validated['longitude']
+        );
+
+        if ($distance > $allowedRadius) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Anda berada di luar area sekolah. Jarak: ' . round($distance) . ' meter dari sekolah.',
+            ], 422);
+        }
 
         try {
             // Decrypt QR data
@@ -254,6 +276,8 @@ class AttendanceController extends Controller
                     $attendance->update([
                         'check_in' => $now,
                         'status' => $status,
+                        'latitude_in' => $validated['latitude'],
+                        'longitude_in' => $validated['longitude'],
                     ]);
                 } else {
                     $attendance = Attendance::create([
@@ -262,6 +286,8 @@ class AttendanceController extends Controller
                         'date' => $today,
                         'check_in' => $now,
                         'status' => $status,
+                        'latitude_in' => $validated['latitude'],
+                        'longitude_in' => $validated['longitude'],
                     ]);
                 }
 
@@ -282,6 +308,8 @@ class AttendanceController extends Controller
             if ($attendance->check_in && !$attendance->check_out) {
                 $attendance->update([
                     'check_out' => $now,
+                    'latitude_out' => $validated['latitude'],
+                    'longitude_out' => $validated['longitude'],
                 ]);
 
                 return response()->json([
@@ -322,9 +350,9 @@ class AttendanceController extends Controller
             'id' => 'required|integer',
         ]);
 
-        // School location (SMPN 4 Purwakarta) - Replace with actual coordinates
-        $schoolLat = -6.5567;  // Example coordinates
-        $schoolLong = 107.4442;
+        // Koordinat SMPN 4 Purwakarta (Google Maps)
+        $schoolLat = -6.5465236;
+        $schoolLong = 107.4414175;
         $allowedRadius = 100; // meters
 
         // Check if within allowed radius

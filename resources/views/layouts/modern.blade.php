@@ -292,6 +292,54 @@
                 <!-- Right: Actions -->
                 <div class="flex items-center space-x-1 sm:space-x-3 ml-2">
                     
+                    <!-- Semester Switcher -->
+                    @php
+                        $activeSemester = $activeSemester ?? \App\Models\AcademicYear::where('is_active', true)->first();
+                        $allSemesters = $allSemesters ?? \App\Models\AcademicYear::orderByDesc('year')->orderByDesc('semester')->get();
+                    @endphp
+                    <div class="relative" x-data="{ semesterOpen: false }">
+                        <button @click="semesterOpen = !semesterOpen" class="flex items-center space-x-1.5 px-2.5 py-1.5 text-gray-600 hover:text-gray-800 hover:bg-indigo-50 rounded-lg transition-colors tap-highlight border border-gray-200 hover:border-indigo-300">
+                            <i class="fas fa-calendar-alt text-indigo-500 text-sm"></i>
+                            <span class="hidden sm:inline text-xs font-semibold truncate max-w-[160px]">
+                                {{ $activeSemester ? $activeSemester->year . ' ' . $activeSemester->semester : '-' }}
+                            </span>
+                            <span class="sm:hidden text-xs font-semibold">
+                                {{ $activeSemester ? Str::substr($activeSemester->year, 2, 2) . '/' . Str::substr($activeSemester->year, 5, 2) : '-' }}
+                            </span>
+                            <i class="fas fa-chevron-down text-[10px] text-gray-400"></i>
+                        </button>
+
+                        <div x-show="semesterOpen" @click.away="semesterOpen = false" x-cloak
+                             x-transition:enter="transition ease-out duration-200"
+                             x-transition:enter-start="opacity-0 scale-95"
+                             x-transition:enter-end="opacity-100 scale-100"
+                             x-transition:leave="transition ease-in duration-150"
+                             x-transition:leave-start="opacity-100 scale-100"
+                             x-transition:leave-end="opacity-0 scale-95"
+                             class="origin-top-right absolute right-0 mt-2 w-64 rounded-xl shadow-lg bg-white ring-1 ring-black/5 z-50 overflow-hidden">
+                            <div class="px-4 py-2.5 bg-gradient-to-r from-indigo-500 to-purple-500">
+                                <p class="text-xs font-bold text-white">Semester</p>
+                            </div>
+                            <div class="max-h-60 overflow-y-auto py-1">
+                                @foreach($allSemesters as $sem)
+                                <a href="{{ route('semester.switch', $sem->id) }}" 
+                                   class="flex items-center justify-between px-4 py-2.5 text-sm {{ $activeSemester && $activeSemester->id === $sem->id ? 'bg-indigo-50 text-indigo-700' : 'text-gray-700 hover:bg-gray-50' }} transition-colors tap-highlight">
+                                    <div>
+                                        <p class="font-medium">{{ $sem->year }} {{ $sem->semester }}</p>
+                                        <p class="text-xs {{ $activeSemester && $activeSemester->id === $sem->id ? 'text-indigo-500' : 'text-gray-400' }}">
+                                            {{ $sem->start_date ? \Carbon\Carbon::parse($sem->start_date)->format('d M Y') : '' }}
+                                            {{ $sem->end_date ? '- ' . \Carbon\Carbon::parse($sem->end_date)->format('d M Y') : '' }}
+                                        </p>
+                                    </div>
+                                    @if($activeSemester && $activeSemester->id === $sem->id)
+                                    <i class="fas fa-check text-indigo-600 ml-2"></i>
+                                    @endif
+                                </a>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Language Switcher -->
                     <div class="relative" x-data="{ langOpen: false }">
                         <button @click="langOpen = !langOpen" class="flex items-center space-x-1 p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors tap-highlight">

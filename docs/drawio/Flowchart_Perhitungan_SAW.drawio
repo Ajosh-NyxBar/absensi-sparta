@@ -1,0 +1,127 @@
+<mxfile host="app.diagrams.net" modified="2026-03-05T00:00:00.000Z" agent="diagrams.net" version="24.0.0" type="device">
+  <diagram id="flowchart-saw" name="Flowchart Perhitungan SAW">
+    <mxGraphModel dx="900" dy="1100" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Mulai -->
+        <mxCell id="start" value="Mulai" style="ellipse;whiteSpace=wrap;html=1;fillColor=#000000;fontColor=#FFFFFF;strokeColor=#000000;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="355" y="20" width="80" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Input Data Alternatif & Tipe Penilaian -->
+        <mxCell id="p1" value="Input Data Alternatif&#xa;&amp; Tipe Penilaian" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#ffffff;strokeColor=#000000;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="310" y="90" width="170" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Ambil Kriteria dari Database -->
+        <mxCell id="p2" value="Ambil Kriteria&#xa;dari Database" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="330" y="175" width="130" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Decision: Data Tersedia? -->
+        <mxCell id="d1" value="Data&#xa;Tersedia?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="350" y="260" width="90" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Return Data (loop right) -->
+        <mxCell id="ret" value="Return Data" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="560" y="195" width="110" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Proses Metode SAW (Group Box) ===== -->
+        <mxCell id="sawbox" value="Proses Metode SAW" style="swimlane;startSize=28;fillColor=none;strokeColor=#000000;fontSize=13;fontStyle=1;rounded=0;collapsible=0;" vertex="1" parent="1">
+          <mxGeometry x="100" y="380" width="600" height="430" as="geometry" />
+        </mxCell>
+
+        <!-- Langkah 1: Matriks Keputusan -->
+        <mxCell id="s1" value="Matriks Keputusan&#xa;X(ij)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=11;" vertex="1" parent="sawbox">
+          <mxGeometry x="215" y="45" width="150" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Langkah 2: Normalisasi -->
+        <mxCell id="s2" value="Normalisasi" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=11;" vertex="1" parent="sawbox">
+          <mxGeometry x="240" y="125" width="110" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Decision: Jenis Kriteria? -->
+        <mxCell id="d2" value="Jenis&#xa;Kriteria?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=11;" vertex="1" parent="sawbox">
+          <mxGeometry x="245" y="195" width="100" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Benefit: xi / max -->
+        <mxCell id="ben" value="Benefit&#xa;xᵢⱼ / max" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=11;" vertex="1" parent="sawbox">
+          <mxGeometry x="80" y="205" width="110" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Cost: min / xi -->
+        <mxCell id="cost" value="Cost&#xa;min / xᵢⱼ" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=11;" vertex="1" parent="sawbox">
+          <mxGeometry x="400" y="205" width="110" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Langkah 3: Preferensi -->
+        <mxCell id="s3" value="Preferensi&#xa;Vᵢ = Σ Wⱼ · rᵢⱼ" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=11;" vertex="1" parent="sawbox">
+          <mxGeometry x="220" y="300" width="150" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Langkah 4: Perankingan -->
+        <mxCell id="s4" value="Perankingan" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=11;" vertex="1" parent="sawbox">
+          <mxGeometry x="235" y="375" width="120" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Edges inside SAW box -->
+        <mxCell id="es1" style="endArrow=block;endFill=1;strokeColor=#000000;" edge="1" source="s1" target="s2" parent="sawbox"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="es2" style="endArrow=block;endFill=1;strokeColor=#000000;" edge="1" source="s2" target="d2" parent="sawbox"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="es3" value="Benefit" style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;" edge="1" source="d2" target="ben" parent="sawbox"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="es4" value="Cost" style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;" edge="1" source="d2" target="cost" parent="sawbox"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="es5" style="endArrow=block;endFill=1;strokeColor=#000000;" edge="1" source="ben" target="s3" parent="sawbox"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="es6" style="endArrow=block;endFill=1;strokeColor=#000000;" edge="1" source="cost" target="s3" parent="sawbox"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="es7" style="endArrow=block;endFill=1;strokeColor=#000000;" edge="1" source="s3" target="s4" parent="sawbox"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <!-- ===== Nodes after SAW box ===== -->
+
+        <!-- Simpan Score & Rank -->
+        <mxCell id="p3" value="Simpan&#xa;Score &amp; Rank" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="335" y="845" width="120" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Output Perankingan -->
+        <mxCell id="p4" value="Output&#xa;Perankingan" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#ffffff;strokeColor=#000000;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="320" y="930" width="150" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Selesai -->
+        <mxCell id="endnode" value="Selesai" style="ellipse;whiteSpace=wrap;html=1;fillColor=#000000;fontColor=#FFFFFF;strokeColor=#000000;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="355" y="1015" width="80" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- ===== EDGES (Main Flow) ===== -->
+        <mxCell id="e1" style="endArrow=block;endFill=1;strokeColor=#000000;" edge="1" source="start" target="p1" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e2" style="endArrow=block;endFill=1;strokeColor=#000000;" edge="1" source="p1" target="p2" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e3" style="endArrow=block;endFill=1;strokeColor=#000000;" edge="1" source="p2" target="d1" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <!-- Tidak → ke kanan → Return Data -->
+        <mxCell id="e4" value="Tidak" style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;" edge="1" source="d1" target="ret" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <!-- Return loops back up to Ambil Kriteria -->
+        <mxCell id="e4b" style="endArrow=block;endFill=1;strokeColor=#000000;" edge="1" source="ret" target="p2" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="615" y="175" />
+              <mxPoint x="460" y="175" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Ya → ke bawah → into SAW box (Matriks Keputusan) -->
+        <mxCell id="e5" value="Ya" style="endArrow=block;endFill=1;strokeColor=#000000;fontSize=10;" edge="1" source="d1" target="s1" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <!-- SAW box output → Simpan -->
+        <mxCell id="e6" style="endArrow=block;endFill=1;strokeColor=#000000;" edge="1" source="s4" target="p3" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e7" style="endArrow=block;endFill=1;strokeColor=#000000;" edge="1" source="p3" target="p4" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e8" style="endArrow=block;endFill=1;strokeColor=#000000;" edge="1" source="p4" target="endnode" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

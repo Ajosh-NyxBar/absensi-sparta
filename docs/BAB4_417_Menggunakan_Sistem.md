@@ -8,7 +8,7 @@ Setelah seluruh tahapan pengujian dan evaluasi selesai serta perbaikan akhir ber
 
 Peneliti menyiapkan lingkungan server untuk menjalankan sistem secara operasional. Tabel berikut menyajikan spesifikasi server dan software yang diperlukan:
 
-**Tabel 4.XX Spesifikasi Lingkungan Deployment**
+**Tabel 4.79 Spesifikasi Lingkungan Deployment**
 
 | No | Komponen | Spesifikasi | Keterangan |
 |----|----------|-------------|------------|
@@ -25,7 +25,7 @@ Konfigurasi HTTPS bersifat **wajib** karena browser modern mensyaratkan koneksi 
 
 Peneliti melaksanakan proses deployment dengan langkah-langkah berikut:
 
-**Tabel 4.XX Langkah-langkah Deployment Sistem**
+**Tabel 4.80 Langkah-langkah Deployment Sistem**
 
 | No | Langkah | Perintah / Aksi | Keterangan |
 |----|---------|-----------------|------------|
@@ -44,13 +44,13 @@ Peneliti melaksanakan proses deployment dengan langkah-langkah berikut:
 
 Setelah instalasi dasar selesai, peneliti mengkonfigurasi parameter-parameter operasional yang spesifik untuk SMPN 4 Purwakarta melalui tabel `settings` di database:
 
-**Tabel 4.XX Konfigurasi Parameter Operasional**
+**Tabel 4.81 Konfigurasi Parameter Operasional**
 
 | No | Parameter | Nilai | Keterangan |
 |----|-----------|-------|------------|
 | 1 | Nama Sekolah | SMPN 4 Purwakarta | Ditampilkan pada header sistem dan laporan |
-| 2 | Koordinat Sekolah (Latitude) | -6.5567 | Titik pusat validasi geolocation absensi |
-| 3 | Koordinat Sekolah (Longitude) | 107.4442 | Titik pusat validasi geolocation absensi |
+| 2 | Koordinat Sekolah (Latitude) | -6.5465236 | Titik pusat validasi geolocation absensi |
+| 3 | Koordinat Sekolah (Longitude) | 107.4414175 | Titik pusat validasi geolocation absensi |
 | 4 | Radius Absensi | 100 meter | Jarak maksimum guru dari titik sekolah saat check-in |
 | 5 | Masa Berlaku QR Code | 600 detik (10 menit) | QR Code kadaluarsa setelah 10 menit |
 | 6 | Batas Jam Check-in | 07:30 WIB | Check-in sebelum 07:30 = "Tepat Waktu", setelahnya = "Terlambat" |
@@ -61,7 +61,7 @@ Setelah instalasi dasar selesai, peneliti mengkonfigurasi parameter-parameter op
 
 Setelah sistem terpasang dan terkonfigurasi, peneliti memasukkan data operasional yang diperlukan. Proses ini dilakukan melalui kombinasi antara seeder otomatis dan input manual oleh admin melalui antarmuka sistem.
 
-**Tabel 4.XX Data yang Dimasukkan ke Sistem**
+**Tabel 4.82 Data yang Dimasukkan ke Sistem**
 
 | No | Jenis Data | Jumlah | Sumber Data | Metode Input |
 |----|-----------|--------|-------------|-------------|
@@ -88,7 +88,7 @@ Sebelum sistem digunakan secara resmi, peneliti melaksanakan pelatihan kepada se
 
 Materi pelatihan disusun secara terstruktur berdasarkan peran pengguna:
 
-**Tabel 4.XX Materi Pelatihan per Role Pengguna**
+**Tabel 4.83 Materi Pelatihan per Role Pengguna**
 
 | No | Role | Peserta | Materi Pelatihan |
 |----|------|---------|------------------|
@@ -116,7 +116,7 @@ Peneliti menyusun **panduan pengguna** (*user manual*) dalam format digital yang
 
 Peneliti menerapkan strategi **go-live bertahap** (*phased rollout*) untuk meminimalkan risiko gangguan operasional:
 
-**Tabel 4.XX Strategi Implementasi Bertahap**
+**Tabel 4.84 Strategi Implementasi Bertahap**
 
 | Fase | Durasi | Aktivitas | Tujuan |
 |------|--------|-----------|--------|
@@ -128,7 +128,7 @@ Peneliti menerapkan strategi **go-live bertahap** (*phased rollout*) untuk memin
 
 Selama masa implementasi awal, peneliti melakukan monitoring terhadap beberapa indikator untuk memastikan sistem berjalan normal:
 
-**Tabel 4.XX Indikator Monitoring Implementasi**
+**Tabel 4.85 Indikator Monitoring Implementasi**
 
 | No | Indikator | Metode Monitoring | Target |
 |----|-----------|-------------------|--------|

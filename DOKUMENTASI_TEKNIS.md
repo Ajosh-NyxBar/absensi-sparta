@@ -3,11 +3,16 @@
 ## Arsitektur Sistem
 
 ### Technology Stack
-- **Backend Framework**: Laravel 11.x
+- **Backend Framework**: Laravel 12.x
+- **PHP**: 8.2.4
 - **Database**: MySQL 8.0
-- **Frontend**: Bootstrap 5.3, Vanilla JavaScript
+- **Frontend**: Tailwind CSS 3.x, Alpine.js 3.x
+- **Legacy Layout**: Bootstrap 5.3 (`app.blade.php`)
+- **Modern Layout**: Tailwind CSS (`modern.blade.php`)
 - **Authentication**: Laravel Breeze (Modified)
 - **Icons**: Font Awesome 6.4
+- **Export**: Maatwebsite Excel, DomPDF
+- **QR Code**: SimpleSoftwareIO QR Code
 
 ### Design Pattern
 - **MVC (Model-View-Controller)**
@@ -20,22 +25,31 @@
 ```
 laravel-starter/
 ├── app/
+│   ├── Exports/                            # Export classes (Excel/PDF)
+│   ├── Helpers/
+│   │   └── SemesterHelper.php              # Helper semester aktif
 │   ├── Http/
 │   │   ├── Controllers/
 │   │   │   ├── AuthController.php          # Autentikasi
-│   │   │   ├── AttendanceController.php    # Presensi
+│   │   │   ├── AttendanceController.php    # Presensi & QR Code
+│   │   │   ├── DashboardController.php     # Dashboard per role
 │   │   │   ├── GradeController.php         # Nilai
+│   │   │   ├── KioskController.php         # Kiosk Presensi
 │   │   │   ├── SAWController.php           # Metode SAW
 │   │   │   ├── StudentController.php       # CRUD Siswa
-│   │   │   └── TeacherController.php       # CRUD Guru
+│   │   │   ├── TeacherController.php       # CRUD Guru
+│   │   │   ├── TeacherAssessmentController.php # Penilaian Guru
+│   │   │   └── Api/DataController.php      # JSON API
 │   │   └── Middleware/
 │   │       └── CheckRole.php               # Role middleware
 │   ├── Models/
+│   │   ├── AcademicYear.php                # Model Tahun Ajaran
 │   │   ├── Attendance.php                  # Model Presensi
 │   │   ├── ClassRoom.php                   # Model Kelas
 │   │   ├── Criteria.php                    # Model Kriteria SAW
 │   │   ├── Grade.php                       # Model Nilai
 │   │   ├── Role.php                        # Model Role
+│   │   ├── Setting.php                     # Model Pengaturan
 │   │   ├── Student.php                     # Model Siswa
 │   │   ├── StudentAssessment.php           # Model Penilaian Siswa
 │   │   ├── Subject.php                     # Model Mata Pelajaran
@@ -43,6 +57,8 @@ laravel-starter/
 │   │   ├── TeacherAssessment.php           # Model Penilaian Guru
 │   │   ├── TeacherSubject.php              # Model Guru-Mapel
 │   │   └── User.php                        # Model User
+│   ├── Providers/
+│   │   └── AppServiceProvider.php          # View composers
 │   └── Services/
 │       └── SAWService.php                  # Service SAW
 ├── database/
@@ -53,11 +69,18 @@ laravel-starter/
 │       ├── auth/
 │       │   └── login.blade.php            # Halaman login
 │       ├── dashboard/
-│       │   ├── admin.blade.php            # Dashboard admin
+│       │   ├── admin-modern.blade.php     # Dashboard admin (modern)
 │       │   ├── headmaster.blade.php       # Dashboard kepsek
 │       │   └── teacher.blade.php          # Dashboard guru
+│       ├── saw/
+│       │   ├── students/index.blade.php   # SAW Siswa
+│       │   └── teachers/index.blade.php   # SAW Guru
 │       └── layouts/
-│           └── app.blade.php              # Layout utama
+│           ├── app.blade.php              # Layout legacy (Bootstrap)
+│           └── modern.blade.php           # Layout modern (Tailwind)
+├── lang/
+│   ├── en/                                 # Bahasa Inggris
+│   └── id/                                 # Bahasa Indonesia
 └── routes/
     └── web.php                             # Route definitions
 ```
@@ -201,11 +224,61 @@ DELETE /grades/{id}               - Delete grade
 
 ### SAW (Admin & Kepala Sekolah)
 ```
-GET  /saw/students                - Student SAW index
+GET  /saw/students                - Student SAW index (filter: semester, academic_year, class_id)
 POST /saw/students/calculate      - Calculate student SAW
-GET  /saw/teachers                - Teacher SAW index
+GET  /saw/teachers                - Teacher SAW index (filter: period=Ganjil/Genap, academic_year)
 POST /saw/teachers/calculate      - Calculate teacher SAW
 ```
+
+### Teacher Assessment (Admin & Kepala Sekolah)
+```
+GET  /teacher-assessments         - List teacher assessments
+POST /teacher-assessments         - Store/update teacher assessment (K2, K4)
+```
+
+### Semester Switching
+```
+GET  /semester/{academicYear}     - Switch active semester (session-based)
+```
+
+### JSON Data API
+```
+GET  /api/v1/dashboard            - Dashboard statistics
+GET  /api/v1/teachers             - List teachers
+GET  /api/v1/teachers/{id}        - Teacher detail
+GET  /api/v1/students             - List students
+GET  /api/v1/students/{id}        - Student detail
+GET  /api/v1/classes              - List classes
+GET  /api/v1/classes/{id}         - Class detail
+GET  /api/v1/subjects             - List subjects
+GET  /api/v1/grades               - List grades
+GET  /api/v1/grades/{id}          - Grade detail
+GET  /api/v1/attendances          - List attendances
+GET  /api/v1/criteria             - List SAW criteria
+GET  /api/v1/saw/students         - Student SAW rankings
+GET  /api/v1/saw/teachers         - Teacher SAW rankings
+GET  /api/v1/teacher-subjects     - Teacher-subject assignments
+GET  /api/v1/settings             - System settings
+GET  /api/v1/users                - List users
+```
+
+## Kriteria SAW
+
+### Kriteria Penilaian Siswa
+| Kode | Nama | Tipe | Bobot |
+|------|------|------|-------|
+| C1 | Nilai Akademik | Benefit | 0.35 |
+| C2 | Kehadiran | Benefit | 0.25 |
+| C3 | Sikap/Perilaku | Benefit | 0.20 |
+| C4 | Keterampilan | Benefit | 0.20 |
+
+### Kriteria Penilaian Guru
+| Kode | Nama | Tipe | Bobot | Sumber |
+|------|------|------|-------|--------|
+| K1 | Kehadiran | Benefit | 0.30 | Otomatis (data absensi) |
+| K2 | Kualitas Mengajar | Benefit | 0.25 | Input manual |
+| K3 | Prestasi Siswa | Benefit | 0.25 | Otomatis (rata-rata nilai siswa) |
+| K4 | Kedisiplinan | Benefit | 0.20 | Input manual |
 
 ## Algoritma SAW
 
@@ -412,18 +485,20 @@ tail -f storage/logs/laravel.log
 
 ## Future Enhancements
 
-1. **Export laporan ke PDF/Excel**
+1. ~~**Export laporan ke PDF/Excel**~~ ✅ Sudah diimplementasi
 2. **Notifikasi email/SMS untuk presensi**
-3. **Dashboard analytics dengan Chart.js**
+3. ~~**Dashboard analytics dengan Chart.js**~~ ✅ Sudah diimplementasi
 4. **Mobile app untuk presensi**
-5. **QR Code untuk presensi guru**
+5. ~~**QR Code untuk presensi guru**~~ ✅ Sudah diimplementasi
 6. **Integration dengan SIAKAD nasional**
-7. **Multi-language support**
+7. ~~**Multi-language support**~~ ✅ Sudah diimplementasi (ID/EN)
 8. **Dark mode**
 
 ## References
 
 - Laravel Documentation: https://laravel.com/docs
-- Bootstrap Documentation: https://getbootstrap.com
+- Tailwind CSS: https://tailwindcss.com/docs
+- Alpine.js: https://alpinejs.dev
 - SAW Method: Fishburn, P.C. (1967)
 - Geolocation API: https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API
+- Chart.js: https://www.chartjs.org

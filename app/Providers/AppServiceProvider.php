@@ -40,5 +40,26 @@ class AppServiceProvider extends ServiceProvider
         } catch (\Exception $e) {
             // If settings table doesn't exist yet (during migration), use default
         }
+
+        // Share active semester with all views
+        \Illuminate\Support\Facades\View::composer('*', function ($view) {
+            try {
+                $semesterId = session('active_semester_id');
+                if ($semesterId) {
+                    $activeSemester = \App\Models\AcademicYear::find($semesterId);
+                }
+                if (empty($activeSemester)) {
+                    $activeSemester = \App\Models\AcademicYear::where('is_active', true)->first();
+                    if ($activeSemester) {
+                        session(['active_semester_id' => $activeSemester->id]);
+                    }
+                }
+                $allSemesters = \App\Models\AcademicYear::orderByDesc('year')->orderByDesc('semester')->get();
+                $view->with('activeSemester', $activeSemester);
+                $view->with('allSemesters', $allSemesters);
+            } catch (\Exception $e) {
+                // Table may not exist yet
+            }
+        });
     }
 }

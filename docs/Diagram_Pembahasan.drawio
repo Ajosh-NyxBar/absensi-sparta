@@ -1,0 +1,379 @@
+<mxfile host="app.diagrams.net" modified="2026-03-11T14:00:00.000Z" agent="draw.io" type="device">
+  <diagram id="pembahasan" name="4.2 Pembahasan">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="&lt;b style=&quot;font-size:18px&quot;&gt;4.2 Pembahasan&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#666&quot;&gt;Sistem Informasi Absensi Guru (QR Code) &amp;amp; Penilaian Siswa (SAW) &amp;mdash; SMPN 4 Purwakarta&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="350" y="8" width="900" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="center_icon" value="" style="shape=mxgraph.cisco.servers.standard_server;html=1;fillColor=#1565C0;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="760" y="430" width="30" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="center" value="&lt;b style=&quot;font-size:12px;color:#1565C0&quot;&gt;Sistem Informasi&lt;br&gt;SMPN 4 Purwakarta&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px;color:#555&quot;&gt;Laravel 12 + Prototype Method&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#1565C0;strokeWidth=2;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="700" y="470" width="190" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="sec1_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;shadow=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="20" y="60" width="360" height="185" as="geometry" />
+        </mxCell>
+        <mxCell id="sec1_icon1" value="" style="shape=mxgraph.signs.tech.cell_phone;fillColor=#1565C0;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="35" y="70" width="20" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="sec1_icon2" value="" style="shape=mxgraph.ios7.icons.clock;fillColor=#1565C0;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="62" y="72" width="22" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="sec1_icon3" value="" style="shape=mxgraph.signs.safety.fire_extinguisher;fillColor=#1565C0;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="90" y="70" width="18" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="sec1_title" value="&lt;b style=&quot;font-size:13px;color:#1565C0&quot;&gt;Kebutuhan Terpenuhi&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="115" y="68" width="250" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="sec1_f" value="&lt;b style=&quot;font-size:10px;color:#0D47A1&quot;&gt;Fungsional:&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="30" y="100" width="100" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="sec1_f1" value="&lt;font style=&quot;font-size:10px&quot;&gt;&#10004; Presensi QR Code + validasi geolokasi&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="30" y="118" width="320" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="sec1_f2" value="&lt;font style=&quot;font-size:10px&quot;&gt;&#10004; Penilaian &amp;amp; ranking siswa (metode SAW)&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="30" y="134" width="320" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="sec1_f3" value="&lt;font style=&quot;font-size:10px&quot;&gt;&#10004; Data master, laporan/export, autentikasi role&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="30" y="150" width="330" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="sec1_nf" value="&lt;b style=&quot;font-size:10px;color:#0D47A1&quot;&gt;Non-Fungsional:&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="30" y="172" width="-1" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="sec1_nf1" value="&lt;font style=&quot;font-size:10px&quot;&gt;&#10004; Mudah digunakan &amp;bull; Enkripsi AES-256-CBC&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="30" y="190" width="330" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="sec1_nf2" value="&lt;font style=&quot;font-size:10px&quot;&gt;&#10004; Kecepatan akses &amp;bull; Responsif (Tailwind CSS 4)&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="30" y="206" width="340" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="conn_sec1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=1.5;strokeColor=#1565C0;dashed=1;endArrow=open;endFill=0;" edge="1" source="sec1_box" target="center" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sec2_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;shadow=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="20" y="280" width="360" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="sec2_icon1" value="" style="shape=mxgraph.ios7.misc.check;fillColor=#2E7D32;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="35" y="290" width="22" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="sec2_icon2" value="" style="shape=mxgraph.basic.document;fillColor=#2E7D32;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="63" y="288" width="20" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="sec2_title" value="&lt;b style=&quot;font-size:13px;color:#2E7D32&quot;&gt;Hasil Pengujian&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="90" y="287" width="200" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="sec2_bb" value="&lt;b style=&quot;color:#FFF;font-size:10px&quot;&gt;Black Box&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2E7D32;strokeColor=none;fontSize=10;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="30" y="322" width="70" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="sec2_bb_val" value="&lt;font style=&quot;font-size:10px&quot;&gt;&lt;b&gt;58 skenario&lt;/b&gt; &amp;bull; 10 modul &amp;bull; &lt;b style=&quot;color:#2E7D32&quot;&gt;100% valid&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="108" y="320" width="260" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="sec2_wb" value="&lt;b style=&quot;color:#FFF;font-size:10px&quot;&gt;White Box&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#388E3C;strokeColor=none;fontSize=10;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="30" y="352" width="70" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="sec2_wb_val" value="&lt;font style=&quot;font-size:10px&quot;&gt;scanQR V(G)=8 &amp;bull; checkIn V(G)=5 &amp;bull; normalize V(G)=6&lt;br&gt;Semua &amp;lt;10 → &lt;b style=&quot;color:#2E7D32&quot;&gt;sederhana &amp;amp; mudah diuji&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="108" y="348" width="260" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="sec2_saw" value="&lt;b style=&quot;color:#FFF;font-size:10px&quot;&gt;SAW&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#43A047;strokeColor=none;fontSize=10;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="30" y="392" width="70" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="sec2_saw_val" value="&lt;font style=&quot;font-size:10px&quot;&gt;Sistem vs Manual → &lt;b style=&quot;color:#2E7D32&quot;&gt;identik 4 digit desimal&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="108" y="390" width="260" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="sec2_hav" value="&lt;b style=&quot;color:#FFF;font-size:10px&quot;&gt;Haversine&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#4CAF50;strokeColor=none;fontSize=10;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="30" y="422" width="70" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="sec2_hav_val" value="&lt;font style=&quot;font-size:10px&quot;&gt;Deviasi &lt;b style=&quot;color:#2E7D32&quot;&gt;&amp;lt; 1 meter&lt;/b&gt; → akurat&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="108" y="420" width="260" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="sec2_uat" value="&lt;b style=&quot;color:#FFF;font-size:10px&quot;&gt;UAT&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#66BB6A;strokeColor=none;fontSize=10;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="30" y="452" width="70" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="sec2_uat_val" value="&lt;font style=&quot;font-size:10px&quot;&gt;34 peserta → &lt;b style=&quot;color:#2E7D32&quot;&gt;4,45/5,00 (88,94%)&lt;/b&gt; Sangat Baik&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="108" y="450" width="270" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="conn_sec2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=1.5;strokeColor=#2E7D32;dashed=1;endArrow=open;endFill=0;" edge="1" source="sec2_box" target="center" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sec3_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;shadow=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="20" y="530" width="360" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="sec3_icon1" value="" style="shape=mxgraph.basic.person;fillColor=#E65100;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="35" y="540" width="22" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="sec3_icon2" value="" style="shape=mxgraph.basic.person;fillColor=#FF9800;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="57" y="540" width="22" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="sec3_icon3" value="" style="shape=mxgraph.basic.person;fillColor=#FFC107;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="79" y="540" width="22" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="sec3_title" value="&lt;b style=&quot;font-size:13px;color:#E65100&quot;&gt;Evaluasi Pengguna&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="108" y="538" width="250" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="sec3_proto_label" value="&lt;b style=&quot;font-size:10px&quot;&gt;Evaluasi Prototype&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="30" y="575" width="130" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="sec3_proto_bar_bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF9C4;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="30" y="595" width="300" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="sec3_proto_bar" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FF9800;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="30" y="595" width="270" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="sec3_proto_val" value="&lt;b style=&quot;font-size:10px;color:#FFF&quot;&gt;26 evaluator &amp;mdash; 4,50 / 5,00 (90,00%)&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="30" y="594" width="270" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="sec3_uat_label" value="&lt;b style=&quot;font-size:10px&quot;&gt;User Acceptance Testing&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="30" y="622" width="170" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="sec3_uat_bar_bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF9C4;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="30" y="642" width="300" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="sec3_uat_bar" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E65100;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="30" y="642" width="267" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="sec3_uat_val" value="&lt;b style=&quot;font-size:10px;color:#FFF&quot;&gt;34 peserta &amp;mdash; 4,45 / 5,00 (88,94%)&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="30" y="641" width="267" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="sec3_cat" value="&lt;font style=&quot;font-size:9px;color:#2E7D32&quot;&gt;&lt;b&gt;Kategori: Sangat Baik&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=right;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="230" y="666" width="140" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="conn_sec3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=1.5;strokeColor=#E65100;dashed=1;endArrow=open;endFill=0;" edge="1" source="sec3_box" target="center" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sec4_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFCDD2;strokeColor=#C62828;strokeWidth=2;shadow=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="420" y="560" width="260" height="145" as="geometry" />
+        </mxCell>
+        <mxCell id="sec4_icon_book" value="" style="shape=mxgraph.basic.document;fillColor=#C62828;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="435" y="570" width="20" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="sec4_icon_x" value="&lt;font style=&quot;font-size:16px;color:#C62828&quot;&gt;&#10008;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="460" y="567" width="20" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="sec4_title" value="&lt;b style=&quot;font-size:12px;color:#C62828&quot;&gt;Sebelum Sistem&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="485" y="568" width="180" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="sec4_i1" value="&lt;font style=&quot;font-size:10px&quot;&gt;&#10008; Buku absensi fisik (rawan error)&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="430" y="600" width="240" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="sec4_i2" value="&lt;font style=&quot;font-size:10px&quot;&gt;&#10008; Tulisan tangan sulit dibaca&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="430" y="618" width="240" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="sec4_i3" value="&lt;font style=&quot;font-size:10px&quot;&gt;&#10008; &lt;b style=&quot;color:#C62828&quot;&gt;32-40% guru tidak mengisi&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="430" y="636" width="240" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="sec4_i4" value="&lt;font style=&quot;font-size:10px&quot;&gt;&#10008; Ranking Excel manual 1-2 minggu&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="430" y="654" width="240" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="sec4_i5" value="&lt;font style=&quot;font-size:10px&quot;&gt;&#10008; Buku berpindah tempat&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="430" y="672" width="240" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow_before_after" value="" style="shape=mxgraph.arrows2.arrow;whiteSpace=wrap;html=1;fillColor=#4CAF50;strokeColor=#2E7D32;shadow=1;dy=0.6;dx=30;notch=0;" vertex="1" parent="1">
+          <mxGeometry x="700" y="610" width="70" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="sec5_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;strokeWidth=2;shadow=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="790" y="560" width="260" height="145" as="geometry" />
+        </mxCell>
+        <mxCell id="sec5_icon_phone" value="" style="shape=mxgraph.android.phone2;strokeColor=none;fillColor=#2E7D32;" vertex="1" parent="1">
+          <mxGeometry x="805" y="570" width="18" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="sec5_icon_check" value="&lt;font style=&quot;font-size:16px;color:#2E7D32&quot;&gt;&#10004;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="828" y="567" width="20" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="sec5_title" value="&lt;b style=&quot;font-size:12px;color:#1B5E20&quot;&gt;Sesudah Sistem&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="852" y="568" width="180" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="sec5_i1" value="&lt;font style=&quot;font-size:10px&quot;&gt;&#10004; QR Code + validasi geolokasi&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="800" y="600" width="240" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="sec5_i2" value="&lt;font style=&quot;font-size:10px&quot;&gt;&#10004; Data otomatis, real-time&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="800" y="618" width="240" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="sec5_i3" value="&lt;font style=&quot;font-size:10px&quot;&gt;&#10004; &lt;b style=&quot;color:#1B5E20&quot;&gt;Kehadiran rata-rata 94,79%&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="800" y="636" width="240" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="sec5_i4" value="&lt;font style=&quot;font-size:10px&quot;&gt;&#10004; Ranking SAW hitungan detik&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="800" y="654" width="240" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="sec5_i5" value="&lt;font style=&quot;font-size:10px&quot;&gt;&#10004; Transparan &amp;amp; objektif&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="800" y="672" width="240" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="conn_sec4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=1.5;strokeColor=#C62828;dashed=1;endArrow=open;endFill=0;" edge="1" source="sec4_box" target="center" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="conn_sec5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=1.5;strokeColor=#2E7D32;dashed=1;endArrow=open;endFill=0;" edge="1" source="sec5_box" target="center" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sec6_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=2;shadow=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="420" y="60" width="320" height="205" as="geometry" />
+        </mxCell>
+        <mxCell id="sec6_icon_gauge" value="" style="shape=mxgraph.ios7.misc.gauge;fillColor=#6A1B9A;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="435" y="70" width="28" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="sec6_icon_chart" value="" style="shape=mxgraph.signs.transportation.helicopter;fillColor=#6A1B9A;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="470" y="70" width="28" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="sec6_title" value="&lt;b style=&quot;font-size:13px;color:#6A1B9A&quot;&gt;Dampak Kehadiran Guru&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="505" y="68" width="230" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="sec6_lbl_before" value="&lt;b style=&quot;font-size:10px&quot;&gt;Sebelum (manual):&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="430" y="103" width="140" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="sec6_bar_before_bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#BDBDBD;" vertex="1" parent="1">
+          <mxGeometry x="430" y="123" width="260" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="sec6_bar_before" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EF5350;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="430" y="123" width="104" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="sec6_bar_before_text" value="&lt;b style=&quot;font-size:9px;color:#C62828&quot;&gt;32-40% tidak isi absensi&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="540" y="122" width="150" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="sec6_lbl_after" value="&lt;b style=&quot;font-size:10px&quot;&gt;Sesudah (QR Code):&lt;/b&gt;&lt;font style=&quot;font-size:9px&quot;&gt; Sem. Genap 2025/2026&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="430" y="152" width="290" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="sec6_bar_after_bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#BDBDBD;" vertex="1" parent="1">
+          <mxGeometry x="430" y="172" width="260" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="sec6_bar_after" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#4CAF50;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="430" y="172" width="246" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="sec6_bar_after_text" value="&lt;b style=&quot;font-size:10px;color:#FFF&quot;&gt;94,79% hadir&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="430" y="172" width="246" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="sec6_range" value="&lt;font style=&quot;font-size:9px;color:#555&quot;&gt;Rentang per individu: 85% &amp;ndash; 100%&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="430" y="198" width="220" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="sec6_insight" value="&lt;font style=&quot;font-size:9px&quot;&gt;&lt;b style=&quot;color:#4CAF50&quot;&gt;Digitalisasi presensi berhasil&lt;/b&gt; mendorong kedisiplinan guru,&lt;br&gt;menghilangkan: lupa tanda tangan, tulisan tidak jelas, buku berpindah&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#A5D6A7;fontSize=9;align=left;spacingLeft=5;" vertex="1" parent="1">
+          <mxGeometry x="430" y="220" width="300" height="38" as="geometry" />
+        </mxCell>
+        <mxCell id="conn_sec6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=1.5;strokeColor=#9673a6;dashed=1;endArrow=open;endFill=0;" edge="1" source="sec6_box" target="center" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sec7_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#4CAF50;strokeWidth=3;shadow=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="780" y="60" width="360" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="sec7_icon_star" value="" style="shape=mxgraph.basic.star;fillColor=#FFD600;strokeColor=#F9A825;" vertex="1" parent="1">
+          <mxGeometry x="800" y="70" width="28" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="sec7_icon_trophy" value="" style="shape=mxgraph.basic.acute_triangle;fillColor=#FFD600;strokeColor=#F9A825;" vertex="1" parent="1">
+          <mxGeometry x="835" y="73" width="22" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="sec7_title" value="&lt;b style=&quot;font-size:14px;color:#1B5E20&quot;&gt;Kesimpulan Pembahasan&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="865" y="67" width="260" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="sec7_i1" value="&lt;font style=&quot;font-size:10px&quot;&gt;&#10004; Memenuhi spesifikasi teknis fungsional &amp;amp; non-fungsional&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="790" y="100" width="340" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="sec7_i2" value="&lt;font style=&quot;font-size:10px&quot;&gt;&#10004; Siap dioperasikan dan dikembangkan lebih lanjut&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="790" y="118" width="340" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="sec7_i3" value="&lt;font style=&quot;font-size:10px&quot;&gt;&#10004; Dokumentasi teknis &amp;amp; GitHub mendukung pemeliharaan&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="790" y="136" width="340" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="sec7_i4" value="&lt;font style=&quot;font-size:10px&quot;&gt;&#10004; &lt;b style=&quot;color:#1B5E20&quot;&gt;Fungsional, stabil, dan efektif&lt;/b&gt; sebagai solusi digitalisasi&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="790" y="154" width="340" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="conn_sec7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=1.5;strokeColor=#4CAF50;dashed=1;endArrow=open;endFill=0;" edge="1" source="sec7_box" target="center" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sec8_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FCE4EC;strokeColor=#AD1457;strokeWidth=2;shadow=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="1180" y="60" width="380" height="205" as="geometry" />
+        </mxCell>
+        <mxCell id="sec8_icon_op" value="" style="shape=mxgraph.cisco.computers_and_peripherals.pc;html=1;fillColor=#AD1457;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1195" y="70" width="28" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="sec8_icon_arrow" value="" style="shape=mxgraph.arrows2.arrow;whiteSpace=wrap;html=1;fillColor=#AD1457;strokeColor=none;dy=0.6;dx=15;notch=0;" vertex="1" parent="1">
+          <mxGeometry x="1230" y="77" width="30" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="sec8_icon_phone" value="" style="shape=mxgraph.android.phone2;strokeColor=none;fillColor=#AD1457;" vertex="1" parent="1">
+          <mxGeometry x="1268" y="68" width="18" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="sec8_title" value="&lt;b style=&quot;font-size:13px;color:#AD1457&quot;&gt;Perubahan Operasional&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1295" y="68" width="250" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="sec8_h1" value="&lt;b style=&quot;font-size:10px;color:#AD1457&quot;&gt;Absensi Guru&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1190" y="103" width="100" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="sec8_a_before" value="&lt;font style=&quot;font-size:9px;color:#888&quot;&gt;Buku fisik, rawan error, tidak lengkap&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1190" y="120" width="240" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="sec8_a_arrow" value="&lt;font style=&quot;font-size:9px;color:#2E7D32&quot;&gt;→&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1410" y="113" width="15" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="sec8_a_after" value="&lt;font style=&quot;font-size:9px;color:#2E7D32&quot;&gt;&lt;b&gt;QR Code otomatis + GPS&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1425" y="113" width="130" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="sec8_divider1" value="" style="line;strokeWidth=1;strokeColor=#E0E0E0;" vertex="1" parent="1">
+          <mxGeometry x="1195" y="140" width="350" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sec8_h2" value="&lt;b style=&quot;font-size:10px;color:#AD1457&quot;&gt;Penilaian Siswa&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1190" y="146" width="120" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="sec8_p_before" value="&lt;font style=&quot;font-size:9px;color:#888&quot;&gt;Excel manual, tanpa standar, 1-2 minggu/semester&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1190" y="163" width="300" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="sec8_p_arrow" value="&lt;font style=&quot;font-size:9px;color:#2E7D32&quot;&gt;→&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1410" y="155" width="15" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="sec8_p_after" value="&lt;font style=&quot;font-size:9px;color:#2E7D32&quot;&gt;&lt;b&gt;SAW otomatis (detik)&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1425" y="155" width="130" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="sec8_divider2" value="" style="line;strokeWidth=1;strokeColor=#E0E0E0;" vertex="1" parent="1">
+          <mxGeometry x="1195" y="182" width="350" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sec8_h3" value="&lt;b style=&quot;font-size:10px;color:#AD1457&quot;&gt;Monitoring&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1190" y="188" width="100" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="sec8_m_before" value="&lt;font style=&quot;font-size:9px;color:#888&quot;&gt;Tunggu laporan TU, tidak real-time&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1190" y="205" width="240" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="sec8_m_arrow" value="&lt;font style=&quot;font-size:9px;color:#2E7D32&quot;&gt;→&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1410" y="198" width="15" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="sec8_m_after" value="&lt;font style=&quot;font-size:9px;color:#2E7D32&quot;&gt;&lt;b&gt;Dashboard real-time&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1425" y="198" width="130" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="sec8_benefit" value="&lt;font style=&quot;font-size:9px&quot;&gt;Kepsek &amp;amp; TU memantau kehadiran guru &amp;amp; kinerja siswa &lt;b style=&quot;color:#1B5E20&quot;&gt;lebih sistematis&lt;/b&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#A5D6A7;fontSize=9;align=left;spacingLeft=5;" vertex="1" parent="1">
+          <mxGeometry x="1190" y="228" width="355" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="conn_sec8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=1.5;strokeColor=#AD1457;dashed=1;endArrow=open;endFill=0;" edge="1" source="sec8_box" target="center" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sec9_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0F7FA;strokeColor=#00838F;strokeWidth=2;shadow=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="300" width="370" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="sec9_icon_doc" value="" style="shape=mxgraph.basic.document;fillColor=#00838F;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1105" y="310" width="20" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="sec9_icon_db" value="" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=6;fillColor=#00838F;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1132" y="310" width="18" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="sec9_title" value="&lt;b style=&quot;font-size:12px;color:#00838F&quot;&gt;Keberlanjutan Sistem&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1158" y="308" width="280" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="sec9_i1" value="&lt;font style=&quot;font-size:10px&quot;&gt;&#10004; Dokumentasi teknis lengkap&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="342" width="280" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="sec9_i2" value="&lt;font style=&quot;font-size:10px&quot;&gt;&#10004; Kode sumber terkelola via GitHub&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="360" width="280" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="sec9_i3" value="&lt;font style=&quot;font-size:10px&quot;&gt;&#10004; Siap untuk dikembangkan lebih lanjut&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="378" width="280" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="sec9_result" value="&lt;b style=&quot;font-size:11px;color:#FFF&quot;&gt;BERHASIL: Fungsional &amp;bull; Stabil &amp;bull; Efektif&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#00838F;strokeColor=#006064;shadow=1;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="1105" y="405" width="340" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="sec9_subtitle" value="&lt;font style=&quot;font-size:9px;color:#555&quot;&gt;Solusi digitalisasi absensi guru &amp;amp; penilaian siswa SMPN 4 Purwakarta&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1105" y="438" width="340" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="conn_sec9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=1.5;strokeColor=#00838F;dashed=1;endArrow=open;endFill=0;" edge="1" source="sec9_box" target="center" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="highlight_line" value="" style="line;strokeWidth=3;strokeColor=#4CAF50;dashed=0;opacity=60;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="498" width="370" height="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

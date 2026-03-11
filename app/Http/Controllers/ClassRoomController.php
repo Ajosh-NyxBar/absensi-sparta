@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ClassRoom;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 
 class ClassRoomController extends Controller
@@ -12,7 +13,8 @@ class ClassRoomController extends Controller
      */
     public function index()
     {
-        $classes = ClassRoom::withCount('students', 'teacherSubjects')
+        $classes = ClassRoom::with('homeroomTeacher')
+            ->withCount('students', 'teacherSubjects')
             ->latest()
             ->paginate(10);
         return view('classes.index', compact('classes'));
@@ -23,7 +25,8 @@ class ClassRoomController extends Controller
      */
     public function create()
     {
-        return view('classes.create');
+        $teachers = Teacher::where('status', 'active')->orderBy('name')->get();
+        return view('classes.create', compact('teachers'));
     }
 
     /**
@@ -36,6 +39,7 @@ class ClassRoomController extends Controller
             'grade' => 'required|in:7,8,9',
             'academic_year' => 'required|string|max:20',
             'capacity' => 'nullable|integer|min:1|max:50',
+            'homeroom_teacher_id' => 'nullable|exists:teachers,id',
         ]);
 
         ClassRoom::create($validated);
@@ -50,7 +54,7 @@ class ClassRoomController extends Controller
     public function show(ClassRoom $class)
     {
         $class->loadCount('students', 'teacherSubjects');
-        $class->load(['students', 'teacherSubjects.teacher', 'teacherSubjects.subject']);
+        $class->load(['students', 'teacherSubjects.teacher', 'teacherSubjects.subject', 'homeroomTeacher']);
         
         return view('classes.show', compact('class'));
     }
@@ -60,7 +64,8 @@ class ClassRoomController extends Controller
      */
     public function edit(ClassRoom $class)
     {
-        return view('classes.edit', compact('class'));
+        $teachers = Teacher::where('status', 'active')->orderBy('name')->get();
+        return view('classes.edit', compact('class', 'teachers'));
     }
 
     /**
@@ -73,6 +78,7 @@ class ClassRoomController extends Controller
             'grade' => 'required|in:7,8,9',
             'academic_year' => 'required|string|max:20',
             'capacity' => 'nullable|integer|min:1|max:50',
+            'homeroom_teacher_id' => 'nullable|exists:teachers,id',
         ]);
 
         $class->update($validated);

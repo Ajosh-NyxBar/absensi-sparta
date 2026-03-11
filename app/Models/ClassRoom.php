@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ClassRoom extends Model
@@ -17,7 +18,16 @@ class ClassRoom extends Model
         'grade',
         'academic_year',
         'capacity',
+        'homeroom_teacher_id',
     ];
+
+    /**
+     * Get the homeroom teacher (wali kelas)
+     */
+    public function homeroomTeacher(): BelongsTo
+    {
+        return $this->belongsTo(Teacher::class, 'homeroom_teacher_id');
+    }
 
     /**
      * Get all students in this class

@@ -57,14 +57,17 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div>
                         <label class="block text-sm font-semibold text-gray-700 mb-2">{{ __('saw.select_period') }}</label>
-                        <input type="month" name="period" id="period" value="{{ date('Y-m', strtotime($period)) }}" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200" required>
+                        <select name="period" id="period" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200" required>
+                            <option value="Ganjil" {{ $period == 'Ganjil' ? 'selected' : '' }}>Ganjil</option>
+                            <option value="Genap" {{ $period == 'Genap' ? 'selected' : '' }}>Genap</option>
+                        </select>
                     </div>
                     <div>
                         <label class="block text-sm font-semibold text-gray-700 mb-2">{{ __('general.academic_year') }}</label>
                         <select name="academic_year" id="academic_year" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200" required>
-                            <option value="2023/2024" {{ $academicYear == '2023/2024' ? 'selected' : '' }}>2023/2024</option>
-                            <option value="2024/2025" {{ $academicYear == '2024/2025' ? 'selected' : '' }}>2024/2025</option>
-                            <option value="2025/2026" {{ $academicYear == '2025/2026' ? 'selected' : '' }}>2025/2026</option>
+                            @foreach($academicYears as $year)
+                            <option value="{{ $year }}" {{ $academicYear == $year ? 'selected' : '' }}>{{ $year }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="flex items-end gap-2">
@@ -130,10 +133,10 @@
                         <tr class="border-b-2 border-gray-200">
                             <th class="px-4 py-3 text-center text-xs font-bold text-gray-700 uppercase">{{ __('saw.rank') }}</th>
                             <th class="px-4 py-3 text-left text-xs font-bold text-gray-700 uppercase">{{ __('saw.teacher') }}</th>
-                            <th class="px-4 py-3 text-center text-xs font-bold text-gray-700 uppercase">{{ __('saw.attendance') }} (T1)</th>
-                            <th class="px-4 py-3 text-center text-xs font-bold text-gray-700 uppercase">{{ __('saw.teaching_quality') }} (T2)</th>
-                            <th class="px-4 py-3 text-center text-xs font-bold text-gray-700 uppercase">{{ __('saw.student_ranking') }} (T3)</th>
-                            <th class="px-4 py-3 text-center text-xs font-bold text-gray-700 uppercase">{{ __('saw.discipline') }} (T4)</th>
+                            <th class="px-4 py-3 text-center text-xs font-bold text-gray-700 uppercase">{{ __('saw.attendance') }} (K1)</th>
+                            <th class="px-4 py-3 text-center text-xs font-bold text-gray-700 uppercase">{{ __('saw.teaching_quality') }} (K2)</th>
+                            <th class="px-4 py-3 text-center text-xs font-bold text-gray-700 uppercase">{{ __('saw.student_ranking') }} (K3)</th>
+                            <th class="px-4 py-3 text-center text-xs font-bold text-gray-700 uppercase">{{ __('saw.discipline') }} (K4)</th>
                             <th class="px-4 py-3 text-center text-xs font-bold text-gray-700 uppercase">{{ __('saw.saw_score') }}</th>
                         </tr>
                     </thead>
@@ -324,12 +327,8 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 function filterData() {
-    const periodInput = document.getElementById('period').value;
+    const period = document.getElementById('period').value;
     const academicYear = document.getElementById('academic_year').value;
-    
-    // Convert YYYY-MM to Month Year format
-    const date = new Date(periodInput + '-01');
-    const period = date.toLocaleString('en-US', { month: 'long', year: 'numeric' });
     
     window.location.href = `{{ route('saw.teachers.index') }}?period=${encodeURIComponent(period)}&academic_year=${academicYear}`;
 }

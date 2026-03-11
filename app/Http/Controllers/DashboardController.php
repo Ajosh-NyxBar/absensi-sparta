@@ -17,7 +17,7 @@ class DashboardController extends Controller
 {
     public function admin(Request $request)
     {
-        $activeYear = AcademicYear::getActive();
+        $activeYear = \App\Helpers\SemesterHelper::getActive() ?? AcademicYear::getActive();
         
         // Get filter month/year or default to current month
         $filterMonth = $request->get('month', now()->month);

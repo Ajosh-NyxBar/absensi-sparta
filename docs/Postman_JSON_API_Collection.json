@@ -1,0 +1,1109 @@
+{
+	"info": {
+		"_postman_id": "si-json-data-api-smpn4",
+		"name": "JSON Data API — Sistem Presensi & Penilaian SMPN 4 Purwakarta",
+		"description": "Koleksi endpoint JSON Data API yang langsung mengembalikan data JSON (bukan HTML).\n\nBase URL: http://localhost:8000/api/v1\nAuth: Session-based (Cookie) — login dulu via POST /login\nFormat Response: JSON\n\nEndpoint ini terpisah dari web endpoint biasa. Semua response berupa JSON murni.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "api_url",
+			"value": "http://localhost:8000/api/v1",
+			"type": "string"
+		},
+		{
+			"key": "csrf_token",
+			"value": "",
+			"type": "string"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Auto-set CSRF token from cookie",
+					"var xsrf = pm.cookies.get('XSRF-TOKEN');",
+					"if (xsrf) {",
+					"    pm.collectionVariables.set('csrf_token', decodeURIComponent(xsrf));",
+					"}"
+				]
+			}
+		}
+	],
+	"item": [
+		{
+			"name": "00. Authentication (Login)",
+			"description": "Login terlebih dahulu untuk mendapatkan session cookie. Semua endpoint /api/v1/* membutuhkan autentikasi.",
+			"item": [
+				{
+					"name": "GET Login Page (Ambil Cookie)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"// Simpan CSRF token dari cookie",
+									"var xsrf = pm.cookies.get('XSRF-TOKEN');",
+									"if (xsrf) {",
+									"    pm.collectionVariables.set('csrf_token', decodeURIComponent(xsrf));",
+									"    pm.test('CSRF Token captured', function() {",
+									"        pm.expect(xsrf).to.not.be.empty;",
+									"    });",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/login",
+							"host": ["{{base_url}}"],
+							"path": ["login"]
+						},
+						"description": "Step 1: Buka halaman login untuk mendapatkan CSRF token dan session cookie."
+					}
+				},
+				{
+					"name": "POST Login (Admin)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test('Login berhasil (redirect 302)', function() {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 302]);",
+									"});",
+									"var xsrf = pm.cookies.get('XSRF-TOKEN');",
+									"if (xsrf) {",
+									"    pm.collectionVariables.set('csrf_token', decodeURIComponent(xsrf));",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "Content-Type", "value": "application/x-www-form-urlencoded"},
+							{"key": "X-CSRF-TOKEN", "value": "{{csrf_token}}"},
+							{"key": "Accept", "value": "text/html"}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{"key": "_token", "value": "{{csrf_token}}", "description": "CSRF Token"},
+								{"key": "email", "value": "admin@admin.com", "description": "Email admin"},
+								{"key": "password", "value": "password", "description": "Password"}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/login",
+							"host": ["{{base_url}}"],
+							"path": ["login"]
+						},
+						"description": "Step 2: Login sebagai Admin. Setelah berhasil, session cookie aktif dan semua endpoint /api/v1/* bisa diakses.\n\nAkun default:\n- Admin: admin@admin.com / password\n- Guru: guru@smpn4.sch.id / password\n- Kepsek: kepsek@smpn4.sch.id / password"
+					}
+				}
+			]
+		},
+		{
+			"name": "01. Dashboard Stats",
+			"description": "Statistik ringkasan dashboard.",
+			"item": [
+				{
+					"name": "GET Dashboard Stats",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test('Status 200', function() { pm.response.to.have.status(200); });",
+									"pm.test('Response is JSON', function() { pm.response.to.be.json; });",
+									"pm.test('Has data object', function() {",
+									"    var json = pm.response.json();",
+									"    pm.expect(json).to.have.property('data');",
+									"    pm.expect(json.data).to.have.property('total_teachers');",
+									"    pm.expect(json.data).to.have.property('total_students');",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{api_url}}/dashboard",
+							"host": ["{{api_url}}"],
+							"path": ["dashboard"]
+						},
+						"description": "Mendapatkan statistik dashboard: total guru, siswa, kelas, mapel, dan presensi hari ini."
+					}
+				}
+			]
+		},
+		{
+			"name": "02. Teachers (Guru)",
+			"description": "Data guru — list (paginated) dan detail.",
+			"item": [
+				{
+					"name": "GET All Teachers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test('Status 200', function() { pm.response.to.have.status(200); });",
+									"pm.test('Response is JSON', function() { pm.response.to.be.json; });",
+									"pm.test('Has paginated data', function() {",
+									"    var json = pm.response.json();",
+									"    pm.expect(json).to.have.property('data');",
+									"    pm.expect(json).to.have.property('current_page');",
+									"    pm.expect(json).to.have.property('total');",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{api_url}}/teachers",
+							"host": ["{{api_url}}"],
+							"path": ["teachers"]
+						},
+						"description": "Daftar semua guru (paginated, default 15 per page)."
+					}
+				},
+				{
+					"name": "GET Teachers (Search + Filter)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{api_url}}/teachers?search=budi&status=active&per_page=10&page=1",
+							"host": ["{{api_url}}"],
+							"path": ["teachers"],
+							"query": [
+								{"key": "search", "value": "budi", "description": "Cari nama/NIP"},
+								{"key": "status", "value": "active", "description": "Filter: active / inactive"},
+								{"key": "per_page", "value": "10", "description": "Jumlah per halaman (max 100)"},
+								{"key": "page", "value": "1", "description": "Nomor halaman"}
+							]
+						},
+						"description": "Daftar guru dengan filter pencarian dan status."
+					}
+				},
+				{
+					"name": "GET Teacher Detail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test('Status 200', function() { pm.response.to.have.status(200); });",
+									"pm.test('Has teacher data', function() {",
+									"    var json = pm.response.json();",
+									"    pm.expect(json).to.have.property('data');",
+									"    pm.expect(json.data).to.have.property('name');",
+									"    pm.expect(json.data).to.have.property('nip');",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{api_url}}/teachers/1",
+							"host": ["{{api_url}}"],
+							"path": ["teachers", "1"]
+						},
+						"description": "Detail guru berdasarkan ID. Include: user, subjects, teacher_subjects (penugasan kelas)."
+					}
+				}
+			]
+		},
+		{
+			"name": "03. Students (Siswa)",
+			"description": "Data siswa — list (paginated) dan detail.",
+			"item": [
+				{
+					"name": "GET All Students",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test('Status 200', function() { pm.response.to.have.status(200); });",
+									"pm.test('Response is JSON', function() { pm.response.to.be.json; });",
+									"pm.test('Has paginated data', function() {",
+									"    var json = pm.response.json();",
+									"    pm.expect(json).to.have.property('data');",
+									"    pm.expect(json).to.have.property('total');",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{api_url}}/students",
+							"host": ["{{api_url}}"],
+							"path": ["students"]
+						},
+						"description": "Daftar semua siswa (paginated)."
+					}
+				},
+				{
+					"name": "GET Students (Filter by Class)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{api_url}}/students?class_id=1&status=active&per_page=20",
+							"host": ["{{api_url}}"],
+							"path": ["students"],
+							"query": [
+								{"key": "class_id", "value": "1", "description": "Filter kelas"},
+								{"key": "status", "value": "active", "description": "Filter: active / inactive / graduated"},
+								{"key": "per_page", "value": "20", "description": "Jumlah per halaman"},
+								{"key": "page", "value": "1", "description": "Halaman", "disabled": true}
+							]
+						},
+						"description": "Daftar siswa berdasarkan kelas dan status."
+					}
+				},
+				{
+					"name": "GET Students (Search)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{api_url}}/students?search=andi",
+							"host": ["{{api_url}}"],
+							"path": ["students"],
+							"query": [
+								{"key": "search", "value": "andi", "description": "Cari nama/NIS/NISN"}
+							]
+						},
+						"description": "Cari siswa berdasarkan nama, NIS, atau NISN."
+					}
+				},
+				{
+					"name": "GET Student Detail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test('Status 200', function() { pm.response.to.have.status(200); });",
+									"pm.test('Has student data', function() {",
+									"    var json = pm.response.json();",
+									"    pm.expect(json).to.have.property('data');",
+									"    pm.expect(json.data).to.have.property('name');",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{api_url}}/students/1",
+							"host": ["{{api_url}}"],
+							"path": ["students", "1"]
+						},
+						"description": "Detail siswa. Include: class_room, grades (dengan subject dan teacher)."
+					}
+				}
+			]
+		},
+		{
+			"name": "04. Users (Pengguna)",
+			"description": "Data user/pengguna sistem.",
+			"item": [
+				{
+					"name": "GET All Users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test('Status 200', function() { pm.response.to.have.status(200); });",
+									"pm.test('Has paginated data', function() {",
+									"    var json = pm.response.json();",
+									"    pm.expect(json).to.have.property('data');",
+									"    pm.expect(json).to.have.property('total');",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{api_url}}/users",
+							"host": ["{{api_url}}"],
+							"path": ["users"]
+						},
+						"description": "Daftar semua user (paginated)."
+					}
+				},
+				{
+					"name": "GET Users (Filter by Role)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{api_url}}/users?role=2&search=budi",
+							"host": ["{{api_url}}"],
+							"path": ["users"],
+							"query": [
+								{"key": "role", "value": "2", "description": "Role ID: 1=Admin, 2=Guru, 3=Kepsek, 4=Kiosk"},
+								{"key": "search", "value": "budi", "description": "Cari nama/email"}
+							]
+						},
+						"description": "Daftar user berdasarkan role dan pencarian."
+					}
+				},
+				{
+					"name": "GET User Detail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test('Status 200', function() { pm.response.to.have.status(200); });",
+									"pm.test('Has user data', function() {",
+									"    var json = pm.response.json();",
+									"    pm.expect(json).to.have.property('data');",
+									"    pm.expect(json.data).to.have.property('name');",
+									"    pm.expect(json.data).to.have.property('email');",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{api_url}}/users/1",
+							"host": ["{{api_url}}"],
+							"path": ["users", "1"]
+						},
+						"description": "Detail user. Include: role, teacher (jika role guru)."
+					}
+				}
+			]
+		},
+		{
+			"name": "05. Classes (Kelas)",
+			"description": "Data kelas — list dan detail (termasuk siswa).",
+			"item": [
+				{
+					"name": "GET All Classes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test('Status 200', function() { pm.response.to.have.status(200); });",
+									"pm.test('Has data array', function() {",
+									"    var json = pm.response.json();",
+									"    pm.expect(json).to.have.property('data');",
+									"    pm.expect(json.data).to.be.an('array');",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{api_url}}/classes",
+							"host": ["{{api_url}}"],
+							"path": ["classes"]
+						},
+						"description": "Daftar semua kelas (tidak paginated). Include: students_count."
+					}
+				},
+				{
+					"name": "GET Classes (Filter by Grade)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{api_url}}/classes?grade=7",
+							"host": ["{{api_url}}"],
+							"path": ["classes"],
+							"query": [
+								{"key": "grade", "value": "7", "description": "Filter tingkat: 7, 8, atau 9"}
+							]
+						},
+						"description": "Filter kelas berdasarkan tingkat."
+					}
+				},
+				{
+					"name": "GET Class Detail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test('Status 200', function() { pm.response.to.have.status(200); });",
+									"pm.test('Has class data with students', function() {",
+									"    var json = pm.response.json();",
+									"    pm.expect(json).to.have.property('data');",
+									"    pm.expect(json.data).to.have.property('students');",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{api_url}}/classes/1",
+							"host": ["{{api_url}}"],
+							"path": ["classes", "1"]
+						},
+						"description": "Detail kelas. Include: students, teacher_subjects (guru pengampu)."
+					}
+				}
+			]
+		},
+		{
+			"name": "06. Subjects (Mata Pelajaran)",
+			"description": "Data mata pelajaran.",
+			"item": [
+				{
+					"name": "GET All Subjects",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test('Status 200', function() { pm.response.to.have.status(200); });",
+									"pm.test('Has data array', function() {",
+									"    var json = pm.response.json();",
+									"    pm.expect(json).to.have.property('data');",
+									"    pm.expect(json.data).to.be.an('array');",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{api_url}}/subjects",
+							"host": ["{{api_url}}"],
+							"path": ["subjects"]
+						},
+						"description": "Daftar semua mata pelajaran. Include: grades_count, teacher_subjects_count."
+					}
+				},
+				{
+					"name": "GET Subject Detail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test('Status 200', function() { pm.response.to.have.status(200); });",
+									"pm.test('Has subject data', function() {",
+									"    var json = pm.response.json();",
+									"    pm.expect(json.data).to.have.property('name');",
+									"    pm.expect(json.data).to.have.property('code');",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{api_url}}/subjects/1",
+							"host": ["{{api_url}}"],
+							"path": ["subjects", "1"]
+						},
+						"description": "Detail mata pelajaran. Include: teacher_subjects (guru & kelas)."
+					}
+				}
+			]
+		},
+		{
+			"name": "07. Academic Years (Tahun Ajaran)",
+			"description": "Data tahun ajaran.",
+			"item": [
+				{
+					"name": "GET All Academic Years",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test('Status 200', function() { pm.response.to.have.status(200); });",
+									"pm.test('Has data array', function() {",
+									"    var json = pm.response.json();",
+									"    pm.expect(json.data).to.be.an('array');",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{api_url}}/academic-years",
+							"host": ["{{api_url}}"],
+							"path": ["academic-years"]
+						},
+						"description": "Daftar tahun ajaran, diurutkan dari terbaru."
+					}
+				},
+				{
+					"name": "GET Academic Year Detail",
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{api_url}}/academic-years/1",
+							"host": ["{{api_url}}"],
+							"path": ["academic-years", "1"]
+						},
+						"description": "Detail satu tahun ajaran."
+					}
+				}
+			]
+		},
+		{
+			"name": "08. Grades (Nilai)",
+			"description": "Data nilai siswa — paginated dan banyak filter.",
+			"item": [
+				{
+					"name": "GET All Grades",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test('Status 200', function() { pm.response.to.have.status(200); });",
+									"pm.test('Has paginated data', function() {",
+									"    var json = pm.response.json();",
+									"    pm.expect(json).to.have.property('data');",
+									"    pm.expect(json).to.have.property('total');",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{api_url}}/grades",
+							"host": ["{{api_url}}"],
+							"path": ["grades"]
+						},
+						"description": "Daftar nilai (paginated, default 20/page)."
+					}
+				},
+				{
+					"name": "GET Grades (Full Filter)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{api_url}}/grades?class_id=1&subject_id=1&semester=Ganjil&academic_year=2024/2025&per_page=20",
+							"host": ["{{api_url}}"],
+							"path": ["grades"],
+							"query": [
+								{"key": "class_id", "value": "1", "description": "Filter kelas"},
+								{"key": "subject_id", "value": "1", "description": "Filter mata pelajaran"},
+								{"key": "semester", "value": "Ganjil", "description": "Filter: Ganjil / Genap"},
+								{"key": "academic_year", "value": "2024/2025", "description": "Filter tahun ajaran"},
+								{"key": "student_id", "value": "", "description": "Filter siswa tertentu", "disabled": true},
+								{"key": "per_page", "value": "20", "description": "Jumlah per halaman (max 100)"}
+							]
+						},
+						"description": "Daftar nilai dengan filter lengkap: kelas, mapel, semester, tahun ajaran."
+					}
+				},
+				{
+					"name": "GET Grades by Student",
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{api_url}}/grades?student_id=1",
+							"host": ["{{api_url}}"],
+							"path": ["grades"],
+							"query": [
+								{"key": "student_id", "value": "1", "description": "Filter semua nilai siswa tertentu"}
+							]
+						},
+						"description": "Semua nilai milik satu siswa."
+					}
+				},
+				{
+					"name": "GET Grade Detail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test('Status 200', function() { pm.response.to.have.status(200); });",
+									"pm.test('Has grade data', function() {",
+									"    var json = pm.response.json();",
+									"    pm.expect(json.data).to.have.property('final_grade');",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{api_url}}/grades/1",
+							"host": ["{{api_url}}"],
+							"path": ["grades", "1"]
+						},
+						"description": "Detail satu nilai. Include: student, class_room, subject, teacher."
+					}
+				}
+			]
+		},
+		{
+			"name": "09. Attendances (Presensi)",
+			"description": "Data presensi guru dan siswa.",
+			"item": [
+				{
+					"name": "GET All Attendances",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test('Status 200', function() { pm.response.to.have.status(200); });",
+									"pm.test('Has paginated data', function() {",
+									"    var json = pm.response.json();",
+									"    pm.expect(json).to.have.property('data');",
+									"    pm.expect(json).to.have.property('total');",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{api_url}}/attendances",
+							"host": ["{{api_url}}"],
+							"path": ["attendances"]
+						},
+						"description": "Daftar presensi (paginated, default 20/page)."
+					}
+				},
+				{
+					"name": "GET Teacher Attendances",
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{api_url}}/attendances?type=teacher&date=2024-12-10",
+							"host": ["{{api_url}}"],
+							"path": ["attendances"],
+							"query": [
+								{"key": "type", "value": "teacher", "description": "Filter: teacher / student"},
+								{"key": "date", "value": "2024-12-10", "description": "Filter tanggal (YYYY-MM-DD)"}
+							]
+						},
+						"description": "Presensi guru pada tanggal tertentu."
+					}
+				},
+				{
+					"name": "GET Student Attendances",
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{api_url}}/attendances?type=student&date=2024-12-10",
+							"host": ["{{api_url}}"],
+							"path": ["attendances"],
+							"query": [
+								{"key": "type", "value": "student", "description": "Filter tipe: student"},
+								{"key": "date", "value": "2024-12-10", "description": "Filter tanggal"}
+							]
+						},
+						"description": "Presensi siswa pada tanggal tertentu."
+					}
+				},
+				{
+					"name": "GET Attendances (Date Range)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{api_url}}/attendances?type=teacher&start_date=2024-12-01&end_date=2024-12-31&status=hadir",
+							"host": ["{{api_url}}"],
+							"path": ["attendances"],
+							"query": [
+								{"key": "type", "value": "teacher", "description": "Filter tipe"},
+								{"key": "start_date", "value": "2024-12-01", "description": "Mulai rentang tanggal"},
+								{"key": "end_date", "value": "2024-12-31", "description": "Akhir rentang tanggal"},
+								{"key": "status", "value": "hadir", "description": "Filter: hadir / izin / sakit / alpha"}
+							]
+						},
+						"description": "Presensi dalam rentang tanggal dengan filter status."
+					}
+				}
+			]
+		},
+		{
+			"name": "10. Criteria (Kriteria SAW)",
+			"description": "Data kriteria untuk metode SAW.",
+			"item": [
+				{
+					"name": "GET All Criteria",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test('Status 200', function() { pm.response.to.have.status(200); });",
+									"pm.test('Has student & teacher criteria', function() {",
+									"    var json = pm.response.json();",
+									"    pm.expect(json.data).to.have.property('student');",
+									"    pm.expect(json.data).to.have.property('teacher');",
+									"    pm.expect(json.data).to.have.property('student_total_weight');",
+									"    pm.expect(json.data).to.have.property('teacher_total_weight');",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{api_url}}/criteria",
+							"host": ["{{api_url}}"],
+							"path": ["criteria"]
+						},
+						"description": "Semua kriteria SAW, dikelompokkan: student & teacher. Termasuk total weight."
+					}
+				}
+			]
+		},
+		{
+			"name": "11. SAW Rankings (Peringkat)",
+			"description": "Hasil perangkingan metode SAW.",
+			"item": [
+				{
+					"name": "GET SAW Student Rankings",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test('Status 200', function() { pm.response.to.have.status(200); });",
+									"pm.test('Has data array', function() {",
+									"    var json = pm.response.json();",
+									"    pm.expect(json.data).to.be.an('array');",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{api_url}}/saw/students",
+							"host": ["{{api_url}}"],
+							"path": ["saw", "students"]
+						},
+						"description": "Peringkat SAW siswa (semua data)."
+					}
+				},
+				{
+					"name": "GET SAW Students (Filtered)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{api_url}}/saw/students?class_id=1&semester=Ganjil&academic_year=2024/2025",
+							"host": ["{{api_url}}"],
+							"path": ["saw", "students"],
+							"query": [
+								{"key": "class_id", "value": "1", "description": "Filter kelas"},
+								{"key": "semester", "value": "Ganjil", "description": "Filter: Ganjil / Genap"},
+								{"key": "academic_year", "value": "2024/2025", "description": "Filter tahun ajaran"}
+							]
+						},
+						"description": "Peringkat SAW siswa per kelas, semester, dan tahun ajaran."
+					}
+				},
+				{
+					"name": "GET SAW Teacher Rankings",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test('Status 200', function() { pm.response.to.have.status(200); });",
+									"pm.test('Has data array', function() {",
+									"    var json = pm.response.json();",
+									"    pm.expect(json.data).to.be.an('array');",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{api_url}}/saw/teachers",
+							"host": ["{{api_url}}"],
+							"path": ["saw", "teachers"]
+						},
+						"description": "Peringkat SAW guru (semua data)."
+					}
+				},
+				{
+					"name": "GET SAW Teachers (Filtered)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{api_url}}/saw/teachers?academic_year=2024/2025&period=Semester Ganjil 2024/2025",
+							"host": ["{{api_url}}"],
+							"path": ["saw", "teachers"],
+							"query": [
+								{"key": "academic_year", "value": "2024/2025", "description": "Filter tahun ajaran"},
+								{"key": "period", "value": "Semester Ganjil 2024/2025", "description": "Filter periode"}
+							]
+						},
+						"description": "Peringkat SAW guru per tahun ajaran dan periode."
+					}
+				}
+			]
+		},
+		{
+			"name": "12. Teacher Subjects (Penugasan)",
+			"description": "Data penugasan guru ke mata pelajaran dan kelas.",
+			"item": [
+				{
+					"name": "GET All Teacher Subjects",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test('Status 200', function() { pm.response.to.have.status(200); });",
+									"pm.test('Has data array', function() {",
+									"    var json = pm.response.json();",
+									"    pm.expect(json.data).to.be.an('array');",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{api_url}}/teacher-subjects",
+							"host": ["{{api_url}}"],
+							"path": ["teacher-subjects"]
+						},
+						"description": "Semua penugasan guru. Include: teacher, subject, class_room."
+					}
+				},
+				{
+					"name": "GET Teacher Subjects (by Teacher)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{api_url}}/teacher-subjects?teacher_id=1",
+							"host": ["{{api_url}}"],
+							"path": ["teacher-subjects"],
+							"query": [
+								{"key": "teacher_id", "value": "1", "description": "Filter guru tertentu"}
+							]
+						},
+						"description": "Penugasan untuk guru tertentu."
+					}
+				},
+				{
+					"name": "GET Teacher Subjects (by Class)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{api_url}}/teacher-subjects?class_id=1",
+							"host": ["{{api_url}}"],
+							"path": ["teacher-subjects"],
+							"query": [
+								{"key": "class_id", "value": "1", "description": "Filter kelas tertentu"}
+							]
+						},
+						"description": "Guru pengampu untuk kelas tertentu."
+					}
+				}
+			]
+		},
+		{
+			"name": "13. Settings (Pengaturan)",
+			"description": "Pengaturan sistem.",
+			"item": [
+				{
+					"name": "GET All Settings",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test('Status 200', function() { pm.response.to.have.status(200); });",
+									"pm.test('Has data object', function() {",
+									"    var json = pm.response.json();",
+									"    pm.expect(json).to.have.property('data');",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{"key": "Accept", "value": "application/json"}
+						],
+						"url": {
+							"raw": "{{api_url}}/settings",
+							"host": ["{{api_url}}"],
+							"path": ["settings"]
+						},
+						"description": "Semua pengaturan sistem, dikelompokkan berdasarkan group (general, attendance, grading, dll)."
+					}
+				}
+			]
+		}
+	]
+}

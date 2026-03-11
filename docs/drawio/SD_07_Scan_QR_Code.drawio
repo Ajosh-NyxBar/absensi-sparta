@@ -1,0 +1,191 @@
+<mxfile host="app.diagrams.net" modified="2025-01-01T00:00:00.000Z" agent="5.0" version="24.0.0" type="device">
+  <diagram id="sd07" name="SD 07 - Scan QR Code">
+    <mxGraphModel dx="1422" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="2" value="sd Scan QR Code Absensi" style="shape=umlFrame;whiteSpace=wrap;html=1;width=170;height=20;boundedLbl=1;verticalAlign=top;align=left;spacingLeft=5;fillColor=none;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="20" y="10" width="810" height="770" as="geometry"/>
+        </mxCell>
+        <!-- P1: Guru (Actor) cx=95 -->
+        <mxCell id="p1" value="Guru" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="80" y="40" width="30" height="55" as="geometry"/>
+        </mxCell>
+        <mxCell id="ll1" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 4;strokeColor=#999999;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="95" y="110" as="sourcePoint"/>
+            <mxPoint x="95" y="760" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- P2: Halaman Scanner (Boundary) cx=255 -->
+        <mxCell id="p2" value="Halaman Scanner" style="shape=umlBoundary;whiteSpace=wrap;html=1;verticalLabelPosition=bottom;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="230" y="45" width="50" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="ll2" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 4;strokeColor=#999999;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="255" y="110" as="sourcePoint"/>
+            <mxPoint x="255" y="760" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- P3: AttendanceController (Control) cx=415 -->
+        <mxCell id="p3" value="AttendanceController" style="shape=umlControl;whiteSpace=wrap;html=1;verticalLabelPosition=bottom;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="390" y="45" width="50" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="ll3" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 4;strokeColor=#999999;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="415" y="110" as="sourcePoint"/>
+            <mxPoint x="415" y="760" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- P4: Attendance Model (Entity) cx=575 -->
+        <mxCell id="p4" value="Attendance Model" style="shape=umlEntity;whiteSpace=wrap;html=1;verticalLabelPosition=bottom;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="550" y="45" width="50" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="ll4" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 4;strokeColor=#999999;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="575" y="110" as="sourcePoint"/>
+            <mxPoint x="575" y="760" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- P5: Database (Entity) cx=735 -->
+        <mxCell id="p5" value="Database" style="shape=umlEntity;whiteSpace=wrap;html=1;verticalLabelPosition=bottom;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="710" y="45" width="50" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="ll5" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 4;strokeColor=#999999;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="735" y="110" as="sourcePoint"/>
+            <mxPoint x="735" y="760" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- Activation Bars -->
+        <mxCell id="a2" value="" style="fillColor=#E6E6E6;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="250" y="125" width="10" height="610" as="geometry"/>
+        </mxCell>
+        <mxCell id="a3" value="" style="fillColor=#E6E6E6;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="410" y="205" width="10" height="490" as="geometry"/>
+        </mxCell>
+        <mxCell id="a4" value="" style="fillColor=#E6E6E6;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="570" y="415" width="10" height="230" as="geometry"/>
+        </mxCell>
+        <mxCell id="a5" value="" style="fillColor=#E6E6E6;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="730" y="455" width="10" height="155" as="geometry"/>
+        </mxCell>
+        <!-- Messages -->
+        <mxCell id="m1" value="1: Membuka menu scan QR" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="95" y="135" as="sourcePoint"/>
+            <mxPoint x="250" y="135" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m2" value="2: Mengaktifkan kamera" style="html=1;verticalAlign=bottom;endArrow=open;endFill=0;dashed=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="250" y="165" as="sourcePoint"/>
+            <mxPoint x="95" y="165" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m3" value="3: Memindai QR Code" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="95" y="195" as="sourcePoint"/>
+            <mxPoint x="250" y="195" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m4" value="4: Mengirim data QR" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="225" as="sourcePoint"/>
+            <mxPoint x="410" y="225" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m5" value="5: Dekripsi data QR" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="260" as="sourcePoint"/>
+            <mxPoint x="420" y="285" as="targetPoint"/>
+            <Array as="points">
+              <mxPoint x="465" y="260"/>
+              <mxPoint x="465" y="285"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m6" value="6: Validasi masa berlaku" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="305" as="sourcePoint"/>
+            <mxPoint x="420" y="330" as="targetPoint"/>
+            <Array as="points">
+              <mxPoint x="465" y="305"/>
+              <mxPoint x="465" y="330"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m7" value="7: Validasi geolokasi (Haversine)" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="350" as="sourcePoint"/>
+            <mxPoint x="420" y="375" as="targetPoint"/>
+            <Array as="points">
+              <mxPoint x="465" y="350"/>
+              <mxPoint x="465" y="375"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m8" value="8: Cek data absensi hari ini" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="420" as="sourcePoint"/>
+            <mxPoint x="570" y="420" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m9" value="9: Query SELECT attendance" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="580" y="455" as="sourcePoint"/>
+            <mxPoint x="730" y="455" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m10" value="10: Return data absensi" style="html=1;verticalAlign=bottom;endArrow=open;endFill=0;dashed=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="730" y="485" as="sourcePoint"/>
+            <mxPoint x="580" y="485" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m11" value="11: Return status" style="html=1;verticalAlign=bottom;endArrow=open;endFill=0;dashed=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="570" y="510" as="sourcePoint"/>
+            <mxPoint x="420" y="510" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m12" value="12: Simpan check-in/check-out + GPS" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="545" as="sourcePoint"/>
+            <mxPoint x="570" y="545" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m13" value="13: Query INSERT/UPDATE" style="html=1;verticalAlign=bottom;endArrow=block;endFill=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="580" y="575" as="sourcePoint"/>
+            <mxPoint x="730" y="575" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m14" value="14: Konfirmasi tersimpan" style="html=1;verticalAlign=bottom;endArrow=open;endFill=0;dashed=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="730" y="600" as="sourcePoint"/>
+            <mxPoint x="580" y="600" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m15" value="15: Return sukses" style="html=1;verticalAlign=bottom;endArrow=open;endFill=0;dashed=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="570" y="625" as="sourcePoint"/>
+            <mxPoint x="420" y="625" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m16" value="16: Notifikasi berhasil" style="html=1;verticalAlign=bottom;endArrow=open;endFill=0;dashed=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="410" y="660" as="sourcePoint"/>
+            <mxPoint x="260" y="660" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m17" value="17: Menampilkan notifikasi" style="html=1;verticalAlign=bottom;endArrow=open;endFill=0;dashed=1;curved=0;rounded=0;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="250" y="700" as="sourcePoint"/>
+            <mxPoint x="95" y="700" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

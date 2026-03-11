@@ -10,7 +10,7 @@ Pengujian *Black Box* dilakukan untuk memverifikasi bahwa setiap fungsi sistem m
 
 Fitur login diuji untuk memastikan mekanisme autentikasi bekerja dengan benar pada seluruh role pengguna serta menangani kondisi error dengan tepat.
 
-**Tabel 4. XX Hasil Black Box Testing — Fitur Login**
+**Tabel 4.51 Hasil Black Box Testing — Fitur Login**
 
 | No | Skenario Pengujian | Data Uji | Hasil yang Diharapkan | Hasil Pengujian | Status |
 |----|-------------------|----------|----------------------|----------------|--------|
@@ -28,14 +28,14 @@ Fitur login diuji untuk memastikan mekanisme autentikasi bekerja dengan benar pa
 
 Fitur absensi diuji secara komprehensif meliputi proses generate QR Code, scan QR Code, validasi geolocation, dan penanganan berbagai kondisi error.
 
-**Tabel 4. XX Hasil Black Box Testing — Fitur Generate QR Code**
+**Tabel 4.52 Hasil Black Box Testing — Fitur Generate QR Code**
 
 | No | Skenario Pengujian | Data Uji | Hasil yang Diharapkan | Hasil Pengujian | Status |
 |----|-------------------|----------|----------------------|----------------|--------|
 | 1 | Generate QR Code untuk guru terdaftar | Teacher ID: valid, tanggal: hari ini | QR Code terenkripsi berhasil dibuat dalam format SVG | QR Code ditampilkan, mengandung data terenkripsi (teacher_id, date, timestamp) | ✓ Berhasil |
 | 2 | Generate QR Code baru (refresh) | Teacher ID: valid, 15 menit setelah QR pertama | QR Code baru dengan timestamp terbaru | QR Code baru berhasil di-generate dengan timestamp berbeda | ✓ Berhasil |
 
-**Tabel 4. XX Hasil Black Box Testing — Fitur Scan QR Code dan Check-in**
+**Tabel 4.53 Hasil Black Box Testing — Fitur Scan QR Code dan Check-in**
 
 | No | Skenario Pengujian | Data Uji | Hasil yang Diharapkan | Hasil Pengujian | Status |
 |----|-------------------|----------|----------------------|----------------|--------|
@@ -48,11 +48,11 @@ Fitur absensi diuji secara komprehensif meliputi proses generate QR Code, scan Q
 | 7 | Scan QR Code rusak/tidak valid | Data QR yang tidak bisa di-decrypt | Menampilkan pesan error | Response JSON: success=false, message="QR Code tidak valid atau rusak" | ✓ Berhasil |
 | 8 | Scan QR Code dengan teacher_id tidak ditemukan | QR Code valid tapi guru sudah dihapus | Menampilkan pesan data tidak ditemukan | Response JSON: success=false, message="Data guru tidak ditemukan" (HTTP 404) | ✓ Berhasil |
 
-**Tabel 4. XX Hasil Black Box Testing — Fitur Validasi Geolocation**
+**Tabel 4.54 Hasil Black Box Testing — Fitur Validasi Geolocation**
 
 | No | Skenario Pengujian | Data Uji | Hasil yang Diharapkan | Hasil Pengujian | Status |
 |----|-------------------|----------|----------------------|----------------|--------|
-| 1 | Check-in dalam radius sekolah (< 100 meter) | Latitude: -6.5567, Longitude: 107.4442, Jarak: ~20 meter | Absensi berhasil dicatat, koordinat GPS tersimpan | Check-in berhasil, `latitude_in` dan `longitude_in` tersimpan di database | ✓ Berhasil |
+| 1 | Check-in dalam radius sekolah (< 100 meter) | Latitude: -6.5465236, Longitude: 107.4414175, Jarak: ~20 meter | Absensi berhasil dicatat, koordinat GPS tersimpan | Check-in berhasil, `latitude_in` dan `longitude_in` tersimpan di database | ✓ Berhasil |
 | 2 | Check-in di luar radius sekolah (> 100 meter) | Latitude: -6.5600, Longitude: 107.4500, Jarak: ~700 meter | Absensi ditolak, menampilkan pesan jarak | Response: success=false, message="Anda berada di luar area sekolah. Jarak: 700 meter" | ✓ Berhasil |
 | 3 | Check-in tanpa data koordinat | Latitude: (kosong), Longitude: (kosong) | Validasi gagal, menampilkan pesan required | Pesan validasi "The latitude field is required" dan "The longitude field is required" | ✓ Berhasil |
 | 4 | Check-in dengan koordinat format non-numerik | Latitude: "abc", Longitude: "xyz" | Validasi gagal, menampilkan pesan error | Pesan validasi "The latitude field must be a number" | ✓ Berhasil |
@@ -61,7 +61,7 @@ Fitur absensi diuji secara komprehensif meliputi proses generate QR Code, scan Q
 
 Fitur penilaian diuji untuk memastikan proses input, validasi, perhitungan otomatis, dan mekanisme update berfungsi dengan benar.
 
-**Tabel 4. XX Hasil Black Box Testing — Fitur Input Nilai**
+**Tabel 4.55 Hasil Black Box Testing — Fitur Input Nilai**
 
 | No | Skenario Pengujian | Data Uji | Hasil yang Diharapkan | Hasil Pengujian | Status |
 |----|-------------------|----------|----------------------|----------------|--------|
@@ -79,7 +79,7 @@ Fitur penilaian diuji untuk memastikan proses input, validasi, perhitungan otoma
 
 Fitur perhitungan SAW diuji untuk memastikan proses perankingan siswa dan guru menghasilkan output yang benar.
 
-**Tabel 4. XX Hasil Black Box Testing — Fitur Perhitungan SAW**
+**Tabel 4.56 Hasil Black Box Testing — Fitur Perhitungan SAW**
 
 | No | Skenario Pengujian | Data Uji | Hasil yang Diharapkan | Hasil Pengujian | Status |
 |----|-------------------|----------|----------------------|----------------|--------|
@@ -93,7 +93,7 @@ Fitur perhitungan SAW diuji untuk memastikan proses perankingan siswa dan guru m
 
 Fitur laporan diuji untuk memastikan proses export ke format Excel dan PDF berfungsi dengan benar beserta filter yang tersedia.
 
-**Tabel 4. XX Hasil Black Box Testing — Fitur Laporan**
+**Tabel 4.57 Hasil Black Box Testing — Fitur Laporan**
 
 | No | Skenario Pengujian | Data Uji | Hasil yang Diharapkan | Hasil Pengujian | Status |
 |----|-------------------|----------|----------------------|----------------|--------|
@@ -107,7 +107,7 @@ Fitur laporan diuji untuk memastikan proses export ke format Excel dan PDF berfu
 
 ### f. Pengujian Fitur Dashboard
 
-**Tabel 4. XX Hasil Black Box Testing — Fitur Dashboard**
+**Tabel 4.58 Hasil Black Box Testing — Fitur Dashboard**
 
 | No | Skenario Pengujian | Data Uji | Hasil yang Diharapkan | Hasil Pengujian | Status |
 |----|-------------------|----------|----------------------|----------------|--------|
@@ -118,7 +118,7 @@ Fitur laporan diuji untuk memastikan proses export ke format Excel dan PDF berfu
 
 ### g. Pengujian Fitur Manajemen Data Master
 
-**Tabel 4. XX Hasil Black Box Testing — Fitur Manajemen Data**
+**Tabel 4.59 Hasil Black Box Testing — Fitur Manajemen Data**
 
 | No | Skenario Pengujian | Data Uji | Hasil yang Diharapkan | Hasil Pengujian | Status |
 |----|-------------------|----------|----------------------|----------------|--------|
@@ -132,7 +132,7 @@ Fitur laporan diuji untuk memastikan proses export ke format Excel dan PDF berfu
 
 ### h. Pengujian Fitur Pengaturan Kriteria SAW
 
-**Tabel 4. XX Hasil Black Box Testing — Fitur Pengaturan Kriteria**
+**Tabel 4.60 Hasil Black Box Testing — Fitur Pengaturan Kriteria**
 
 | No | Skenario Pengujian | Data Uji | Hasil yang Diharapkan | Hasil Pengujian | Status |
 |----|-------------------|----------|----------------------|----------------|--------|
@@ -144,7 +144,7 @@ Fitur laporan diuji untuk memastikan proses export ke format Excel dan PDF berfu
 
 Tabel berikut merangkum hasil keseluruhan Black Box Testing yang telah dilakukan:
 
-**Tabel 4. XX Rekapitulasi Hasil Black Box Testing**
+**Tabel 4.61 Rekapitulasi Hasil Black Box Testing**
 
 | No | Modul yang Diuji | Jumlah Skenario | Berhasil | Gagal | Persentase |
 |----|-----------------|----------------|----------|-------|------------|

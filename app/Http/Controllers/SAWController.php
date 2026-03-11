@@ -30,8 +30,9 @@ class SAWController extends Controller
     {
         $classes = ClassRoom::all();
         $selectedClass = $request->input('class_id');
-        $semester = $request->input('semester', 'Ganjil');
-        $academicYear = $request->input('academic_year', '2024/2025');
+        $activeSem = \App\Helpers\SemesterHelper::getActive();
+        $semester = $request->input('semester', $activeSem?->semester ?? 'Genap');
+        $academicYear = $request->input('academic_year', $activeSem?->year ?? '2025/2026');
 
         $assessments = null;
         $calculationDetails = null;
@@ -156,8 +157,9 @@ class SAWController extends Controller
      */
     public function teacherIndex(Request $request)
     {
-        $period = $request->input('period', Carbon::now()->format('F Y'));
-        $academicYear = $request->input('academic_year', '2024/2025');
+        $activeSem = \App\Helpers\SemesterHelper::getActive();
+        $period = $request->input('period', $activeSem?->semester ?? 'Ganjil');
+        $academicYear = $request->input('academic_year', $activeSem?->year ?? '2025/2026');
 
         $assessments = TeacherAssessment::with('teacher')
             ->where('period', $period)
@@ -171,13 +173,15 @@ class SAWController extends Controller
         }
 
         $criteria = Criteria::forTeacher();
+        $academicYears = \App\Models\AcademicYear::select('year')->distinct()->orderByDesc('year')->pluck('year');
 
         return view('saw.teachers.index', compact(
             'period',
             'academicYear',
             'assessments',
             'criteria',
-            'calculationDetails'
+            'calculationDetails',
+            'academicYears'
         ));
     }
 
@@ -187,7 +191,7 @@ class SAWController extends Controller
     public function calculateTeachers(Request $request)
     {
         $validated = $request->validate([
-            'period' => 'required|string',
+            'period' => 'required|string|in:Ganjil,Genap',
             'academic_year' => 'required|string',
         ]);
 
@@ -201,23 +205,31 @@ class SAWController extends Controller
         // Prepare data for each teacher
         $teacherData = collect();
 
+        // Use semester date range for attendance calculation
+        $startDate = $this->getSemesterStartDate($validated['period'], $validated['academic_year']);
+        $endDate = $this->getSemesterEndDate($validated['period'], $validated['academic_year']);
+
         foreach ($teachers as $teacher) {
-            // Get attendance score
-            $startDate = $this->getPeriodStartDate($validated['period']);
-            $endDate = $this->getPeriodEndDate($validated['period']);
-            
+            // Get attendance score (K1 - auto)
             $attendanceScore = $teacher->getAttendancePercentage($startDate, $endDate);
 
-            // Get teaching quality (manual input - default 80)
-            $teachingQuality = 80; // This should be input by admin/headmaster
+            // Check if manual scores exist in teacher_assessments
+            $existingAssessment = TeacherAssessment::where('teacher_id', $teacher->id)
+                ->where('period', $validated['period'])
+                ->where('academic_year', $validated['academic_year'])
+                ->first();
 
-            // Get student achievement (average grades of students taught by this teacher)
+            // K2: Teaching quality (from manual input, default 80)
+            $teachingQuality = $existingAssessment->teaching_quality ?? 80;
+
+            // K3: Student achievement (auto from average grades of students taught)
             $studentAchievement = Grade::where('teacher_id', $teacher->id)
+                ->where('semester', $validated['period'])
                 ->where('academic_year', $validated['academic_year'])
                 ->avg('final_grade') ?? 0;
 
-            // Get discipline score based on attendance regularity
-            $disciplineScore = min(100, $attendanceScore + 10); // Simple calculation
+            // K4: Discipline score (from manual input, fallback to attendance-based)
+            $disciplineScore = $existingAssessment->discipline_score ?? min(100, $attendanceScore + 10);
 
             $teacherData->push((object)[
                 'teacher_id' => $teacher->id,
@@ -280,19 +292,4 @@ class SAWController extends Controller
             : Carbon::create($year + 1, 6, 30);
     }
 
-    /**
-     * Helper function to get period start date
-     */
-    protected function getPeriodStartDate($period)
-    {
-        return Carbon::parse($period)->startOfMonth();
-    }
-
-    /**
-     * Helper function to get period end date
-     */
-    protected function getPeriodEndDate($period)
-    {
-        return Carbon::parse($period)->endOfMonth();
-    }
 }

@@ -9,6 +9,7 @@ return [
     'academic_year' => 'Academic Year',
     'classes' => 'Classes',
     'subjects' => 'Subjects',
+    'teacher_subjects' => 'Teacher Assignments',
     
     // User Data Section
     'user_data' => 'User Data',
@@ -25,6 +26,7 @@ return [
     'saw_assessment' => 'SAW Assessment',
     'criteria' => 'Criteria',
     'student_ranking' => 'Student Ranking',
+    'teacher_assessment' => 'Teacher Assessment Input',
     'teacher_ranking' => 'Teacher Ranking',
     
     // Reports Section

@@ -14,9 +14,9 @@ Untuk bagian frontend, peneliti menggunakan **Tailwind CSS versi 4** sebagai fra
 
 ### b. Library Pendukung
 
-Selain framework utama, peneliti menggunakan beberapa library pihak ketiga untuk mendukung fitur-fitur khusus sistem. Tabel 4.XX berikut menyajikan daftar library yang digunakan beserta fungsinya:
+Selain framework utama, peneliti menggunakan beberapa library pihak ketiga untuk mendukung fitur-fitur khusus sistem. Tabel 4.49 berikut menyajikan daftar library yang digunakan beserta fungsinya:
 
-**Tabel 4. XX Daftar Library Pendukung**
+**Tabel 4.49 Daftar Library Pendukung**
 
 | No | Library | Versi | Fungsi |
 |----|---------|-------|--------|
@@ -32,9 +32,9 @@ Peneliti menggunakan **MySQL** sebagai Sistem Manajemen Basis Data Relasional (R
 
 ### d. Ringkasan Teknologi
 
-Tabel 4.XX berikut merangkum seluruh teknologi yang digunakan dalam pengembangan sistem:
+Tabel 4.50 berikut merangkum seluruh teknologi yang digunakan dalam pengembangan sistem:
 
-**Tabel 4. XX Ringkasan Teknologi Pengembangan**
+**Tabel 4.50 Ringkasan Teknologi Pengembangan**
 
 | No | Komponen | Teknologi | Versi |
 |----|----------|-----------|-------|
@@ -55,9 +55,9 @@ Tabel 4.XX berikut merangkum seluruh teknologi yang digunakan dalam pengembangan
 
 Peneliti mengorganisasikan kode program mengikuti konvensi standar arsitektur MVC bawaan Laravel. Selain MVC, peneliti juga menerapkan pola *Service Layer* untuk memisahkan logika bisnis yang kompleks (seperti perhitungan SAW) dari controller, sehingga kode lebih modular dan mudah dipelihara.
 
-Tabel 4.XX berikut menunjukkan struktur direktori utama beserta jumlah file dan fungsinya:
+Tabel 4.50a berikut menunjukkan struktur direktori utama beserta jumlah file dan fungsinya:
 
-**Tabel 4. XX Struktur Direktori Utama Project**
+**Tabel 4.50a Struktur Direktori Utama Project**
 
 | No | Direktori / File | Jumlah File | Keterangan |
 |----|------------------|-------------|------------|

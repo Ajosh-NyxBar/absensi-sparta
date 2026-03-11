@@ -31,6 +31,15 @@
         <i class="fas fa-book w-5 text-center mr-3"></i>
         <span>{{ __('menu.subjects') }}</span>
     </a>
+
+    {{-- Penugasan Guru --}}
+    @if(auth()->user()->role->name === 'Admin')
+    <a href="{{ route('teacher-subjects.index') }}" 
+       class="nav-item flex items-center px-3 py-2.5 text-sm font-medium rounded-lg transition-all duration-200 tap-highlight {{ request()->routeIs('teacher-subjects.*') ? 'active bg-white/20 text-white shadow-lg' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
+        <i class="fas fa-user-tag w-5 text-center mr-3"></i>
+        <span>{{ __('menu.teacher_subjects') }}</span>
+    </a>
+    @endif
 </div>
 
 {{-- Data Pengguna Section --}}
@@ -108,6 +117,15 @@
        class="nav-item flex items-center px-3 py-2.5 text-sm font-medium rounded-lg transition-all duration-200 tap-highlight {{ request()->routeIs('saw.students.*') ? 'active bg-white/20 text-white shadow-lg' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
         <i class="fas fa-user-graduate w-5 text-center mr-3"></i>
         <span>{{ __('menu.student_ranking') }}</span>
+    </a>
+    @endif
+
+    {{-- Input Penilaian Guru --}}
+    @if(in_array(auth()->user()->role->name, ['Admin', 'Kepala Sekolah']))
+    <a href="{{ route('teacher-assessments.index') }}" 
+       class="nav-item flex items-center px-3 py-2.5 text-sm font-medium rounded-lg transition-all duration-200 tap-highlight {{ request()->routeIs('teacher-assessments.*') ? 'active bg-white/20 text-white shadow-lg' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
+        <i class="fas fa-clipboard-check w-5 text-center mr-3"></i>
+        <span>{{ __('menu.teacher_assessment') }}</span>
     </a>
     @endif
 

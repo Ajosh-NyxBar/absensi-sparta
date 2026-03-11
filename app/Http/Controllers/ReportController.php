@@ -37,14 +37,23 @@ class ReportController extends Controller
     public function exportAttendance(Request $request)
     {
         $validated = $request->validate([
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
+            'start_date' => 'nullable|date',
+            'end_date' => 'nullable|date|after_or_equal:start_date',
+            'academic_year_id' => 'nullable|exists:academic_years,id',
             'type' => 'nullable|in:teacher,student',
             'format' => 'required|in:excel,pdf'
         ]);
 
-        $startDate = Carbon::parse($validated['start_date']);
-        $endDate = Carbon::parse($validated['end_date']);
+        // Tentukan rentang tanggal: dari semester atau manual
+        if (!empty($validated['academic_year_id'])) {
+            $academicYear = AcademicYear::findOrFail($validated['academic_year_id']);
+            $startDate = Carbon::parse($academicYear->start_date);
+            $endDate = Carbon::parse($academicYear->end_date);
+        } else {
+            $startDate = Carbon::parse($validated['start_date']);
+            $endDate = Carbon::parse($validated['end_date']);
+        }
+
         $type = $validated['type'] ?? null;
         $format = $validated['format'];
 
@@ -56,6 +65,7 @@ class ReportController extends Controller
                 $filename . '.xlsx'
             );
         } else {
+            // PDF: gunakan data ringkasan per orang agar tidak kehabisan memori
             $query = Attendance::with('attendable')
                 ->whereBetween('date', [$startDate, $endDate]);
 
@@ -64,10 +74,23 @@ class ReportController extends Controller
                 $query->where('attendable_type', $model);
             }
 
-            $attendances = $query->orderBy('date', 'desc')->get();
+            // Hitung ringkasan per orang
+            $summaries = $query
+                ->selectRaw('attendable_type, attendable_id,
+                    COUNT(*) as total_days,
+                    SUM(CASE WHEN status = "present" THEN 1 ELSE 0 END) as present,
+                    SUM(CASE WHEN status = "late" THEN 1 ELSE 0 END) as late,
+                    SUM(CASE WHEN status = "sick" THEN 1 ELSE 0 END) as sick,
+                    SUM(CASE WHEN status = "permission" THEN 1 ELSE 0 END) as permission,
+                    SUM(CASE WHEN status = "absent" THEN 1 ELSE 0 END) as absent')
+                ->groupBy('attendable_type', 'attendable_id')
+                ->get();
+
+            // Eager-load relasi attendable
+            $summaries->load('attendable');
 
             $pdf = Pdf::loadView('reports.pdf.attendance', [
-                'attendances' => $attendances,
+                'summaries' => $summaries,
                 'startDate' => $startDate,
                 'endDate' => $endDate,
                 'type' => $type
